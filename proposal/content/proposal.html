@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Proposal</title>
+
+</head>
+<body>
+<h3>Project Plan</h3>
+<p>
+    The team will agree upon a high-level overview of the structure and functionality of the game.
+    This step will ensure that the team has a cohesive vision regarding the game’s development strategy.
+    Some deliverables resulting from this step are pseudo-code detailing important object methods,
+    a class diagram that details the necessary objects and their relationships to each other,
+    and a prioritized list of increments to be developed.
+</p>
+<p>
+    Code development will involve writing the required classes using the Java language and interleaving them to attain
+    the required game functionality. Task cards may be used to track and assign development tasks in this stage.
+    The team will produce the game in increments. Each increment will add new functionality to the existing base.
+    4The team will use Javadoc to generate documentation in HTML format from the source code. The source code for each
+    class will contain document comments that describe its major methods, fields and attributes.
+</p>
+<p>
+    The team will test each increment using JUnit to ensure that the game functions as intended. JUnit is a unit
+    testing framework for the Java language. The basic idea is that objects are instantiated, and their methods checked
+    to ensure proper functionality. Some of the game features that will be checked with JUnit testing are piece
+    collision detection, piece capturing, tracking of captured pieces, and check and checkmate logic. Collision
+    detection testing will instantiate various pieces which will intentionally be moved onto the same spot on the board.
+    When the pieces are on the same team, the game should warn the user that two pieces cannot occupy a single position.
+    When the pieces are not on the same team, the piece that moves onto an already occupied position should capture the
+    piece on that position. A test will be written to ensure that the game properly accounts for which pieces have been
+    captured. Various testing scenarios will be written to ensure the check and checkmate logic works as intended. The
+    tests will consist of several scenarios which result in check or checkmate conditions. Each scenario consists of a
+    series of moves performed by pieces on the board. The test will check whether the game can properly identify cases
+    when check or checkmate occurs.
+</p>
+<h3>Projected Roles and Responsibilities</h3>
+<p>
+    <b>R.J. Pereira</b> will contribute to the development of the game’s code, write tests using JUnit5 in order
+    to ensure that the game functions as intended, and maintain an up to date class diagram that describes its structure.
+</p>
+<hr>
+<a href="../main.html">HOME</a>
+</body>
+</html>
