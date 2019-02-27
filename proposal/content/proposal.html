@@ -14,6 +14,38 @@
     completion of the two-user interface, the software should be designed for a single player to compete against an 
     artificial intelligence. It is important that the software is visually and functionally friendly to the users.
 </p>
+<h3>Goals and Objectives </h3>
+<p>
+    Board Representation – The board will be represented as a box consisting of sixty-four squares.
+    Each square will have an assigned value in a matrix, using assignment by A-H to represent the
+    column, and 1-8 to represent the row. The boxes will be interchanging colors to better represent a
+    chess board. The board will also have the option to surrender and reset the game and exit back to
+    the splash screen.
+</p>
+<p>
+    Splash Screen – There will be an initial splash screen that will allow the user to select whether it
+    will play a game against another player, the computer, or exit. 
+</p>
+<p>
+    Player Class – In order to represent each side, there will be a class that represents a player. This
+    class will contain the objects for the pieces, and the method for checkmate to determine if the
+    player is victorious or losing.
+</p>
+<p>
+    Piece Representation – In order to accurately represent pieces and their movements, an object
+    will be made for each type of piece. This will include the following pieces: King, queen, knight,
+    bishop, rook, pawn. The object will include methods that dictate the allowable movement of the
+    piece in the matrix, both by following the rules of movements for the piece and whether it is
+    attempting to enter an occupied space, or capture another player’s piece. There will also be a
+    variable which indicates the location of a piece, including whether it has been captured. The king
+    object will have a variable which indicates if it is threatened to interact with the check and
+    checkmate method. 
+</p>
+<p>
+    Check and Checkmate – When a piece is moved into a new location, the check method will test
+    the available moves of the opposing player’s king piece. If the piece is threatened, check will be
+    declared. If it is unable to move, then checkmate will be declared and the player will win.
+</p>
 <h3>Project Plan</h3>
 <p>
     The team will agree upon a high-level overview of the structure and functionality of the game.
