@@ -1,4 +1,5 @@
-package chessgui;
+/*
+package chess;
 
 import javax.swing.*;
 import javax.swing.border.*;
@@ -78,7 +79,7 @@ public class ChessBoardGUI {
     public void run() {
         Runnable r = () -> {
             ChessBoardGUI cb = new ChessBoardGUI();
-            JFrame f = new JFrame("Chess For Dummies");
+            JFrame f = new JFrame("CMDChess For Dummies");
             f.add(cb.getGui());
             f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             f.setLocationByPlatform(true);
@@ -89,3 +90,4 @@ public class ChessBoardGUI {
         SwingUtilities.invokeLater(r);
     }
 }
+*/
