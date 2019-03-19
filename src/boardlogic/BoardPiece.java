@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public abstract class BoardPiece {
+public abstract class BoardPiece{
     private BoardSpace currentSpace;
     protected PieceType type;
     protected Player player;

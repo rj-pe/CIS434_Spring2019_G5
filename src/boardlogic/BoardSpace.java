@@ -15,12 +15,10 @@ public class BoardSpace {
     //Returns 1 on successful transfer else -1
     public int transferPiece(BoardSpace space) {
         if (space.isActive() && space != this) {
-            BoardPiece temp = space.occupyingPiece;
-            space.setOccupyingPiece(getOccupyingPiece());
+            space.setOccupyingPiece(this.getOccupyingPiece());
             space.getOccupyingPiece().setCurrentSpace(space);
 
-            this.setOccupyingPiece(temp);
-            this.occupyingPiece.setCurrentSpace(this);
+            this.setOccupyingPieceAsNull();
 
             return 1;
         }
@@ -33,6 +31,13 @@ public class BoardSpace {
 
     public void setOccupyingPiece(BoardPiece occupyingPiece) {
         this.occupyingPiece = occupyingPiece;
+    }
+
+    /**
+     * Used when piece moves off of it's current space.
+     */
+    private void setOccupyingPieceAsNull(){
+        this.occupyingPiece = null;
     }
 
     public Point getPosition() {
