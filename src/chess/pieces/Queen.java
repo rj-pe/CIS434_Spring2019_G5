@@ -1,9 +1,6 @@
 package chess.pieces;
 
-import boardlogic.BoardSpace;
-import boardlogic.BoardPiece;
-import boardlogic.PieceType;
-import boardlogic.Player;
+import boardlogic.*;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -16,9 +13,11 @@ public class Queen extends BoardPiece {
     }
 
     @Override
-    protected ArrayList<Point> getPotentialMoves() {
-        return null;
+    public boolean getPotentialMoves(Board chess) {
+        return true;
     }
+
+    public boolean isValidMove(Point requestedMove) {return true;}
 
     @Override
     public String toString() {

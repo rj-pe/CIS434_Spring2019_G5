@@ -1,6 +1,7 @@
 //import chessgui.*;
 import boardlogic.*;
 
+import java.awt.*;
 import java.util.Scanner;
 
 public class CMDChess {
@@ -48,31 +49,68 @@ public class CMDChess {
             } else System.out.print("Black player's turn!");
             //Takes coordinates as two consecutive integers. Example: 11
             while (true) {
-                System.out.print("\nSelect Piece to Move: ");
+                System.out.print("\nSelect Piece to Move (column, row): ");
                 pieceToMove = reader.next();
-                x1 = Character.getNumericValue(pieceToMove.charAt(1));
-                y1 = Character.getNumericValue(pieceToMove.charAt(0));
-                if (chess.board[x1][y1].getOccupyingPiece() != null) {
-                    if (chess.board[x1][y1].getOccupyingPiece().getPlayer() == currentPlayer) break;
+                y1 = Character.getNumericValue(pieceToMove.charAt(1));
+                x1 = Character.getNumericValue(pieceToMove.charAt(0));
+                if (chess.board[y1][x1].getOccupyingPiece() != null) {
+                    if (chess.board[y1][x1].getOccupyingPiece().getPlayer() == currentPlayer){
+                        /*
+                          Active player owns the selected piece, calculate its potential moves.
+                          Each piece class will override the getPotentialMoves() method with its movement pattern.
+                          If no moves are possible, user must select a different piece.
+                          TODO implement the getPotentialMoves() method for each piece type. See King.java for example.
+                        */
+                        if( chess.board[y1][x1].getOccupyingPiece().getPotentialMoves(chess)){
+                            // potential moves list is not empty proceed with turn.
+                            break;
+                        }
+                        // the selected player has no open moves
+                        System.out.println("You Selected a Piece with No Moves Available!");
+                    }
                 }
                 System.out.print("Invalid Choice!");
             }
-            chess.board[x1][y1].toggleActive(); //Mimics what GUI would do
-            System.out.print("Select Space to Move to: ");
-            spaceToMoveTo = reader.next();
-            x2 = Character.getNumericValue(spaceToMoveTo.charAt(1));
-            y2 = Character.getNumericValue(spaceToMoveTo.charAt(0));
+            chess.board[y1][x1].toggleActive(); //Mimics what GUI would do
 
-            chess.board[x2][y2].toggleActive(); //This only exists while move validation hasn't been implemented
+            Point destination = promptUserForMove();
 
-            //TODO Validate move and check for capture
-            chess.board[x1][y1].transferPiece(chess.board[x2][y2]);
+            /*
+             Check the chosen space against the list of potential moves calculated by getPotentialMoves() method.
+             If the move is not valid prompt user to choose another space.
+             */
+             while( ! chess.board[y1][x1].getOccupyingPiece().isValidMove( destination ) ) {
+                 // requested move is invalid, choose another space to move to.
+                 System.out.print("you can't move there!\n");
+                 destination = promptUserForMove();
+             }
+            // The requested move is valid, proceed with the piece swap.
+            x2 = destination.x;
+            y2 = destination.y;
 
-            chess.board[x1][y1].toggleActive();
-            chess.board[x2][y2].toggleActive();
+            chess.board[y2][x2].toggleActive(); //This only exists while move validation hasn't been implemented
+
+            //TODO check for capture
+            chess.board[y1][x1].transferPiece(chess.board[y2][x2]);
+
+            chess.board[y1][x1].toggleActive();
+            chess.board[y2][x2].toggleActive();
 
             currentPlayer = changePlayer(currentPlayer);
         }
+    }
+
+    /**
+     * Asks the user for a destination for the selected piece.
+     * @return Point object representing the x and y coordinates of the destination board space.
+     */
+    private static Point promptUserForMove(){
+        Scanner reader = new Scanner(System.in);
+        System.out.print("Select Space to Move to (column, row): ");
+        String spaceToMoveTo = reader.next();
+        int y = Character.getNumericValue(spaceToMoveTo.charAt(1));
+        int x = Character.getNumericValue(spaceToMoveTo.charAt(0));
+        return new Point(x, y);
     }
 
     static Player changePlayer(Player player) {
