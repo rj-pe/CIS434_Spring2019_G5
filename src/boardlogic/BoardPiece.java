@@ -55,6 +55,9 @@ public abstract class BoardPiece{
      * @return returns true if space is occupied by a team-mate.
      */
     protected boolean checkForFriend(BoardSpace space){
-        return space.getOccupyingPiece().getPlayer() == this.player;
+        if (space.getOccupyingPiece() != null && space.getOccupyingPiece().getPlayer() == this.player){
+            return true;
+        }
+        else return false;
     }
 }
