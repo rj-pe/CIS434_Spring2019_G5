@@ -25,6 +25,8 @@ public class Bishop extends BoardPiece {
             if (!checkForFriend(chess.board[j][i])){
                 moves.add(new Point(i, j));
             }
+            else
+                break;
         }
         // For moves in Quadrant 2.
         for(int i = x_pos, j = y_pos; i < 8 || j >=0; i++, j--){
@@ -32,6 +34,8 @@ public class Bishop extends BoardPiece {
             if (!checkForFriend(chess.board[j][i])){
                 moves.add(new Point(i, j));
             }
+            else
+                break;
         }
         // For Moves in Quadrant 4.
         for(int i = x_pos, j = y_pos; i >= 0 || j < 8; i--, j++){
@@ -39,6 +43,8 @@ public class Bishop extends BoardPiece {
             if (!checkForFriend(chess.board[j][i])){
                 moves.add(new Point(i, j));
             }
+            else
+                break;
         }
         // For moves in Quadrant 1.
         for(int i = x_pos, j = y_pos; i < 8 || j < 8; i++, j++){
@@ -46,6 +52,8 @@ public class Bishop extends BoardPiece {
             if (!checkForFriend(chess.board[j][i])){
                 moves.add(new Point(i, j));
             }
+            else
+                break;
         }
         return !moves.isEmpty();
     }
