@@ -48,7 +48,10 @@ public class Pawn extends BoardPiece {
         // return false if piece has no move options
         return !moves.isEmpty();
     }
-
+    
+    //TODO Promotion to Queen or Knight or Rook or Bishop
+    
+    
     @Override
     public String toString() {
         return (player == Player.WHITE) ? "WhP" : "BlP";
