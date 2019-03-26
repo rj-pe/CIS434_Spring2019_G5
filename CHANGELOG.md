@@ -4,7 +4,7 @@ All notable changes to this project should be recorded here.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
-[Unreleased]
+## [Unreleased]
 ### Added
 * `getPotentialMoves()` method for each of the pieces, which calculates the possible moves that a piece may make given a
 position on the board.
@@ -27,7 +27,7 @@ checkmate.
 it in the graveyard. 
   * Implement _en passant_ functionality for pawn capture.
 
-## [0.0.1] - 2019-03-07
+## [0.0.1](https://github.com/rj-pe/CIS434_Spring2019_G5/commit/c674ea11988a803630b90b42e0479bc34945ff0f) - 2019-03-07
 ### Added
 *  `src/boardlogic` Includes several classes which implement the functions that the game board must carry out.  
     *  `src/boardlogic/Board.java`  A class which represents a generic game board object. This object can be configured
