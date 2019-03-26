@@ -7,16 +7,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 [Unreleased]
 ### Added
 * `getPotentialMoves()` method for each of the pieces, which calculates the possible moves that a piece may make given a
-position on the board. 
-..*  `src/chess/pieces/Bishop.java`
-..*  `src/chess/pieces/King.java`  A king can move a single space in any of eight possible directions.
-..*  `src/chess/pieces/Knight.java`
-..*  `src/chess/pieces/Pawn.java`
-..*  `src/chess/pieces/Queen.java`
-..*  `src/chess/pieces/Rook.java` A rook can move horizontally or vertically for any number of unoccupied squares.
+position on the board.
+  *  `src/chess/pieces/Bishop.java`
+  *  `src/chess/pieces/King.java`  A king can move a single space in any of eight possible directions.
+  *  `src/chess/pieces/Knight.java`
+  *  `src/chess/pieces/Pawn.java`
+  *  `src/chess/pieces/Queen.java`
+  *  `src/chess/pieces/Rook.java` A rook can move horizontally or vertically for any number of unoccupied squares.
 *  `src/boardlogic/BoardSpace.checkForFriend()` A method which returns whether a given space is occupied by a teammate.
 ### Changed
-*  Calls to the array chess.board[][] in `main()` should refer to the y-coordinate then the x-coordinate. 
+*  Calls to the array chess.board[ ][ ] in `main()` should refer to the y-coordinate then the x-coordinate. 
 ### Issues
 * Implement logic for Castling functionality. Castling is a special King movement which consists of the king moving
 two spaces towards the rook and the rook moves to the position over which the king moved.
@@ -25,22 +25,22 @@ two spaces towards the rook and the rook moves to the position over which the ki
 checkmate.
 * Implement piece capture logic. If a piece captures another piece, the game should remove the captured piece and place
 it in the graveyard. 
-..* Implement _en passant_ functionality for pawn capture.
+  * Implement _en passant_ functionality for pawn capture.
 
 ## [0.0.1] - 2019-03-07
 ### Added
-*  `src/boardlogic` Includes several classes which implement the functions that the game board must carry out.
-..*  `src/boardlogic/Board.java`  A class which represents a generic game board object. This object can be configured
+*  `src/boardlogic` Includes several classes which implement the functions that the game board must carry out.  
+    *  `src/boardlogic/Board.java`  A class which represents a generic game board object. This object can be configured
 for multiple games. The `setupChess()` method instantiates `BoardSpace` objects and places the chess pieces on those spaces.
-..*  `src/boardlogic/BoardSpace.java` A class which represents a single space on the board. When a piece moves from one 
+    *  `src/boardlogic/BoardSpace.java` A class which represents a single space on the board. When a piece moves from one 
 space to another it is the BoardSpace object which completes the transfer (see `transferPiece()` method).
-..*  `src/boardlogic/BoardPiece.java` A Super Class which represents fundamental functionality of a game piece. The 
+    *  `src/boardlogic/BoardPiece.java` A Super Class which represents fundamental functionality of a game piece. The 
 class provides methods and fields which are shared by all chess pieces, such as tracking the which player owns the piece.
-..*  `src/boardlogic/Player.java` describes the two players in the chess game.
--  `src/chess/pieces` Includes each of the six piece Sub Classes that inherit from the `BoardPiece` Super Class and 
+    *  `src/boardlogic/Player.java` describes the two players in the chess game.
+*  `src/chess/pieces` Includes each of the six piece Sub Classes that inherit from the `BoardPiece` Super Class and 
 represent the chessman types. The functionality that is specific to a piece type shall be implemented in its Sub Class.
-..*  `src/chess/pieces/ChessPieceFactory.java` A factory class which instantiates each of the required piece objects which
+    *  `src/chess/pieces/ChessPieceFactory.java` A factory class which instantiates each of the required piece objects which
 represent the chessmen.
--  `CMDChess.java` The main method of the program which interacts with the user, displays output of the game and instantiates
+*  `CMDChess.java` The main method of the program which interacts with the user, displays output of the game and instantiates
 a game and it's supporting objects.
 
