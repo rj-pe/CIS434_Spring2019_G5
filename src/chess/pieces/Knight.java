@@ -24,10 +24,10 @@ public class Knight extends BoardPiece {
         int y_p = this.getCurrentSpace().getPosition().y + 1;
         int x_m = this.getCurrentSpace().getPosition().x - 1;
         int y_m = this.getCurrentSpace().getPosition().y - 1;
-        int x_k = this.getCurrentSpace().getPosition().x + 3;
-        int y_k = this.getCurrentSpace().getPosition().y + 3;
-        int x_t = this.getCurrentSpace().getPosition().x - 3;
-        int y_t = this.getCurrentSpace().getPosition().y - 3;
+        int x_k = this.getCurrentSpace().getPosition().x + 2;
+        int y_k = this.getCurrentSpace().getPosition().y + 2;
+        int x_t = this.getCurrentSpace().getPosition().x - 2;
+        int y_t = this.getCurrentSpace().getPosition().y - 2;
 
 
         // if friendly piece does not occupy space and if space exists
@@ -51,7 +51,7 @@ public class Knight extends BoardPiece {
             moves.add(new Point(x_t, y_p));
         }
         if (y_m >= 0 && x_k < 8 && !checkForFriend(chess.board[y_m][x_k])){
-            moves.add(new Point(x_l, y_m));
+            moves.add(new Point(x_k, y_m));
         }
         if (y_m >= 0 && x_t >= 0 && !checkForFriend(chess.board[y_m][x_t])){
             moves.add(new Point(x_t, y_m));
