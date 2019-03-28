@@ -8,9 +8,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Added
 * `getPotentialMoves()` method for each of the pieces, which calculates the possible moves that a piece may make given a
 position on the board. 
-..*  `src/chess/pieces/Bishop.java`
+..*  `src/chess/pieces/Bishop.java` The Bishop can move in all diagonal directions.
 ..*  `src/chess/pieces/King.java`  A king can move a single space in any of eight possible directions.
-..*  `src/chess/pieces/Knight.java`
+..*  `src/chess/pieces/Knight.java` The knight is able to move in L-shapes and can leap other pieces.
 ..*  `src/chess/pieces/Pawn.java`
 ..*  `src/chess/pieces/Queen.java`
 ..*  `src/chess/pieces/Rook.java` A rook can move horizontally or vertically for any number of unoccupied squares.
