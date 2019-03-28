@@ -18,30 +18,31 @@
                 <br />
 
             <li>`src/boardlogic/BoardSpace.java`: A class which represents a single space on the board.
-                When a piece moves from one space to another it is the BoardSpace object which completes
+                When a piece moves from one space to another, it is the BoardSpace object which completes
                 the transfer (see `transferPiece()` method). </li>
             <br />
 
             <li>`src/boardlogic/BoardPiece.java`: A Super Class which represents fundamental functionality of a game piece.
-                The class provides methods and fields which are shared by all chess pieces, such as tracking the which
+                The class provides methods and fields which are shared by all chess pieces, such as tracking which
                 player owns the piece. </li>
             <br />
 
             <li>`src/boardlogic/Player.java`: describes the two players in the chess game.</li>
             <br />
 
-            <li>`src/chess/pieces`: Includes each of the six pieces Sub Classes that inherit from the `BoardPiece`
-                Super Class and represent the chessman types. The functionality that is specific to a piece type shall
+            <li>`src/chess/pieces`: Includes each of the six pieces sub-classes that inherit from the `BoardPiece`
+                Super Class and represents the chessman types. The functionality that is specific to a piece type shall
                 be implemented in its Sub Class. </li>
             <br />
 
-            <li>`src/chess/pieces/ChessPieceFactory.java`: A factory class which instantiates each of the required piece objects which
-                represent the chessmen.</li>
+            <li>`src/chess/pieces/ChessPieceFactory.java`: A factory class which instantiates each of the required piece
+                objects which represent the chessmen.</li>
             <br />
 
-            <li>`CMDChess.java`: The main method of the program which interacts with the user, displays output of the game and instantiates
-                a game and it's supporting objects.</li>
+            <li>`CMDChess.java`: The main method of the program which interacts with the user, displays output of the
+                game, and instantiates a game and it's supporting objects.</li>
         </ul>
+
 <h3>Team members activities </h3>
     <p><b>Alice Uwase</b> is in charge of the Pawn and Queen classes. So far, the pawn and queen pieces can move but the
         capturing functions are yet to be implemented. En passant and Pawn Promotion of the pawn piece are also
@@ -49,11 +50,11 @@
 <h3>Difficulties encountered </h3>
     <p>As the team is developing the game in the agile method, we are organizing our development efforts around
         incremental delivery. Each increment is described by a GitHub
-        <a href="https://github.com/rj-pe/CIS434_Spring2019_G5/projects/1">Issue</a>.
+        <a href="https://github.com/rj-pe/CIS434_Spring2019_G5/projects/1">Issue </a>.
         This section details the outstanding issues which we are planning to address in future development increments:
     </p>
     <ul>
-        <li><i>Collision detection</i> -- make sure that pieces can’t move over others.</li>
+        <li><i>Collision detection</i> -- makes sure that pieces can’t move over others.</li>
 
         <li><i>Castling</i> -- This is a special move that can be performed once in a game by each player.</li>
 
@@ -66,6 +67,7 @@
 
         <li><i>GUI Implementation</i> -- Adapt command line solution to a graphical one.</li>
     </ul>
+
 <h3>Solutions proposed </h3>
     <ul>
         <li><i>Collision detection</i> -- Add a method to check for enemies / friendly pieces. When one of these is
@@ -77,10 +79,10 @@
             either piece has yet to move and give the pieces permission to proceed with the castling methods. </li>
 
         <li><i>Capturing</i> -- If a piece captures another piece, the game should remove the captured piece and place
-            it in the graveyard. Implement en passant functionality for pawn capture.</li>
+            it in the graveyard. Implement En Passant functionality for pawn capture.</li>
 
-        <li><i>Check and Check-mate</i> -- The game class should keep track of when the king is attacked and if deemed
-            appropriate put the king into check and/or checkmate.</li>
+        <li><i>Check and Check-mate</i> -- The game class should keep track of when the king is attacked and, if deemed
+            appropriate, put the king into check and/or checkmate.</li>
 
         <li>Going back and completing JavaDoc for all classes. For each class that has already been written and is missing
             documentation, add the appropriate javadoc descriptions.</li>
@@ -88,19 +90,20 @@
         <li>Adapt command line solution to a graphical one. Rather than displaying the game on the command line,
             use JavaFX to display a graphical representation of chess.</li>
     </ul>
+
 <h3>Changes made to the original design </h3>
     <p>We have followed the development strategy and design specification detailed in the project proposal closely.
-        One aspect of the original strategy which we have differed from is that we did not write pseudo-code for major portions
-        of the game logic, instead we directly wrote java code that implements the game functionality.</p>
+        One aspect of the original strategy which we have differed from is that we did not write pseudo-code for major
+        portions of the game logic, instead we directly wrote java code that implements the game functionality.</p>
 
-      <p>The original UML diagram that describes the system architecture describes the current system accurately.
-          One addition that we have made is that the board object contains eighty-one  boardSpace objects.
+    <p>The original UML diagram that describes the system architecture describes the current system accurately.
+          One addition that we have made is that the board object contains eighty-one boardSpace objects.
           The boardSpace object facilitates piece transfer functionality. </p>
-    
+
 <hr>
 <a href="../index.html">HOME</a>|
 <a href="contributions.html">CONTRIBUTIONS</a> |
-<a href="uml_class.html">DIAGRAM</a> 
-    
+<a href="uml_class.html">DIAGRAM</a>
+
 </body>
 </html>
