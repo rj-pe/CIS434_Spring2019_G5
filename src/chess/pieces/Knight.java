@@ -41,8 +41,8 @@ public class Knight extends BoardPiece {
         if (x_p < 8 && y_t >= 0 && !checkForFriend(chess.board[y_t][x_p])){
             moves.add(new Point(x_p,y_t));
         }
-        if (x_m >= 0 && y_k >= 0 && !checkForFriend(chess.board[y_k][x_m])){
-            moves.add(new Point(x_m, y_k));
+        if (x_m >= 0 && y_t >= 0 && !checkForFriend(chess.board[y_t][x_m])){
+            moves.add(new Point(x_m, y_t));
         }
         if (y_p < 8 && x_k < 8 && !checkForFriend(chess.board[y_p][x_k])){
             moves.add(new Point(x_m, y_p));
