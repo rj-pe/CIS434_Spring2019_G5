@@ -47,6 +47,12 @@
     <p><b>Alice Uwase</b> is in charge of the Pawn and Queen classes. So far, the pawn and queen pieces can move but the
         capturing functions are yet to be implemented. En passant and Pawn Promotion of the pawn piece are also
         in the process of being implemented.</p>
+    <p><b>R.J. Pereira</b> developed some guidelines for implementing piece movement methods, wrote and documented helper
+        functions for the BoardPiece super class, and created and documented the move methods for King and Rook classes.
+        He has helped with the incremental development process by coordinating issue tracking and a project task board
+        on the github platform. He has written a changelog, which documents any changes made to the source code, and has
+        contributed to the written portions of the progress report. He has updated the UML diagram which tracks the
+        structure of the game's code.</p>
 <h3>Difficulties encountered </h3>
     <p>As the team is developing the game in the agile method, we are organizing our development efforts around
         incremental delivery. Each increment is described by a GitHub
@@ -84,26 +90,27 @@
         <li><i>Check and Check-mate</i> -- The game class should keep track of when the king is attacked and, if deemed
             appropriate, put the king into check and/or checkmate.</li>
 
-        <li>Going back and completing JavaDoc for all classes. For each class that has already been written and is missing
-            documentation, add the appropriate javadoc descriptions.</li>
+        <li><i>Documentation</i> -- Going back and completing JavaDoc for all classes. For each class that has
+            already been written and is missing documentation, add the appropriate javadoc descriptions.</li>
 
-        <li>Adapt command line solution to a graphical one. Rather than displaying the game on the command line,
-            use JavaFX to display a graphical representation of chess.</li>
+        <li><i>GUI Implementation</i> -- Adapt command line solution to a graphical one. Rather than displaying the game
+            on the command line, use JavaFX to display a graphical representation of chess.</li>
     </ul>
 
 <h3>Changes made to the original design </h3>
     <p>We have followed the development strategy and design specification detailed in the project proposal closely.
-        One aspect of the original strategy which we have differed from is that we did not write pseudo-code for major
-        portions of the game logic, instead we directly wrote java code that implements the game functionality.</p>
+        One aspect of the original strategy from which we have differed is that we did not write pseudo-code for major
+        portions of the game logic, instead we directly wrote java code to implement game functionality.</p>
 
     <p>The original UML diagram that describes the system architecture describes the current system accurately.
           One addition that we have made is that the board object contains eighty-one boardSpace objects.
-          The boardSpace object facilitates piece transfer functionality. </p>
+          The boardSpace object facilitates piece transfer functionality. A new version of the UML diagram which includes
+          greater detail and provides improved accuracy has been created.</p>
 
 <hr>
 <a href="../index.html">HOME</a>|
 <a href="contributions.html">CONTRIBUTIONS</a> |
-<a href="uml_class.html">DIAGRAM</a>
+<a href="umldiagram.html">DIAGRAMS</a>
 
 </body>
 </html>
