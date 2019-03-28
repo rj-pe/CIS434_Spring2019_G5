@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>chess.pieces</OriginalElement>
+  <nodes>
+    <node x="1000.2884146341464" y="0.0">boardlogic.BoardPiece</node>
+    <node x="640.5" y="580.0">chess.pieces.Queen</node>
+    <node x="1648.425237127371" y="593.0">chess.pieces.Rook</node>
+    <node x="1133.4375" y="910.0">boardlogic.Board</node>
+    <node x="736.5" y="771.0">chess.pieces.ChessPieceFactory</node>
+    <node x="1333.425237127371" y="580.0">chess.pieces.Knight</node>
+    <node x="325.5" y="580.0">chess.pieces.Bishop</node>
+    <node x="1158.925237127371" y="284.0">boardlogic.BoardSpace</node>
+    <node x="955.5" y="593.0">chess.pieces.Pawn</node>
+    <node x="1133.9375" y="1071.0">CMDChess</node>
+    <node x="10.5" y="593.0">chess.pieces.King</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="chess.pieces.Knight" target="boardlogic.BoardPiece">
+      <point x="98.33333333333326" y="-55.5" />
+      <point x="1579.2585704607043" y="560.0" />
+      <point x="1576.6342479674797" y="560.0" />
+      <point x="1576.6342479674797" y="214.0" />
+      <point x="1250.8161924119242" y="214.0" />
+      <point x="95.02777777777783" y="82.0" />
+    </edge>
+    <edge source="chess.pieces.Rook" target="boardlogic.Board">
+      <point x="73.75" y="42.5" />
+      <point x="1869.675237127371" y="880.0" />
+      <point x="1353.9375" y="880.0" />
+      <point x="94.5" y="-55.5" />
+    </edge>
+    <edge source="chess.pieces.Queen" target="boardlogic.Board">
+      <point x="-73.75" y="55.5" />
+      <point x="714.25" y="751.0" />
+      <point x="608.0883130081304" y="751.0" />
+      <point x="608.0883130081304" y="870.0" />
+      <point x="1185.9375" y="870.0" />
+      <point x="-73.5" y="-55.5" />
+    </edge>
+    <edge source="chess.pieces.Queen" target="boardlogic.BoardPiece">
+      <point x="-98.33333333333326" y="-55.5" />
+      <point x="689.6666666666667" y="520.0" />
+      <point x="693.7758130081304" y="520.0" />
+      <point x="693.7758130081304" y="234.0" />
+      <point x="1095.3161924119242" y="234.0" />
+      <point x="-60.47222222222217" y="82.0" />
+    </edge>
+    <edge source="chess.pieces.Knight" target="boardlogic.Board">
+      <point x="73.75" y="55.5" />
+      <point x="1554.675237127371" y="870.0" />
+      <point x="1332.9375" y="870.0" />
+      <point x="73.5" y="-55.5" />
+    </edge>
+    <edge source="chess.pieces.Rook" target="boardlogic.BoardPiece">
+      <point x="0.0" y="-42.5" />
+      <point x="1795.925237127371" y="560.0" />
+      <point x="1839.5919037940378" y="560.0" />
+      <point x="1839.5919037940378" y="204.0" />
+      <point x="1268.0939701897018" y="204.0" />
+      <point x="112.30555555555543" y="82.0" />
+    </edge>
+    <edge source="chess.pieces.ChessPieceFactory" target="chess.pieces.Pawn">
+      <point x="26.125" y="-29.5" />
+      <point x="971.625" y="721.0" />
+      <point x="1029.25" y="721.0" />
+      <point x="-73.75" y="42.5" />
+    </edge>
+    <edge source="chess.pieces.ChessPieceFactory" target="chess.pieces.Knight">
+      <point x="130.625" y="-29.5" />
+      <point x="1076.125" y="741.0" />
+      <point x="1407.175237127371" y="741.0" />
+      <point x="-73.75" y="55.5" />
+    </edge>
+    <edge source="chess.pieces.Bishop" target="boardlogic.BoardSpace">
+      <point x="98.33333333333331" y="-55.5" />
+      <point x="571.3333333333333" y="540.0" />
+      <point x="1199.875237127371" y="540.0" />
+      <point x="-95.54999999999995" y="108.0" />
+    </edge>
+    <edge source="chess.pieces.Queen" target="boardlogic.BoardSpace">
+      <point x="98.33333333333326" y="-55.5" />
+      <point x="886.3333333333333" y="550.0" />
+      <point x="1227.175237127371" y="550.0" />
+      <point x="-68.25" y="108.0" />
+    </edge>
+    <edge source="chess.pieces.ChessPieceFactory" target="boardlogic.BoardSpace">
+      <point x="78.375" y="-29.5" />
+      <point x="1023.875" y="731.0" />
+      <point x="1273.125" y="731.0" />
+      <point x="1273.125" y="560.0" />
+      <point x="1281.775237127371" y="560.0" />
+      <point x="-13.650000000000091" y="108.0" />
+    </edge>
+    <edge source="chess.pieces.King" target="boardlogic.BoardPiece">
+      <point x="-98.33333333333326" y="-42.5" />
+      <point x="59.66666666666674" y="560.0" />
+      <point x="79.0" y="560.0" />
+      <point x="79.0" y="194.0" />
+      <point x="1026.2050813008132" y="194.0" />
+      <point x="-129.58333333333337" y="82.0" />
+    </edge>
+    <edge source="chess.pieces.Rook" target="boardlogic.BoardSpace">
+      <point x="-98.33333333333337" y="-42.5" />
+      <point x="1697.5919037940375" y="550.0" />
+      <point x="1418.2752371273712" y="550.0" />
+      <point x="122.85000000000014" y="108.0" />
+    </edge>
+    <edge source="CMDChess" target="boardlogic.Board">
+      <point x="-62.75" y="-55.5" />
+      <point x="-63.0" y="55.5" />
+    </edge>
+    <edge source="chess.pieces.ChessPieceFactory" target="chess.pieces.King">
+      <point x="-130.625" y="-29.5" />
+      <point x="814.875" y="731.0" />
+      <point x="231.75" y="731.0" />
+      <point x="73.75" y="42.5" />
+    </edge>
+    <edge source="boardlogic.Board" target="chess.pieces.ChessPieceFactory">
+      <point x="-52.5" y="-55.5" />
+      <point x="1206.9375" y="860.0" />
+      <point x="841.0" y="860.0" />
+      <point x="-104.5" y="29.5" />
+    </edge>
+    <edge source="chess.pieces.ChessPieceFactory" target="chess.pieces.Rook">
+      <point x="182.875" y="-29.5" />
+      <point x="1128.375" y="751.0" />
+      <point x="1722.175237127371" y="751.0" />
+      <point x="-73.75" y="42.5" />
+    </edge>
+    <edge source="boardlogic.Board" target="boardlogic.BoardSpace">
+      <point x="31.5" y="-55.5" />
+      <point x="1290.9375" y="880.0" />
+      <point x="1311.925237127371" y="880.0" />
+      <point x="1311.925237127371" y="550.0" />
+      <point x="1336.375237127371" y="550.0" />
+      <point x="40.950000000000045" y="108.0" />
+    </edge>
+    <edge source="chess.pieces.Pawn" target="boardlogic.BoardPiece">
+      <point x="-98.33333333333326" y="-42.5" />
+      <point x="1004.6666666666667" y="520.0" />
+      <point x="1008.7758130081304" y="520.0" />
+      <point x="1008.7758130081304" y="254.0" />
+      <point x="1129.8717479674797" y="254.0" />
+      <point x="-25.916666666666742" y="82.0" />
+    </edge>
+    <edge source="chess.pieces.ChessPieceFactory" target="chess.pieces.Bishop">
+      <point x="-78.375" y="-29.5" />
+      <point x="867.125" y="721.0" />
+      <point x="546.75" y="721.0" />
+      <point x="73.75" y="55.5" />
+    </edge>
+    <edge source="chess.pieces.Pawn" target="boardlogic.BoardSpace">
+      <point x="98.33333333333326" y="-42.5" />
+      <point x="1201.3333333333333" y="560.0" />
+      <point x="1254.475237127371" y="560.0" />
+      <point x="-40.950000000000045" y="108.0" />
+    </edge>
+    <edge source="boardlogic.BoardPiece" target="boardlogic.BoardSpace">
+      <point x="43.19444444444434" y="82.0" />
+      <point x="1198.9828590785908" y="244.0" />
+      <point x="1329.550237127371" y="244.0" />
+      <point x="34.125" y="-108.0" />
+    </edge>
+    <edge source="boardlogic.BoardPiece" target="boardlogic.Board">
+      <point x="146.8611111111111" y="82.0" />
+      <point x="1302.6495257452575" y="184.0" />
+      <point x="1953.925237127371" y="184.0" />
+      <point x="1953.925237127371" y="890.0" />
+      <point x="1374.9375" y="890.0" />
+      <point x="115.5" y="-55.5" />
+    </edge>
+    <edge source="chess.pieces.Bishop" target="boardlogic.Board">
+      <point x="-73.75" y="55.5" />
+      <point x="399.25" y="751.0" />
+      <point x="316.0258130081304" y="751.0" />
+      <point x="316.0258130081304" y="880.0" />
+      <point x="1164.9375" y="880.0" />
+      <point x="-94.5" y="-55.5" />
+    </edge>
+    <edge source="chess.pieces.Bishop" target="boardlogic.BoardPiece">
+      <point x="-98.33333333333326" y="-55.5" />
+      <point x="374.66666666666674" y="520.0" />
+      <point x="378.7758130081304" y="520.0" />
+      <point x="378.7758130081304" y="214.0" />
+      <point x="1060.7606368563686" y="214.0" />
+      <point x="-95.02777777777783" y="82.0" />
+    </edge>
+    <edge source="chess.pieces.King" target="boardlogic.Board">
+      <point x="-73.75" y="42.5" />
+      <point x="84.25" y="751.0" />
+      <point x="53.85484417344219" y="751.0" />
+      <point x="53.85484417344219" y="890.0" />
+      <point x="1143.9375" y="890.0" />
+      <point x="-115.5" y="-55.5" />
+    </edge>
+    <edge source="chess.pieces.ChessPieceFactory" target="boardlogic.BoardPiece">
+      <point x="-182.875" y="-29.5" />
+      <point x="762.625" y="741.0" />
+      <point x="0.0" y="741.0" />
+      <point x="0.0" y="184.0" />
+      <point x="1008.9273035230353" y="184.0" />
+      <point x="-146.8611111111111" y="82.0" />
+    </edge>
+    <edge source="chess.pieces.Knight" target="boardlogic.BoardSpace">
+      <point x="-98.33333333333326" y="-55.5" />
+      <point x="1382.5919037940378" y="560.0" />
+      <point x="1390.9752371273712" y="560.0" />
+      <point x="95.55000000000018" y="108.0" />
+    </edge>
+    <edge source="chess.pieces.King" target="boardlogic.BoardSpace">
+      <point x="98.33333333333337" y="-42.5" />
+      <point x="256.33333333333337" y="530.0" />
+      <point x="1172.575237127371" y="530.0" />
+      <point x="-122.85000000000002" y="108.0" />
+    </edge>
+    <edge source="boardlogic.BoardSpace" target="boardlogic.BoardPiece">
+      <point x="-102.375" y="-108.0" />
+      <point x="1193.050237127371" y="264.0" />
+      <point x="1164.4273035230353" y="264.0" />
+      <point x="8.638888888888914" y="82.0" />
+    </edge>
+    <edge source="chess.pieces.Pawn" target="boardlogic.Board">
+      <point x="73.75" y="42.5" />
+      <point x="1176.75" y="721.0" />
+      <point x="1270.737737127371" y="721.0" />
+      <point x="1270.737737127371" y="860.0" />
+      <point x="1248.9375" y="860.0" />
+      <point x="-10.5" y="-55.5" />
+    </edge>
+    <edge source="chess.pieces.ChessPieceFactory" target="chess.pieces.Queen">
+      <point x="-26.125" y="-29.5" />
+      <point x="919.375" y="711.0" />
+      <point x="861.75" y="711.0" />
+      <point x="73.75" y="55.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.7000000000000001" x="1371.142857142857" y="507.85714285714283" />
+  <SelectedNodes>
+    <node>chess.pieces.Bishop</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Properties</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
