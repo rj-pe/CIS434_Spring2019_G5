@@ -11,7 +11,7 @@ position on the board.
   *  `src/chess/pieces/Bishop.java`
   *  `src/chess/pieces/King.java`  A king can move a single space in any of eight possible directions.
   *  `src/chess/pieces/Knight.java`
-  *  `src/chess/pieces/Pawn.java` A pawn can moves forward exactly 1 space, or optionally, 2 spaces when on its starting square toward opponent's side. It may capture enemy piece that is one square diagonally ahead of it, either left or right. If it reaches back rank of opponent, it promotes to the player's choice of a piece except king.
+  *  `src/chess/pieces/Pawn.java` A pawn can move forward exactly 1 space, or optionally, 2 spaces when on its starting square toward opponent's side. It may capture enemy piece that is one square diagonally ahead (left or right) of it. If it reaches back rank of opponent, it promotes to the player's choice of a piece except king.
   *  `src/chess/pieces/Queen.java` A queen can move any number of vacant squares in any direction in a straight line.
   *  `src/chess/pieces/Rook.java` A rook can move horizontally or vertically for any number of unoccupied squares.
 *  `src/boardlogic/BoardSpace.checkForFriend()` A method which returns whether a given space is occupied by a teammate.
