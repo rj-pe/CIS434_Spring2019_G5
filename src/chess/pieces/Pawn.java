@@ -24,7 +24,7 @@ public class Pawn extends BoardPiece {
         // loop through spaces in front of the piece
         if (player == Player.WHITE) {
              for (int i = y_pos; i < 8; i++) {
-                 if (!checkForFriend(chess.board[x_pos][i]))
+                 if (!checkForFriend(chess.board[i][x_pos]))
                      moves.add(new Point(x_pos, i)); 
              }
         }
