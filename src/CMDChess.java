@@ -1,5 +1,6 @@
 //import chessgui.*;
 import boardlogic.*;
+import chess.Arbiter;
 
 import java.awt.*;
 import java.util.Scanner;
@@ -16,6 +17,7 @@ public class CMDChess {
         String pieceToMove, spaceToMoveTo;
         int x1, x2, y1, y2;
         Player currentPlayer = Player.WHITE;
+        Player inactivePlayer = Player.BLACK;
         Scanner reader = new Scanner(System.in);
         while (true) {
             //Board Creation
@@ -44,6 +46,9 @@ public class CMDChess {
                 System.out.print("\n");
             }
 
+            // The arbiter object will keep track of whether either king is under attack.
+            Arbiter arbiter = new Arbiter(chess.board[0][3].getOccupyingPiece(), chess.board[7][3].getOccupyingPiece(), currentPlayer);
+
             if (currentPlayer == Player.WHITE) {
                 System.out.print("White player's turn!");
             } else System.out.print("Black player's turn!");
@@ -57,9 +62,8 @@ public class CMDChess {
                     if (chess.board[y1][x1].getOccupyingPiece().getPlayer() == currentPlayer){
                         /*
                           Active player owns the selected piece, calculate its potential moves.
-                          Each piece class will override the getPotentialMoves() method with its movement pattern.
+                          Each piece class will override the calculatePotentialMoves() method with its movement pattern.
                           If no moves are possible, user must select a different piece.
-                          TODO implement the getPotentialMoves() method for each piece type. See King.java for example.
                         */
                         if( chess.board[y1][x1].getOccupyingPiece().getPotentialMoves(chess)){
                             // potential moves list is not empty proceed with turn.
@@ -76,7 +80,7 @@ public class CMDChess {
             Point destination = promptUserForMove();
 
             /*
-             Check the chosen space against the list of potential moves calculated by getPotentialMoves() method.
+             Check the chosen space against the list of potential moves calculated by calculatePotentialMoves() method.
              If the move is not valid prompt user to choose another space.
              */
              while( ! chess.board[y1][x1].getOccupyingPiece().isValidMove( destination ) ) {
@@ -93,10 +97,28 @@ public class CMDChess {
             //TODO check for capture
             chess.board[y1][x1].transferPiece(chess.board[y2][x2]);
 
+            // arbiter object checks if the move puts the enemy king in check
+            if( arbiter.movePutsKingInCheck(chess.board[y2][x2].getOccupyingPiece()) ){
+                // check has occurred
+                // print alert to console
+                System.out.println(String.format("%s in check!", inactivePlayer.toString()));
+                // remove space from list of enemy king's potential moves
+                arbiter.removeSpaceFromMoves(chess.board[y2][x2], inactivePlayer);
+                // arbiter object checks if the move puts the enemy king in checkmate
+                if( arbiter.movePutsKingInCheckMate(arbiter.defensiveMovePossible())){
+                 // check mate has occurred
+                 // game is over
+                 System.out.println(String.format("Player %s wins", currentPlayer.toString()) );
+                 System.exit(0);
+                }
+            }
+
             chess.board[y1][x1].toggleActive();
             chess.board[y2][x2].toggleActive();
 
-            currentPlayer = changePlayer(currentPlayer);
+            // turn ends, change players.
+            currentPlayer = changeActivePlayer(currentPlayer, arbiter);
+            inactivePlayer = changeInactivePlayer(inactivePlayer);
         }
     }
 
@@ -113,8 +135,31 @@ public class CMDChess {
         return new Point(x, y);
     }
 
-    static Player changePlayer(Player player) {
-        if (player == Player.WHITE) return Player.BLACK;
+    /**
+     * Change which player is inactive.
+     * @param player The player who is currently inactive.
+     * @return The new inactive player.
+     */
+
+    private static Player changeInactivePlayer(Player player){
+        if (player == Player.WHITE){
+            return Player.BLACK;
+        }
+        return Player.WHITE;
+    }
+
+    /**
+     * Changes which player is active.
+     * @param player The player who is currently active
+     * @param arbiter The arbiter object also keeps track of the active player.
+     * @return The new active player.
+     */
+    static Player changeActivePlayer(Player player, Arbiter arbiter) {
+        if (player == Player.WHITE) {
+            arbiter.setActivePlayer(Player.BLACK);
+            return Player.BLACK;
+        }
+        arbiter.setActivePlayer(Player.WHITE);
         return Player.WHITE;
     }
 }

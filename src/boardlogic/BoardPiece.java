@@ -29,6 +29,8 @@ public abstract class BoardPiece{
         return player;
     }
 
+    public ArrayList<Point> getMoves(){return moves; }
+
     /**
      * Builds an array of the potential moves available to the calling piece based on its current position.
      * @param board a board object to check whether potential spaces are occupied.
@@ -55,9 +57,15 @@ public abstract class BoardPiece{
      * @return returns true if space is occupied by a team-mate.
      */
     protected boolean checkForFriend(BoardSpace space){
-        if (space.getOccupyingPiece() != null && space.getOccupyingPiece().getPlayer() == this.player){
-            return true;
-        }
-        else return false;
+        return (space.getOccupyingPiece() != null && space.getOccupyingPiece().getPlayer() == this.player);
+    }
+
+    /**
+     * Checks whether the given space is occupied by a piece on the opposing team.
+     * @param space a space under consideration for inclusion on the list of potential moves.
+     * @return returns true is space is occupied by an enemy.
+     */
+    protected boolean checkForEnemy(BoardSpace space){
+        return (space.getOccupyingPiece() != null && space.getOccupyingPiece().getPlayer() != this.player);
     }
 }

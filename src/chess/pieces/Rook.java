@@ -12,6 +12,8 @@ public class Rook extends BoardPiece {
         type = PieceType.ROOK;
     }
 
+    // TODO write the castling method
+    
     @Override
     public boolean getPotentialMoves(Board chess) {
         moves.clear();
