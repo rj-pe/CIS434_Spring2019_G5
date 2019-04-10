@@ -42,13 +42,13 @@ public class Pawn extends BoardPiece {
         // capturing for Wh pieces (Q3 and Q4)
         if(player == Player.WHITE) {
             //  capturing in Quadrant 3
-                for(int i = x_pos, j = y_pos; i >= 0 && j < 8; i--, j++) {
-                    if (enemy(chess.board[j][i]) && !checkForFriend(chess.board[j][i])) //captures enemy piece and checks for friend piece diagonally before capturing
-                        moves.add(new Point(i, j));
-                }
+            for(int i = x_pos, j = y_pos; i >= 0 && j < 8; i--, j++) {
+                if (checkForEnemy(chess.board[j][i]) && !checkForFriend(chess.board[j][i])) //captures enemy piece and checks for friend piece diagonally before capturing
+                   moves.add(new Point(i, j));
+            }
             // capturing in Quadrant 4
             for(int i = x_pos, j = y_pos; i < 8 && j < 8; i++, j++) { 
-                if (enemy(chess.board[j][i]) && !checkForFriend(chess.board[j][i]))
+                if (checkForEnemy(chess.board[j][i]) && !checkForFriend(chess.board[j][i]))
                     moves.add(new Point(i, j));
             }
         }
@@ -56,12 +56,12 @@ public class Pawn extends BoardPiece {
         else {
             //capturing in Quadrant 2
             for (int i = x_pos, j = y_pos; i >= 0 && j >= 0; i--, j--) {
-                if (enemy(chess.board[j][i]) && !checkForFriend(chess.board[j][i]))
+                if (checkForEnemy(chess.board[j][i]) && !checkForFriend(chess.board[j][i]))
                     moves.add(new Point(i, j));
             }
             //capturing in Quadrant 1
             for(int i = x_pos, j = y_pos; i < 8 && j >=0; i++, j--) {
-                if (enemy(chess.board[j][i]) && !checkForFriend(chess.board[j][i]))
+                if (checkForEnemy(chess.board[j][i]) && !checkForFriend(chess.board[j][i]))
                     moves.add(new Point(i, j));
             }
         }
