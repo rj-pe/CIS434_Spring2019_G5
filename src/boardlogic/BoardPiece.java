@@ -68,4 +68,17 @@ public abstract class BoardPiece{
     protected boolean checkForEnemy(BoardSpace space){
         return (space.getOccupyingPiece() != null && space.getOccupyingPiece().getPlayer() != this.player);
     }
+    
+    /*  for pawns: does not capture own or opponent's piece in forward move
+    *   checks whether space is occupied by any player's piece before moving forward; if true, piece cannot move forward
+    *   @param space a space under consideration for inclusion on the list of potential moves.
+    *   @return returns true is space is occupied by any piece.
+    */
+    protected boolean Occupied(BoardSpace space){ 
+        if (space.getOccupyingPiece() != null){ 
+            return true;
+        }
+        else return false;
+    }
+    
 }
