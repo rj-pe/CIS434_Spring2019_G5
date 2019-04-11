@@ -21,30 +21,51 @@ public class Pawn extends BoardPiece {
         int x_pos = this.getCurrentSpace().getPosition().x;
         int y_pos = this.getCurrentSpace().getPosition().y;
 
-        // loop through spaces in front of the piece
-        for (int i = y_pos; i < 8; i++) {
-            if (!checkForFriend(chess.board[i][x_pos])) {
-                moves.add(new Point(x_pos, i));
-            }
-        }
-
-        //TODO capture pieces diagonally
-        //moves forward-diagonally to capture pieces
-        for (int i = y_pos; i < 8; i++) {        //moving forward
-            if (!checkForFriend(chess.board[i][x_pos])) {
-                for (int j = x_pos; j >= 0; j--) {   //forward-left (left diagonal)
-                    if (!checkForFriend(chess.board[y_pos][j])) {
-                        moves.add(new Point(j, y_pos));
-                    }
-                    for (int k = x_pos; k < 8; k++) {   //forward-right (right diagonal)
-                        if (!checkForFriend(chess.board[y_pos][k])) {
-                            moves.add(new Point(k, y_pos));
-                        }
-                    }
+        /*  no backward moves allowed
+        *   loop through spaces in front of the piece
+        */
+            if (player == Player.WHITE) {
+                for (int i = y_pos; i < 8; i++) {
+                    if (!Occupied(chess.board[i][x_pos]) )
+                        moves.add(new Point(x_pos, i)); 
+                }
+              } 
+            //for BlP moves only 
+            else {
+                for (int i = y_pos; i >= 0; i--) {
+                    if (!Occupied(chess.board[i][x_pos]) ) 
+                        moves.add(new Point(x_pos, i));
                 }
             }
+        
+        /*  moves forward-diagonally to capture pieces  */
+        // capturing for Wh pieces (Q3 and Q4)
+        if(player == Player.WHITE) {
+            //  capturing in Quadrant 3
+            for(int i = x_pos, j = y_pos; i >= 0 && j < 8; i--, j++) {
+                if (checkForEnemy(chess.board[j][i]) && !checkForFriend(chess.board[j][i])) //captures enemy piece and checks for friend piece diagonally before capturing
+                   moves.add(new Point(i, j));
+            }
+            // capturing in Quadrant 4
+            for(int i = x_pos, j = y_pos; i < 8 && j < 8; i++, j++) { 
+                if (checkForEnemy(chess.board[j][i]) && !checkForFriend(chess.board[j][i]))
+                    moves.add(new Point(i, j));
+            }
         }
-
+        // capturing for Bl pieces (Q1 and Q2)
+        else {
+            //capturing in Quadrant 2
+            for (int i = x_pos, j = y_pos; i >= 0 && j >= 0; i--, j--) {
+                if (checkForEnemy(chess.board[j][i]) && !checkForFriend(chess.board[j][i]))
+                    moves.add(new Point(i, j));
+            }
+            //capturing in Quadrant 1
+            for(int i = x_pos, j = y_pos; i < 8 && j >=0; i++, j--) {
+                if (checkForEnemy(chess.board[j][i]) && !checkForFriend(chess.board[j][i]))
+                    moves.add(new Point(i, j));
+            }
+        }
+      
         // return false if piece has no move options
         return !moves.isEmpty();
     }

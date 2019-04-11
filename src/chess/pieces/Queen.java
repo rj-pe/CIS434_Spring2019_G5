@@ -11,7 +11,7 @@ public class Queen extends BoardPiece {
         super(currentSpace, player);
         type = PieceType.QUEEN;
     }
-    
+
     /* Queen moves are a combination of Rook and Bishop moves */
     @Override
     public boolean getPotentialMoves(Board chess) {
