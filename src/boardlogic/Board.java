@@ -2,6 +2,8 @@ package boardlogic;
 
 import chess.pieces.*;
 
+import static boardlogic.Team.*;
+
 public class Board {
     public BoardSpace[][] board;
     private ChessPieceFactory chessPieceFactory = new ChessPieceFactory();
@@ -35,12 +37,12 @@ public class Board {
             //Placing starting rows
             BoardSpace whitePlayerSpace = board[0][i];
             BoardSpace blackPlayerSpace = board[7][i];
-            whitePlayerSpace.setOccupyingPiece(chessPieceFactory.getChessPiece(CHESS_STARTING_ROW[i], whitePlayerSpace, Player.WHITE));
-            blackPlayerSpace.setOccupyingPiece(chessPieceFactory.getChessPiece(CHESS_STARTING_ROW[i], blackPlayerSpace, Player.BLACK));
+            whitePlayerSpace.setOccupyingPiece(chessPieceFactory.getChessPiece(CHESS_STARTING_ROW[i], whitePlayerSpace, WHITE));
+            blackPlayerSpace.setOccupyingPiece(chessPieceFactory.getChessPiece(CHESS_STARTING_ROW[i], blackPlayerSpace, BLACK));
 
             //Placing Pawns
-            board[1][i].setOccupyingPiece(chessPieceFactory.getChessPiece("PAWN", board[1][i], Player.WHITE));
-            board[6][i].setOccupyingPiece(chessPieceFactory.getChessPiece("PAWN", board[6][i], Player.BLACK));
+            board[1][i].setOccupyingPiece(chessPieceFactory.getChessPiece("PAWN", board[1][i], WHITE));
+            board[6][i].setOccupyingPiece(chessPieceFactory.getChessPiece("PAWN", board[6][i], BLACK));
         }
     }
 

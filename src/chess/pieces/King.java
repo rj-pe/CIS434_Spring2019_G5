@@ -4,11 +4,12 @@ import boardlogic.*;
 
 import java.awt.*;
 import java.util.ArrayList;
+import static boardlogic.Team.*;
 
 public class King extends BoardPiece {
 
-    public King(BoardSpace currentSpace, Player player) {
-        super(currentSpace, player);
+    public King(BoardSpace currentSpace, Team team) {
+        super(currentSpace, team);
         type = PieceType.KING;
     }
 
@@ -19,10 +20,10 @@ public class King extends BoardPiece {
         // calculate the spaces where the piece can move given it's current position on the board.
         int x = this.getCurrentSpace().getPosition().x;
         int y = this.getCurrentSpace().getPosition().y;
-        int x_p = this.getCurrentSpace().getPosition().x + 1;
-        int y_p = this.getCurrentSpace().getPosition().y + 1;
-        int x_m = this.getCurrentSpace().getPosition().x - 1;
-        int y_m = this.getCurrentSpace().getPosition().y - 1;
+        int x_p = x + 1;
+        int y_p = y + 1;
+        int x_m = x - 1;
+        int y_m = y - 1;
 
         // if friendly piece does not occupy space and if space exists
         // then store space as a Point object in the moves ArrayList.
@@ -56,6 +57,6 @@ public class King extends BoardPiece {
 
     @Override
     public String toString() {
-        return (player == Player.WHITE) ? "WhK" : "BlK";
+        return (team == WHITE) ? "WhK" : "BlK";
     }
 }

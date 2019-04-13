@@ -4,8 +4,13 @@ All notable changes to this project should be recorded here.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
-## [Unreleased]
+## [0.0.2]
 ### Added
+* 'src/boardlogic/Team.java' This is an enum which keeps track of whether a piece is WHITE or BLACK. This functionality
+was formerly implemented in the `Player.Java' file. References to the former enum have been updated to reference the Team
+ enum throughout the project. 
+* `src/chess/Arbiter.Java` This object keeps track of the attack status of both players. If a players king is under attack
+the arbiter class will inform the main method in the game.
 * `getPotentialMoves()` method for each of the pieces, which calculates the possible moves that a piece may make given a
 position on the board.
   *  `src/chess/pieces/Bishop.java`
@@ -16,13 +21,15 @@ position on the board.
   *  `src/chess/pieces/Rook.java` A rook can move horizontally or vertically for any number of unoccupied squares.
 *  `src/boardlogic/BoardSpace.checkForFriend()` A method which returns whether a given space is occupied by a teammate.
 ### Changed
+* `src/boardlogic/Player.java` Formerly this was just an enum identifying whether a piece was WHITE or BLACK. 
+The updated class is more robust and allows for methods and fields. The player class keeps track of teammates,
+which spaces are threatened on the board, and will keep track of which pieces have been captured.
 *  Calls to the array chess.board[ ][ ] in `main()` should refer to the y-coordinate then the x-coordinate. 
 ### Issues
 * Implement logic for Castling functionality. Castling is a special King movement which consists of the king moving
 two spaces towards the rook and the rook moves to the position over which the king moved.
 * Implement testing to ensure that piece movement methods work over a wide range of scenarios.
-* Implement king attack functionality. The game should keep track of when the king is attacked and put into check and/or
-checkmate.
+* Implement king attack functionality. The game should keep track of when the king is attacked and put into checkmate.
 * Implement piece capture logic. If a piece captures another piece, the game should remove the captured piece and place
 it in the graveyard. 
   * Implement _en passant_ functionality for pawn capture.

@@ -5,10 +5,12 @@ import boardlogic.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+import static boardlogic.Team.WHITE;
+
 public class Rook extends BoardPiece {
 
-    public Rook(BoardSpace currentSpace, Player player) {
-        super(currentSpace, player);
+    public Rook(BoardSpace currentSpace, Team team) {
+        super(currentSpace, team);
         type = PieceType.ROOK;
     }
 
@@ -54,6 +56,6 @@ public class Rook extends BoardPiece {
 
     @Override
     public String toString() {
-        return (player == Player.WHITE) ? "WhR" : "BlR";
+        return (team == WHITE) ? "WhR" : "BlR";
     }
 }

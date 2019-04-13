@@ -5,6 +5,8 @@ import chess.Arbiter;
 import java.awt.*;
 import java.util.Scanner;
 
+import static boardlogic.Team.*;
+
 public class CMDChess {
 
     public static void main(String[] args) {
@@ -16,8 +18,14 @@ public class CMDChess {
         Board chess = new Board(8, GameType.CHESS);
         String pieceToMove, spaceToMoveTo;
         int x1, x2, y1, y2;
-        Player currentPlayer = Player.WHITE;
-        Player inactivePlayer = Player.BLACK;
+        // create player objects
+        Player black = new Player(BLACK, chess);
+        Player white = new Player(WHITE, chess);
+
+        // handles to player objects for use during game-play
+        Player currentPlayer = white;
+        Player inactivePlayer = black;
+
         Scanner reader = new Scanner(System.in);
         while (true) {
             //Board Creation
@@ -34,7 +42,8 @@ public class CMDChess {
                 System.out.print(i + "   ");
                 for (int j = 0; j < 8; j++) {
                     StringBuilder output = new StringBuilder();
-                    output.append("[  " + chess.board[i][j]);
+                    output.append("[  ");
+                    output.append(chess.board[i][j]);
 
                     //Keeps spaces lined up
                     while (output.length() < 7) {
@@ -49,7 +58,7 @@ public class CMDChess {
             // The arbiter object will keep track of whether either king is under attack.
             Arbiter arbiter = new Arbiter(chess.board[0][3].getOccupyingPiece(), chess.board[7][3].getOccupyingPiece(), currentPlayer);
 
-            if (currentPlayer == Player.WHITE) {
+            if (currentPlayer.getTeam() == WHITE) {
                 System.out.print("White player's turn!");
             } else System.out.print("Black player's turn!");
             //Takes coordinates as two consecutive integers. Example: 11
@@ -59,13 +68,15 @@ public class CMDChess {
                 y1 = Character.getNumericValue(pieceToMove.charAt(1));
                 x1 = Character.getNumericValue(pieceToMove.charAt(0));
                 if (chess.board[y1][x1].getOccupyingPiece() != null) {
-                    if (chess.board[y1][x1].getOccupyingPiece().getPlayer() == currentPlayer){
+                    if (chess.board[y1][x1].getOccupyingPiece().getTeam() == currentPlayer.getTeam()){
                         /*
                           Active player owns the selected piece, calculate its potential moves.
                           Each piece class will override the calculatePotentialMoves() method with its movement pattern.
                           If no moves are possible, user must select a different piece.
                         */
                         if( chess.board[y1][x1].getOccupyingPiece().getPotentialMoves(chess)){
+                            // add currentPlayer's potentialMoves to the inactivePlayer's threatenedSpaces list
+
                             // potential moves list is not empty proceed with turn.
                             break;
                         }
@@ -117,8 +128,8 @@ public class CMDChess {
             chess.board[y2][x2].toggleActive();
 
             // turn ends, change players.
-            currentPlayer = changeActivePlayer(currentPlayer, arbiter);
-            inactivePlayer = changeInactivePlayer(inactivePlayer);
+            currentPlayer = changeActivePlayer(currentPlayer, white, black, arbiter);
+            inactivePlayer = changeInactivePlayer(inactivePlayer, white, black);
         }
     }
 
@@ -137,29 +148,33 @@ public class CMDChess {
 
     /**
      * Change which player is inactive.
-     * @param player The player who is currently inactive.
+     * @param from The player who is currently inactive.
+     * @param white White player object.
+     * @param black Black player object.
      * @return The new inactive player.
      */
 
-    private static Player changeInactivePlayer(Player player){
-        if (player == Player.WHITE){
-            return Player.BLACK;
+    private static Player changeInactivePlayer(Player from, Player white, Player black){
+        if (from.getTeam() == WHITE){
+            return black;
         }
-        return Player.WHITE;
+        return white;
     }
 
     /**
      * Changes which player is active.
-     * @param player The player who is currently active
+     * @param from The player who is currently active
+     * @param white White player object.
+     * @param black Black player object.
      * @param arbiter The arbiter object also keeps track of the active player.
      * @return The new active player.
      */
-    static Player changeActivePlayer(Player player, Arbiter arbiter) {
-        if (player == Player.WHITE) {
-            arbiter.setActivePlayer(Player.BLACK);
-            return Player.BLACK;
+    private static Player changeActivePlayer(Player from, Player white, Player black, Arbiter arbiter) {
+        if (from.getTeam() == WHITE) {
+            arbiter.setActivePlayer(black);
+            return black;
         }
-        arbiter.setActivePlayer(Player.WHITE);
-        return Player.WHITE;
+        arbiter.setActivePlayer(white);
+        return white;
     }
 }

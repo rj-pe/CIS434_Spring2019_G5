@@ -5,10 +5,12 @@ import boardlogic.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+import static boardlogic.Team.WHITE;
+
 public class Knight extends BoardPiece {
 
-    public Knight(BoardSpace currentSpace, Player player) {
-        super(currentSpace, player);
+    public Knight(BoardSpace currentSpace, Team team) {
+        super(currentSpace, team);
         type = PieceType.KNIGHT;
     }
 
@@ -61,6 +63,6 @@ public class Knight extends BoardPiece {
 
     @Override
     public String toString() {
-        return (player == Player.WHITE) ? "WhKn" : "BlKn";
+        return (team == WHITE) ? "WhKn" : "BlKn";
     }
 }
