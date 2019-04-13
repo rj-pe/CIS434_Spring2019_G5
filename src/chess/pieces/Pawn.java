@@ -5,10 +5,12 @@ import boardlogic.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+import static boardlogic.Team.*;
+
 public class Pawn extends BoardPiece {
 
-    public Pawn(BoardSpace currentSpace, Player player) {
-        super(currentSpace, player);
+    public Pawn(BoardSpace currentSpace, Team team) {
+        super(currentSpace, team);
         type = PieceType.PAWN;
         //image = PawnImage;
     }
@@ -24,7 +26,7 @@ public class Pawn extends BoardPiece {
         /*  no backward moves allowed
         *   loop through spaces in front of the piece
         */
-            if (player == Player.WHITE) {
+            if (team == WHITE) {
                 for (int i = y_pos; i < 8; i++) {
                     if (!Occupied(chess.board[i][x_pos]) )
                         moves.add(new Point(x_pos, i)); 
@@ -40,7 +42,7 @@ public class Pawn extends BoardPiece {
         
         /*  moves forward-diagonally to capture pieces  */
         // capturing for Wh pieces (Q3 and Q4)
-        if(player == Player.WHITE) {
+        if(team == WHITE) {
             //  capturing in Quadrant 3
             for(int i = x_pos, j = y_pos; i >= 0 && j < 8; i--, j++) {
                 if (checkForEnemy(chess.board[j][i]) && !checkForFriend(chess.board[j][i])) //captures enemy piece and checks for friend piece diagonally before capturing
@@ -75,6 +77,6 @@ public class Pawn extends BoardPiece {
     
     @Override
     public String toString() {
-        return (player == Player.WHITE) ? "WhP" : "BlP";
+        return (team == WHITE) ? "WhP" : "BlP";
     }
 }

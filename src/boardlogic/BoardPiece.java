@@ -7,13 +7,13 @@ import java.util.ArrayList;
 public abstract class BoardPiece{
     private BoardSpace currentSpace;
     protected PieceType type;
-    protected Player player;
+    protected Team team;
     protected ImageIcon image;
     protected ArrayList<Point> moves;
 
-    public BoardPiece(BoardSpace currentSpace, Player player) {
+    public BoardPiece(BoardSpace currentSpace, Team team) {
         this.setCurrentSpace(currentSpace);
-        this.player = player;
+        this.team = team;
         this.moves = new ArrayList<>();
     }
 
@@ -21,12 +21,12 @@ public abstract class BoardPiece{
         this.currentSpace = currentSpace;
     }
 
-    public void setPlayer(Player player) {
-        this.player = player;
+    public void setTeam(Team team) {
+        this.team = team;
     }
 
-    public Player getPlayer() {
-        return player;
+    public Team getTeam() {
+        return team;
     }
 
     public ArrayList<Point> getMoves(){return moves; }
@@ -57,7 +57,7 @@ public abstract class BoardPiece{
      * @return returns true if space is occupied by a team-mate.
      */
     protected boolean checkForFriend(BoardSpace space){
-        return (space.getOccupyingPiece() != null && space.getOccupyingPiece().getPlayer() == this.player);
+        return (space.getOccupyingPiece() != null && space.getOccupyingPiece().getTeam() == this.team);
     }
 
     /**
@@ -66,10 +66,11 @@ public abstract class BoardPiece{
      * @return returns true is space is occupied by an enemy.
      */
     protected boolean checkForEnemy(BoardSpace space){
-        return (space.getOccupyingPiece() != null && space.getOccupyingPiece().getPlayer() != this.player);
+        return (space.getOccupyingPiece() != null && space.getOccupyingPiece().getTeam() != this.team);
     }
     
-    /*  for pawns: does not capture own or opponent's piece in forward move
+    /**
+    *  for pawns: does not capture own or opponent's piece in forward move
     *   checks whether space is occupied by any player's piece before moving forward; if true, piece cannot move forward
     *   @param space a space under consideration for inclusion on the list of potential moves.
     *   @return returns true is space is occupied by any piece.

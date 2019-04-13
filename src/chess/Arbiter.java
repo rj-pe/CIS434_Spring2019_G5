@@ -8,7 +8,8 @@ import boardlogic.Player;
 import java.awt.*;
 import java.util.ArrayList;
 
-import static boardlogic.Player.BLACK;
+import static boardlogic.Team.*;
+
 
 /**
  * The Arbiter class ensures that the rules of chess are followed.
@@ -56,7 +57,7 @@ public class Arbiter {
     public boolean movePutsKingInCheck(BoardPiece selectedPiece){
         BoardPiece enemyKing;
         boolean kingInCheck = false;
-        if(activePlayer == BLACK){
+        if(activePlayer.getTeam() == BLACK){
             enemyKing = whiteKing;
         } else{
             enemyKing = blackKing;
@@ -77,7 +78,7 @@ public class Arbiter {
      */
     public boolean movePutsKingInCheckMate(boolean defensePossible){
         BoardPiece king;
-        if(activePlayer == BLACK){
+        if(activePlayer.getTeam() == BLACK){
             king = whiteKing;
         } else{
             king = blackKing;
@@ -111,7 +112,7 @@ public class Arbiter {
     public void removeSpaceFromMoves(BoardSpace space, Player enemy){
         BoardPiece king;
         // which king?
-        if ( enemy == Player.WHITE){
+        if ( enemy.getTeam() == WHITE){
             king = whiteKing;
         } else {
             king = blackKing;

@@ -5,10 +5,12 @@ import boardlogic.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+import static boardlogic.Team.WHITE;
+
 public class Bishop extends BoardPiece {
 
-    public Bishop(BoardSpace currentSpace, Player player) {
-        super(currentSpace, player);
+    public Bishop(BoardSpace currentSpace, Team team) {
+        super(currentSpace, team);
         type = PieceType.BISHOP;
     }
 
@@ -52,6 +54,6 @@ public class Bishop extends BoardPiece {
 
     @Override
     public String toString() {
-        return (player == Player.WHITE) ? "WhB" : "BlB";
+        return (team == WHITE) ? "WhB" : "BlB";
     }
 }

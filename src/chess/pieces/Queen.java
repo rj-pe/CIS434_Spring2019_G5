@@ -5,10 +5,12 @@ import boardlogic.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+import static boardlogic.Team.WHITE;
+
 public class Queen extends BoardPiece {
 
-    public Queen(BoardSpace currentSpace, Player player) {
-        super(currentSpace, player);
+    public Queen(BoardSpace currentSpace, Team team) {
+        super(currentSpace, team);
         type = PieceType.QUEEN;
     }
 
@@ -70,6 +72,6 @@ public class Queen extends BoardPiece {
 
     @Override
     public String toString() {
-        return (player == Player.WHITE) ? "WhQ" : "BlQ";
+        return (team == WHITE) ? "WhQ" : "BlQ";
     }
 }
