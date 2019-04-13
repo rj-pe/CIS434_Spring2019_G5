@@ -1,7 +1,12 @@
 package boardlogic;
 
+import chess.pieces.King;
+
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Set;
+
+import static boardlogic.PieceType.KING;
 
 
 public class Player {
@@ -9,7 +14,7 @@ public class Player {
     /**
      * Each player keeps track of which spaces are accessible by the enemy.
      */
-    private ArrayList<Point> threatenedSpaces;
+    private Set<Point> threatenedSpaces;
     /**
      * Each player is assigned to a team, either WHITE or BLACK.
      * The player commands any board piece which is part of her team.
@@ -65,11 +70,12 @@ public class Player {
     }
 
     /**
-     * Adds the provided BoardSpace object to a list spaces at which the player is threatened.
-     * @param threatenedSpace The space to add to the list.
+     * Adds the provided BoardSpace objects to a list spaces at which the player is threatened.
+     * threatenedSpaces is a set and will not contain duplicates.
+     * @param threatenedSpaces The space to add to the list.
      */
-    public void addToThreatenedSpaces(BoardSpace threatenedSpace){
-        threatenedSpaces.add(threatenedSpace.getPosition());
+    public void addToThreatenedSpaces(ArrayList<Point> threatenedSpaces){
+        this.threatenedSpaces.addAll(threatenedSpaces);
     }
 
     /**
@@ -79,6 +85,16 @@ public class Player {
      */
     public boolean isThreatenedSpace(BoardSpace candidate){
         return threatenedSpaces.contains(candidate.getPosition());
+    }
+
+    public BoardPiece getKing(){
+        BoardPiece king = null;
+        for (BoardPiece piece : this.teamMembers) {
+            if( piece.type == KING){
+                king = piece;
+            }
+        }
+        return king;
     }
 
     @Override
