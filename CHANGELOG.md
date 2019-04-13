@@ -4,7 +4,7 @@ All notable changes to this project should be recorded here.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
-## [0.0.2]
+## [0.0.2](https://github.com/rj-pe/CIS434_Spring2019_G5/commit/c5a18478d748aa39737d735b00cbcaa0bc16c3a6) - 2019-04-13
 ### Added
 * 'src/boardlogic/Team.java' This is an enum which keeps track of whether a piece is WHITE or BLACK. This functionality
 was formerly implemented in the `Player.Java' file. References to the former enum have been updated to reference the Team
