@@ -29,7 +29,7 @@ public abstract class BoardPiece{
         return team;
     }
 
-    public ArrayList<Point> getMoves(){return moves; }
+    public ArrayList<Point> getMovesList(){return moves; }
 
     /**
      * Builds an array of the potential moves available to the calling piece based on its current position.
@@ -37,6 +37,7 @@ public abstract class BoardPiece{
      * @return returns false if no potential moves exist for the selected piece.
      */
     public abstract boolean getPotentialMoves(Board board);
+    public boolean getPotentialMoves(Board board, Player player){return false;}
 
     /**
      * Checks whether a potential move is valid by cross-referencing with the moves ArrayList.

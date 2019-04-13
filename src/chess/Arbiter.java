@@ -6,7 +6,6 @@ import boardlogic.BoardSpace;
 import boardlogic.Player;
 
 import java.awt.*;
-import java.util.ArrayList;
 
 import static boardlogic.Team.*;
 
@@ -63,8 +62,8 @@ public class Arbiter {
             enemyKing = blackKing;
         }
 
-        for (Point move : selectedPiece.getMoves()) {
-            kingInCheck = enemyKing.getMoves().contains(move);
+        for (Point move : selectedPiece.getMovesList()) {
+            kingInCheck = enemyKing.getMovesList().contains(move);
         }
         return kingInCheck;
         }
@@ -83,7 +82,8 @@ public class Arbiter {
         } else{
             king = blackKing;
         }
-        return  defensePossible && king.getMoves().isEmpty();
+
+        return  defensePossible && king.getMovesList().isEmpty();
     }
 
     /**
@@ -92,11 +92,11 @@ public class Arbiter {
      * <ul>
      *     <li>Capturing an enemy that holds the king in check.</li>
      *     <li>Blocking an open threatened lane to give the king space to move.</li>
-     *     <li>TODO: Other possibilities?</li>
      * <ul/>
      * @return True if some defensive move is possible, false if no options were found.
      */
     public boolean defensiveMovePossible(){
+
         return true;
     }
 
@@ -118,6 +118,6 @@ public class Arbiter {
             king = blackKing;
         }
         // remove the given space from the king's list of potential moves
-        king.getMoves().remove(space.getPosition());
+        king.getMovesList().remove(space.getPosition());
     }
 }

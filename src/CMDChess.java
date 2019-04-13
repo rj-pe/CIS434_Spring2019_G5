@@ -74,10 +74,21 @@ public class CMDChess {
                           Each piece class will override the calculatePotentialMoves() method with its movement pattern.
                           If no moves are possible, user must select a different piece.
                         */
-                        if( chess.board[y1][x1].getOccupyingPiece().getPotentialMoves(chess)){
-                            // add currentPlayer's potentialMoves to the inactivePlayer's threatenedSpaces list
+                        BoardPiece selectedPiece = chess.board[y1][x1].getOccupyingPiece();
+                        boolean movesAvailable = false;
 
-                            // potential moves list is not empty proceed with turn.
+                        // is the selected piece a king
+                        if( selectedPiece == black.getKing() || selectedPiece == white.getKing()){
+                            // if a king, then the potential moves cannot include threatened spaces.
+                            movesAvailable = selectedPiece.getPotentialMoves(chess, currentPlayer);
+                        } else{
+                            movesAvailable = selectedPiece.getPotentialMoves(chess);
+                        }
+
+                        // the selected piece has a move available.
+                        if( movesAvailable){
+                            // add currentPlayer's potentialMoves to the inactivePlayer's threatenedSpaces list
+                            inactivePlayer.addToThreatenedSpaces(selectedPiece.getMovesList());
                             break;
                         }
                         // the selected player has no open moves
@@ -107,6 +118,9 @@ public class CMDChess {
 
             //TODO check for capture
             chess.board[y1][x1].transferPiece(chess.board[y2][x2]);
+
+            // The enemy king must update his list of potential moves based on the move that just occurred.
+            inactivePlayer.getKing().getPotentialMoves(chess, inactivePlayer);
 
             // arbiter object checks if the move puts the enemy king in check
             if( arbiter.movePutsKingInCheck(chess.board[y2][x2].getOccupyingPiece()) ){
