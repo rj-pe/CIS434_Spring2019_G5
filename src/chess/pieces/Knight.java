@@ -15,7 +15,8 @@ public class Knight extends BoardPiece {
     }
 
     @Override
-    public boolean getPotentialMoves(Board chess) {
+    public boolean getPotentialMoves(Board board) {return false;}
+    public boolean getPotentialMoves(Board chess, Player player) {
 
         // clean up anything previously stored in the potential moves ArrayList
         moves.clear();
@@ -36,27 +37,51 @@ public class Knight extends BoardPiece {
         // then store space as a Point object in the moves ArrayList.
         if (x_p < 8 && y_k < 8 && !checkForFriend(chess.board[y_k][x_p]) ){
             moves.add(new Point(x_p, y_k));
+            if (checkForEnemy(chess.board[y_k][x_p])){
+                this.player.capture(getCurrentSpace().getOccupyingPiece());
+            }
         }
         if (x_m >= 0 && y_k < 8 && !checkForFriend(chess.board[y_k][x_m])){
             moves.add(new Point(x_m, y_k));
+            if (checkForEnemy(chess.board[y_k][x_m])){
+                this.player.capture(getCurrentSpace().getOccupyingPiece());
+            }
         }
         if (x_p < 8 && y_t >= 0 && !checkForFriend(chess.board[y_t][x_p])){
             moves.add(new Point(x_p,y_t));
+            if (checkForEnemy(chess.board[y_t][x_p])){
+                this.player.capture(getCurrentSpace().getOccupyingPiece());
+            }
         }
         if (x_m >= 0 && y_t >= 0 && !checkForFriend(chess.board[y_t][x_m])){
             moves.add(new Point(x_m, y_t));
+            if (checkForEnemy(chess.board[y_t][x_m])){
+                this.player.capture(getCurrentSpace().getOccupyingPiece());
+            }
         }
         if (y_p < 8 && x_k < 8 && !checkForFriend(chess.board[y_p][x_k])){
             moves.add(new Point(x_m, y_p));
+            if (checkForEnemy(chess.board[y_p][x_m])){
+                this.player.capture(getCurrentSpace().getOccupyingPiece());
+            }
         }
         if (y_p < 8 && x_t >= 0 && !checkForFriend(chess.board[y_p][x_t])){
             moves.add(new Point(x_t, y_p));
+            if (checkForEnemy(chess.board[y_p][x_t])){
+                this.player.capture(getCurrentSpace().getOccupyingPiece());
+            }
         }
         if (y_m >= 0 && x_k < 8 && !checkForFriend(chess.board[y_m][x_k])){
             moves.add(new Point(x_k, y_m));
+            if (checkForEnemy(chess.board[y_m][x_k])){
+                this.player.capture(getCurrentSpace().getOccupyingPiece());
+            }
         }
         if (y_m >= 0 && x_t >= 0 && !checkForFriend(chess.board[y_m][x_t])){
             moves.add(new Point(x_t, y_m));
+            if (checkForEnemy(chess.board[y_m][x_t])){
+                this.player.capture(getCurrentSpace().getOccupyingPiece());
+            }
         }
         return !moves.isEmpty();
     }

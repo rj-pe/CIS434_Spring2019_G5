@@ -15,17 +15,22 @@ public class Bishop extends BoardPiece {
     }
 
     @Override
-    public boolean getPotentialMoves(Board chess) {
+
+    public boolean getPotentialMoves(Board board) {return false;}
+    public boolean getPotentialMoves(Board chess, Player player) {
         moves.clear();
 
         int x_pos = this.getCurrentSpace().getPosition().x;
-        int y_pos =  this.getCurrentSpace().getPosition().y;
+        int y_pos = this.getCurrentSpace().getPosition().y;
 
         // For moves in Quadrant 3.
         for(int i = x_pos, j = y_pos; i >= 0 && j >=0; i--, j--){
 
             if (!checkForFriend(chess.board[j][i])){
                 moves.add(new Point(i, j));
+                if (checkForEnemy(chess.board[j][i])){
+                    this.player.capture(getCurrentSpace().getOccupyingPiece());
+                }
             }
         }
         // For moves in Quadrant 2.
@@ -33,6 +38,9 @@ public class Bishop extends BoardPiece {
 
             if (!checkForFriend(chess.board[j][i])){
                 moves.add(new Point(i, j));
+                if (checkForEnemy(chess.board[j][i])){
+                    this.player.capture(getCurrentSpace().getOccupyingPiece());
+                }
             }
         }
         // For Moves in Quadrant 4.
@@ -40,6 +48,9 @@ public class Bishop extends BoardPiece {
 
             if (!checkForFriend(chess.board[j][i])){
                 moves.add(new Point(i, j));
+                if (checkForEnemy(chess.board[j][i])){
+                    this.player.capture(getCurrentSpace().getOccupyingPiece());
+                }
             }
         }
         // For moves in Quadrant 1.
@@ -47,6 +58,9 @@ public class Bishop extends BoardPiece {
 
             if (!checkForFriend(chess.board[j][i])){
                 moves.add(new Point(i, j));
+                if (checkForEnemy(chess.board[j][i])){
+                    this.player.capture(getCurrentSpace().getOccupyingPiece());
+                }
             }
         }
         return !moves.isEmpty();

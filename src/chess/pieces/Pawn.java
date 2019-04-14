@@ -17,7 +17,8 @@ public class Pawn extends BoardPiece {
 
     //generate potential moves
     @Override
-    public boolean getPotentialMoves(Board chess) {
+    public boolean getPotentialMoves(Board board) {return false;}
+    public boolean getPotentialMoves(Board chess, Player player) {
         moves.clear();
 
         int x_pos = this.getCurrentSpace().getPosition().x;
@@ -45,26 +46,34 @@ public class Pawn extends BoardPiece {
         if(team == WHITE) {
             //  capturing in Quadrant 3
             for(int i = x_pos, j = y_pos; i >= 0 && j < 8; i--, j++) {
-                if (checkForEnemy(chess.board[j][i]) && !checkForFriend(chess.board[j][i])) //captures enemy piece and checks for friend piece diagonally before capturing
+                if (checkForEnemy(chess.board[j][i]) && !checkForFriend(chess.board[j][i])){ //captures enemy piece and checks for friend piece diagonally before capturing
                    moves.add(new Point(i, j));
+                   this.player.capture(getCurrentSpace().getOccupyingPiece());
+                }
             }
             // capturing in Quadrant 4
             for(int i = x_pos, j = y_pos; i < 8 && j < 8; i++, j++) { 
-                if (checkForEnemy(chess.board[j][i]) && !checkForFriend(chess.board[j][i]))
+                if (checkForEnemy(chess.board[j][i]) && !checkForFriend(chess.board[j][i])) {
                     moves.add(new Point(i, j));
+                    this.player.capture(getCurrentSpace().getOccupyingPiece());
+                }
             }
         }
         // capturing for Bl pieces (Q1 and Q2)
         else {
             //capturing in Quadrant 2
             for (int i = x_pos, j = y_pos; i >= 0 && j >= 0; i--, j--) {
-                if (checkForEnemy(chess.board[j][i]) && !checkForFriend(chess.board[j][i]))
+                if (checkForEnemy(chess.board[j][i]) && !checkForFriend(chess.board[j][i])) {
                     moves.add(new Point(i, j));
+                    this.player.capture(getCurrentSpace().getOccupyingPiece());
+                }
             }
             //capturing in Quadrant 1
             for(int i = x_pos, j = y_pos; i < 8 && j >=0; i++, j--) {
-                if (checkForEnemy(chess.board[j][i]) && !checkForFriend(chess.board[j][i]))
+                if (checkForEnemy(chess.board[j][i]) && !checkForFriend(chess.board[j][i])) {
                     moves.add(new Point(i, j));
+                    this.player.capture(getCurrentSpace().getOccupyingPiece());
+                }
             }
         }
       

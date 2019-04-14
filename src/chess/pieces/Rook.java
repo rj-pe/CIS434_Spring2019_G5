@@ -17,7 +17,8 @@ public class Rook extends BoardPiece {
     // TODO write the castling method
     
     @Override
-    public boolean getPotentialMoves(Board chess) {
+    public boolean getPotentialMoves(Board board) {return false;}
+    public boolean getPotentialMoves(Board chess, Player player) {
         moves.clear();
         // TODO add checkForEnemy() function to limit the number of spaces that piece can move.
 
@@ -28,6 +29,9 @@ public class Rook extends BoardPiece {
         for(int i = x_pos; i >= 0; i--){
             if (!checkForFriend(chess.board[y_pos][i])){
                 moves.add(new Point(i, y_pos));
+                if (checkForEnemy(chess.board[y_pos][i])){
+                    this.player.capture(getCurrentSpace().getOccupyingPiece());
+                }
             }
         }
 
@@ -35,6 +39,9 @@ public class Rook extends BoardPiece {
         for(int i = x_pos; i < 8; i++){
             if (!checkForFriend(chess.board[y_pos][i])){
                 moves.add(new Point(i, y_pos));
+                if (checkForEnemy(chess.board[y_pos][i])){
+                    this.player.capture(getCurrentSpace().getOccupyingPiece());
+                }
             }
         }
 
@@ -42,6 +49,9 @@ public class Rook extends BoardPiece {
         for (int i = y_pos; i < 8; i++){
             if (!checkForFriend(chess.board[i][x_pos])){
                 moves.add(new Point(x_pos, i));
+                if (checkForEnemy(chess.board[i][x_pos])){
+                    this.player.capture(getCurrentSpace().getOccupyingPiece());
+                }
             }
         }
 
@@ -49,6 +59,9 @@ public class Rook extends BoardPiece {
         for(int i = y_pos; i >= 0; i-- ){
             if (!checkForFriend(chess.board[i][x_pos])){
                 moves.add(new Point(x_pos, i));
+                if (checkForEnemy(chess.board[i][x_pos])){
+                    this.player.capture(getCurrentSpace().getOccupyingPiece());
+                }
             }
         }
         return !moves.isEmpty();
