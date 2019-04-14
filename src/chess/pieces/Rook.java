@@ -28,40 +28,40 @@ public class Rook extends BoardPiece {
         // loop through spaces to the left of the piece
         for(int i = x_pos; i >= 0; i--){
             if (!checkForFriend(chess.board[y_pos][i])){
-                moves.add(new Point(i, y_pos));
                 if (checkForEnemy(chess.board[y_pos][i])){
-                    this.player.capture(getCurrentSpace().getOccupyingPiece());
+                    player.capture(getCurrentSpace().getOccupyingPiece());
                 }
+                moves.add(new Point(i, y_pos));
             }
         }
 
         // loop through spaces to the right of the piece
         for(int i = x_pos; i < 8; i++){
             if (!checkForFriend(chess.board[y_pos][i])){
-                moves.add(new Point(i, y_pos));
                 if (checkForEnemy(chess.board[y_pos][i])){
-                    this.player.capture(getCurrentSpace().getOccupyingPiece());
+                    player.capture(getCurrentSpace().getOccupyingPiece());
                 }
+                moves.add(new Point(i, y_pos));
             }
         }
 
         // loop through spaces in front of the piece
         for (int i = y_pos; i < 8; i++){
             if (!checkForFriend(chess.board[i][x_pos])){
-                moves.add(new Point(x_pos, i));
                 if (checkForEnemy(chess.board[i][x_pos])){
-                    this.player.capture(getCurrentSpace().getOccupyingPiece());
+                    player.capture(getCurrentSpace().getOccupyingPiece());
                 }
+                moves.add(new Point(x_pos, i));
             }
         }
 
         // loop through spaces behind piece
         for(int i = y_pos; i >= 0; i-- ){
             if (!checkForFriend(chess.board[i][x_pos])){
-                moves.add(new Point(x_pos, i));
                 if (checkForEnemy(chess.board[i][x_pos])){
-                    this.player.capture(getCurrentSpace().getOccupyingPiece());
+                    player.capture(getCurrentSpace().getOccupyingPiece());
                 }
+                moves.add(new Point(x_pos, i));
             }
         }
         return !moves.isEmpty();
