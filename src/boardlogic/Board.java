@@ -25,6 +25,7 @@ public class Board {
     }
 
     private void setupChess() {
+
         //Initializes board spaces and adding them to Board array
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
