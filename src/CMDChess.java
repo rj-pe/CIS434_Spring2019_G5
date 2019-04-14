@@ -82,7 +82,7 @@ public class CMDChess {
                             // if a king, then the potential moves cannot include threatened spaces.
                             movesAvailable = selectedPiece.getPotentialMoves(chess, currentPlayer);
                         } else{
-                            movesAvailable = selectedPiece.getPotentialMoves(chess);
+                            movesAvailable = selectedPiece.getPotentialMoves(chess, currentPlayer);
                         }
 
                         // the selected piece has a move available.
