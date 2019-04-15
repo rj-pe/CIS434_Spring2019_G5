@@ -4,6 +4,7 @@ import chess.pieces.King;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Set;
 
 import static boardlogic.PieceType.KING;
@@ -37,6 +38,7 @@ public class Player {
     public Player(Team team, Board board){
         this.team = team;
         this.teamMembers = new ArrayList<>();
+        this.threatenedSpaces = new HashSet<>();
         buildTeamList(board);
         this.graveyard = new Graveyard(team);
     }
