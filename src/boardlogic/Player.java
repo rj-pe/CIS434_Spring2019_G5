@@ -26,7 +26,7 @@ public class Player {
      * Each piece is assigned to a team when created by the board class.
      */
     private ArrayList<BoardPiece> teamMembers;
-    protected Graveyard graveyard;
+    public Graveyard graveyard;
 
     // constructor
     /**

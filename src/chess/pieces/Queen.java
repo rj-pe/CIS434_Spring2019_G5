@@ -28,7 +28,7 @@ public class Queen extends BoardPiece {
         for (int i = x_pos; i >= 0; i--) {
             if (!checkForFriend(chess.board[y_pos][i]))
                 if (checkForEnemy(chess.board[y_pos][i])){
-                    player.capture(getCurrentSpace().getOccupyingPiece());
+                    player.capture(chess.board[y_pos][i].getOccupyingPiece());
                 }
                 moves.add(new Point(i, y_pos));
         }
@@ -36,7 +36,7 @@ public class Queen extends BoardPiece {
         for (int i = x_pos; i < 8; i++) {
             if (!checkForFriend(chess.board[y_pos][i]))
                 if (checkForEnemy(chess.board[y_pos][i])){
-                    player.capture(getCurrentSpace().getOccupyingPiece());
+                    player.capture(chess.board[y_pos][i].getOccupyingPiece());
                 }
                 moves.add(new Point(i, y_pos));
         }
@@ -44,7 +44,7 @@ public class Queen extends BoardPiece {
         for (int i = y_pos; i < 8; i++) {
             if (!checkForFriend(chess.board[i][x_pos]))
                 if (checkForEnemy(chess.board[i][x_pos])){
-                    player.capture(getCurrentSpace().getOccupyingPiece());
+                    player.capture(chess.board[i][x_pos].getOccupyingPiece());
                 }
                 moves.add(new Point(x_pos, i));
         }
@@ -52,7 +52,7 @@ public class Queen extends BoardPiece {
         for (int i = y_pos; i >= 0; i--) {
             if (!checkForFriend(chess.board[i][x_pos]))
                 if (checkForEnemy(chess.board[i][x_pos])){
-                    player.capture(getCurrentSpace().getOccupyingPiece());
+                    player.capture(chess.board[i][x_pos].getOccupyingPiece());
                 }
                 moves.add(new Point(x_pos, i));
         }
@@ -61,7 +61,7 @@ public class Queen extends BoardPiece {
         for(int i = x_pos, j = y_pos; i >= 0 && j >=0; i--, j--){
             if (!checkForFriend(chess.board[j][i]))
                 if (checkForEnemy(chess.board[j][i])){
-                    player.capture(getCurrentSpace().getOccupyingPiece());
+                    player.capture(chess.board[j][i].getOccupyingPiece());
                 }
                 moves.add(new Point(i, j));
         }
@@ -69,7 +69,7 @@ public class Queen extends BoardPiece {
         for(int i = x_pos, j = y_pos; i < 8 && j >=0; i++, j--) {
             if (!checkForFriend(chess.board[j][i]))
                 if (checkForEnemy(chess.board[j][i])) {
-                    player.capture(getCurrentSpace().getOccupyingPiece());
+                    player.capture(chess.board[j][i].getOccupyingPiece());
                 }
                 moves.add(new Point(i, j));
         }
@@ -77,7 +77,7 @@ public class Queen extends BoardPiece {
         for(int i = x_pos, j = y_pos; i >= 0 && j < 8; i--, j++){
             if (!checkForFriend(chess.board[j][i]))
                 if (checkForEnemy(chess.board[j][i])){
-                    player.capture(getCurrentSpace().getOccupyingPiece());
+                    player.capture(chess.board[j][i].getOccupyingPiece());
                 }
                 moves.add(new Point(i, j));
         }
@@ -85,7 +85,7 @@ public class Queen extends BoardPiece {
         for(int i = x_pos, j = y_pos; i < 8 && j < 8; i++, j++){
             if (!checkForFriend(chess.board[j][i]))
                 if (checkForEnemy(chess.board[j][i])){
-                    player.capture(getCurrentSpace().getOccupyingPiece());
+                    player.capture(chess.board[j][i].getOccupyingPiece());
                 }
                 moves.add(new Point(i, j));
         }

@@ -34,4 +34,10 @@ public class Graveyard {
     public ArrayList<BoardPiece> getGraveyard(){
         return captured;
     }
+    //TODO Display captured pieces.
+
+    @Override
+    public String toString(){
+        return captured.toString();
+    }
 }

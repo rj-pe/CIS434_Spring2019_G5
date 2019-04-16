@@ -37,49 +37,49 @@ public class Knight extends BoardPiece {
         // then store space as a Point object in the moves ArrayList.
         if (x_p < 8 && y_k < 8 && !checkForFriend(chess.board[y_k][x_p]) ){
             if (checkForEnemy(chess.board[y_k][x_p])){
-                player.capture(getCurrentSpace().getOccupyingPiece());
+                player.capture(chess.board[y_k][x_p].getOccupyingPiece());
             }
             moves.add(new Point(x_p, y_k));
         }
         if (x_m >= 0 && y_k < 8 && !checkForFriend(chess.board[y_k][x_m])){
             if (checkForEnemy(chess.board[y_k][x_m])){
-                player.capture(getCurrentSpace().getOccupyingPiece());
+                player.capture(chess.board[y_k][x_m].getOccupyingPiece());
             }
             moves.add(new Point(x_m, y_k));
         }
         if (x_p < 8 && y_t >= 0 && !checkForFriend(chess.board[y_t][x_p])){
             if (checkForEnemy(chess.board[y_t][x_p])){
-                player.capture(getCurrentSpace().getOccupyingPiece());
+                player.capture(chess.board[y_t][x_p].getOccupyingPiece());
             }
             moves.add(new Point(x_p,y_t));
         }
         if (x_m >= 0 && y_t >= 0 && !checkForFriend(chess.board[y_t][x_m])){
             if (checkForEnemy(chess.board[y_t][x_m])){
-                player.capture(getCurrentSpace().getOccupyingPiece());
+                player.capture(chess.board[y_t][x_m].getOccupyingPiece());
             }
             moves.add(new Point(x_m, y_t));
         }
         if (y_p < 8 && x_k < 8 && !checkForFriend(chess.board[y_p][x_k])){
             if (checkForEnemy(chess.board[y_p][x_m])){
-                player.capture(getCurrentSpace().getOccupyingPiece());
+                player.capture(chess.board[y_p][x_m].getOccupyingPiece());
             }
             moves.add(new Point(x_m, y_p));
         }
         if (y_p < 8 && x_t >= 0 && !checkForFriend(chess.board[y_p][x_t])){
             if (checkForEnemy(chess.board[y_p][x_t])){
-                player.capture(getCurrentSpace().getOccupyingPiece());
+                player.capture(chess.board[y_p][x_t].getOccupyingPiece());
             }
             moves.add(new Point(x_t, y_p));
         }
         if (y_m >= 0 && x_k < 8 && !checkForFriend(chess.board[y_m][x_k])){
             if (checkForEnemy(chess.board[y_m][x_k])){
-                player.capture(getCurrentSpace().getOccupyingPiece());
+                player.capture(chess.board[y_m][x_k].getOccupyingPiece());
             }
             moves.add(new Point(x_k, y_m));
         }
         if (y_m >= 0 && x_t >= 0 && !checkForFriend(chess.board[y_m][x_t])){
             if (checkForEnemy(chess.board[y_m][x_t])){
-                player.capture(getCurrentSpace().getOccupyingPiece());
+                player.capture(chess.board[y_m][x_t].getOccupyingPiece());
             }
             moves.add(new Point(x_t, y_m));
         }

@@ -1,7 +1,6 @@
 package chess.pieces;
 
 import boardlogic.*;
-
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -28,7 +27,7 @@ public class Bishop extends BoardPiece {
 
             if (!checkForFriend(chess.board[j][i])){
                 if (checkForEnemy(chess.board[j][i])){
-                    player.capture(getCurrentSpace().getOccupyingPiece());
+                    player.capture(chess.board[j][i].getOccupyingPiece());
                 }
                 moves.add(new Point(i, j));
             }
@@ -38,7 +37,7 @@ public class Bishop extends BoardPiece {
 
             if (!checkForFriend(chess.board[j][i])){
                 if (checkForEnemy(chess.board[j][i])){
-                    player.capture(getCurrentSpace().getOccupyingPiece());
+                    player.capture(chess.board[j][i].getOccupyingPiece());
                 }
                 moves.add(new Point(i, j));
             }
@@ -48,7 +47,7 @@ public class Bishop extends BoardPiece {
 
             if (!checkForFriend(chess.board[j][i])){
                 if (checkForEnemy(chess.board[j][i])){
-                    player.capture(getCurrentSpace().getOccupyingPiece());
+                    player.capture(chess.board[j][i].getOccupyingPiece());
                 }
                 moves.add(new Point(i, j));
             }
@@ -58,7 +57,7 @@ public class Bishop extends BoardPiece {
 
             if (!checkForFriend(chess.board[j][i])){
                 if (checkForEnemy(chess.board[j][i])){
-                    player.capture(getCurrentSpace().getOccupyingPiece());
+                    player.capture(chess.board[j][i].getOccupyingPiece());
                 }
                 moves.add(new Point(i, j));
             }

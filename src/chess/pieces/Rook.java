@@ -29,7 +29,7 @@ public class Rook extends BoardPiece {
         for(int i = x_pos; i >= 0; i--){
             if (!checkForFriend(chess.board[y_pos][i])){
                 if (checkForEnemy(chess.board[y_pos][i])){
-                    player.capture(getCurrentSpace().getOccupyingPiece());
+                    player.capture(chess.board[y_pos][i].getOccupyingPiece());
                 }
                 moves.add(new Point(i, y_pos));
             }
@@ -39,7 +39,7 @@ public class Rook extends BoardPiece {
         for(int i = x_pos; i < 8; i++){
             if (!checkForFriend(chess.board[y_pos][i])){
                 if (checkForEnemy(chess.board[y_pos][i])){
-                    player.capture(getCurrentSpace().getOccupyingPiece());
+                    player.capture(chess.board[y_pos][i].getOccupyingPiece());
                 }
                 moves.add(new Point(i, y_pos));
             }
@@ -49,7 +49,7 @@ public class Rook extends BoardPiece {
         for (int i = y_pos; i < 8; i++){
             if (!checkForFriend(chess.board[i][x_pos])){
                 if (checkForEnemy(chess.board[i][x_pos])){
-                    player.capture(getCurrentSpace().getOccupyingPiece());
+                    player.capture(chess.board[i][x_pos].getOccupyingPiece());
                 }
                 moves.add(new Point(x_pos, i));
             }
@@ -59,7 +59,7 @@ public class Rook extends BoardPiece {
         for(int i = y_pos; i >= 0; i-- ){
             if (!checkForFriend(chess.board[i][x_pos])){
                 if (checkForEnemy(chess.board[i][x_pos])){
-                    player.capture(getCurrentSpace().getOccupyingPiece());
+                    player.capture(chess.board[i][x_pos].getOccupyingPiece());
                 }
                 moves.add(new Point(x_pos, i));
             }
