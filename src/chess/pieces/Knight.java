@@ -60,7 +60,7 @@ public class Knight extends BoardPiece {
             }
             moves.add(new Point(x_m, y_t));
         }
-        if (y_p < 8 && x_k >= 0 && !checkForFriend(chess.board[y_p][x_k])){
+        if (y_p < 8 && x_k <8 && !checkForFriend(chess.board[y_p][x_k])){
             if (checkForEnemy(chess.board[y_p][x_k])){
                 player.capture(chess.board[y_p][x_k].getOccupyingPiece());
             }
