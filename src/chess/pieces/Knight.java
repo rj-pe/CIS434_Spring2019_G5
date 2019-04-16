@@ -35,7 +35,8 @@ public class Knight extends BoardPiece {
 
         // if friendly piece does not occupy space and if space exists
         // then store space as a Point object in the moves ArrayList.
-        if (x_p < 8 && y_k < 8 && !checkForFriend(chess.board[y_k][x_p]) ){
+
+        if (x_p < 8 && y_k < 8 && !checkForFriend(chess.board[y_k][x_p])){
             if (checkForEnemy(chess.board[y_k][x_p])){
                 player.capture(chess.board[y_k][x_p].getOccupyingPiece());
             }
@@ -51,7 +52,7 @@ public class Knight extends BoardPiece {
             if (checkForEnemy(chess.board[y_t][x_p])){
                 player.capture(chess.board[y_t][x_p].getOccupyingPiece());
             }
-            moves.add(new Point(x_p,y_t));
+            moves.add(new Point(x_p, y_t));
         }
         if (x_m >= 0 && y_t >= 0 && !checkForFriend(chess.board[y_t][x_m])){
             if (checkForEnemy(chess.board[y_t][x_m])){
@@ -59,11 +60,11 @@ public class Knight extends BoardPiece {
             }
             moves.add(new Point(x_m, y_t));
         }
-        if (y_p < 8 && x_k < 8 && !checkForFriend(chess.board[y_p][x_k])){
-            if (checkForEnemy(chess.board[y_p][x_m])){
-                player.capture(chess.board[y_p][x_m].getOccupyingPiece());
+        if (y_p < 8 && x_k >= 0 && !checkForFriend(chess.board[y_p][x_k])){
+            if (checkForEnemy(chess.board[y_p][x_k])){
+                player.capture(chess.board[y_p][x_k].getOccupyingPiece());
             }
-            moves.add(new Point(x_m, y_p));
+            moves.add(new Point(x_k, y_p));
         }
         if (y_p < 8 && x_t >= 0 && !checkForFriend(chess.board[y_p][x_t])){
             if (checkForEnemy(chess.board[y_p][x_t])){
