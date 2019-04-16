@@ -82,5 +82,5 @@ public abstract class BoardPiece{
         }
         else return false;
     }
-    
+
 }

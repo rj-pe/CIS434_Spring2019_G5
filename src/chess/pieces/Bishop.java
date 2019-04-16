@@ -1,7 +1,6 @@
 package chess.pieces;
 
 import boardlogic.*;
-
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -15,16 +14,21 @@ public class Bishop extends BoardPiece {
     }
 
     @Override
-    public boolean getPotentialMoves(Board chess) {
+
+    public boolean getPotentialMoves(Board board) {return false;};
+    public boolean getPotentialMoves(Board chess, Player player) {
         moves.clear();
 
         int x_pos = this.getCurrentSpace().getPosition().x;
-        int y_pos =  this.getCurrentSpace().getPosition().y;
+        int y_pos = this.getCurrentSpace().getPosition().y;
 
         // For moves in Quadrant 3.
         for(int i = x_pos, j = y_pos; i >= 0 && j >=0; i--, j--){
 
             if (!checkForFriend(chess.board[j][i])){
+                if (checkForEnemy(chess.board[j][i])){
+                    player.capture(chess.board[j][i].getOccupyingPiece());
+                }
                 moves.add(new Point(i, j));
             }
         }
@@ -32,6 +36,9 @@ public class Bishop extends BoardPiece {
         for(int i = x_pos, j = y_pos; i < 8 && j >=0; i++, j--){
 
             if (!checkForFriend(chess.board[j][i])){
+                if (checkForEnemy(chess.board[j][i])){
+                    player.capture(chess.board[j][i].getOccupyingPiece());
+                }
                 moves.add(new Point(i, j));
             }
         }
@@ -39,6 +46,9 @@ public class Bishop extends BoardPiece {
         for(int i = x_pos, j = y_pos; i >= 0 && j < 8; i--, j++){
 
             if (!checkForFriend(chess.board[j][i])){
+                if (checkForEnemy(chess.board[j][i])){
+                    player.capture(chess.board[j][i].getOccupyingPiece());
+                }
                 moves.add(new Point(i, j));
             }
         }
@@ -46,6 +56,9 @@ public class Bishop extends BoardPiece {
         for(int i = x_pos, j = y_pos; i < 8 && j < 8; i++, j++){
 
             if (!checkForFriend(chess.board[j][i])){
+                if (checkForEnemy(chess.board[j][i])){
+                    player.capture(chess.board[j][i].getOccupyingPiece());
+                }
                 moves.add(new Point(i, j));
             }
         }

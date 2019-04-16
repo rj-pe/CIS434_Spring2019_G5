@@ -26,6 +26,7 @@ public class Player {
      * Each piece is assigned to a team when created by the board class.
      */
     private ArrayList<BoardPiece> teamMembers;
+    public Graveyard graveyard;
 
     // constructor
     /**
@@ -39,6 +40,7 @@ public class Player {
         this.teamMembers = new ArrayList<>();
         this.threatenedSpaces = new HashSet<>();
         buildTeamList(board);
+        this.graveyard = new Graveyard(team);
     }
 
     // methods
@@ -97,6 +99,14 @@ public class Player {
             }
         }
         return king;
+    }
+
+    /**
+     * Adds a piece to the player's graveyard.
+     * @param piece
+     */
+    public void capture(BoardPiece piece){
+        graveyard.addPiece(piece);
     }
 
     @Override
