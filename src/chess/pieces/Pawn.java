@@ -23,57 +23,45 @@ public class Pawn extends BoardPiece {
 
         int x_pos = this.getCurrentSpace().getPosition().x;
         int y_pos = this.getCurrentSpace().getPosition().y;
+        int x_p = x_pos + 1;    //right
+        int y_p = y_pos + 1;    //down
+        int x_m = x_pos - 1;    //left
+        int y_m = y_pos - 1;    //up
 
         /*  no backward moves allowed
+        *   can move 1-2 spaces at a time
         *   loop through spaces in front of the piece
         */
-            if (team == WHITE) {
-                for (int i = y_pos; i < 8; i++) {
-                    if (!Occupied(chess.board[i][x_pos]) )
-                        moves.add(new Point(x_pos, i)); 
-                }
-              } 
-            //for BlP moves only 
-            else {
-                for (int i = y_pos; i >= 0; i--) {
-                    if (!Occupied(chess.board[i][x_pos]) ) 
-                        moves.add(new Point(x_pos, i));
-                }
-            }
+         if (team == WHITE) {
+            if (y_p < 8 && !Occupied(chess.board[y_p][x_pos])) 
+                moves.add(new Point(x_pos, y_p));
+        }
+        else {     //for BlP moves only
+            if (y_m > 0 && !Occupied(chess.board[y_m][x_pos]))
+                moves.add(new Point(x_pos, y_m));
+        }
         
         /*  moves forward-diagonally to capture pieces  */
-        // capturing for Wh pieces (Q3 and Q4)
-        if(team == WHITE) {
-            //  capturing in Quadrant 3
-            for(int i = x_pos, j = y_pos; i >= 0 && j < 8; i--, j++) {
-                if (checkForEnemy(chess.board[j][i]) && !checkForFriend(chess.board[j][i])){ //captures enemy piece and checks for friend piece diagonally before capturing
-                    player.capture(chess.board[j][i].getOccupyingPiece());
-                    moves.add(new Point(i, j));
-                }
+        // capture function done by Wh pieces (captures pieces in Q3 and Q4)
+        if(team == WHITE) {     
+            if (y_p < 8 && x_m > 0 && checkForEnemy(chess.board[y_p][x_m]) && !checkForFriend(chess.board[y_p][x_m])){
+                player.capture(chess.board[y_p][x_m].getOccupyingPiece());
+                moves.add(new Point(x_m, y_p));
             }
-            // capturing in Quadrant 4
-            for(int i = x_pos, j = y_pos; i < 8 && j < 8; i++, j++) { 
-                if (checkForEnemy(chess.board[j][i]) && !checkForFriend(chess.board[j][i])) {
-                    player.capture(chess.board[j][i].getOccupyingPiece());
-                    moves.add(new Point(i, j));
-                }
+            if (x_p < 8 && y_p < 8 && checkForEnemy(chess.board[y_p][x_p]) && !checkForFriend(chess.board[y_p][x_p])){
+                player.capture(chess.board[y_p][x_p].getOccupyingPiece());
+                moves.add(new Point(x_p,y_p));
             }
         }
-        // capturing for Bl pieces (Q1 and Q2)
+        // capture function done by Bl pieces (captures pieces in Q1 and Q2)
         else {
-            //capturing in Quadrant 2
-            for (int i = x_pos, j = y_pos; i >= 0 && j >= 0; i--, j--) {
-                if (checkForEnemy(chess.board[j][i]) && !checkForFriend(chess.board[j][i])) {
-                    player.capture(chess.board[j][i].getOccupyingPiece());
-                    moves.add(new Point(i, j));
-                }
+            if (x_p < 8 && y_m < 8 && checkForEnemy(chess.board[y_m][x_p]) && !checkForFriend(chess.board[y_m][x_p])){
+                player.capture(chess.board[y_m][x_p].getOccupyingPiece());
+                moves.add(new Point(x_p, y_m));
             }
-            //capturing in Quadrant 1
-            for(int i = x_pos, j = y_pos; i < 8 && j >=0; i++, j--) {
-                if (checkForEnemy(chess.board[j][i]) && !checkForFriend(chess.board[j][i])) {
-                    player.capture(chess.board[j][i].getOccupyingPiece());
-                    moves.add(new Point(i, j));
-                }
+            if ( x_m > 0 && y_m > 0 && checkForEnemy(chess.board[y_m][x_m]) && !checkForFriend(chess.board[y_m][x_m])){
+                player.capture(chess.board[y_m][x_m].getOccupyingPiece());
+                moves.add(new Point(x_m, y_m));
             }
         }
       
@@ -81,7 +69,7 @@ public class Pawn extends BoardPiece {
         return !moves.isEmpty();
     }
     
-    //TODO Promotion to Queen or Knight or Rook or Bishop
+    //TODO Promotion to Queen (or Knight or Rook or Bishop)
 
     
     @Override
