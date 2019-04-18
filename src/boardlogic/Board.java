@@ -36,14 +36,14 @@ public class Board {
         //Adding pieces to board
         for (int i = 0; i < board[0].length; i++) {
             //Placing starting rows
-            BoardSpace whitePlayerSpace = board[0][i];
-            BoardSpace blackPlayerSpace = board[7][i];
+            BoardSpace blackPlayerSpace = board[0][i];
+            BoardSpace whitePlayerSpace = board[7][i];
             whitePlayerSpace.setOccupyingPiece(chessPieceFactory.getChessPiece(CHESS_STARTING_ROW[i], whitePlayerSpace, WHITE));
             blackPlayerSpace.setOccupyingPiece(chessPieceFactory.getChessPiece(CHESS_STARTING_ROW[i], blackPlayerSpace, BLACK));
 
             //Placing Pawns
-            board[1][i].setOccupyingPiece(chessPieceFactory.getChessPiece("PAWN", board[1][i], WHITE));
-            board[6][i].setOccupyingPiece(chessPieceFactory.getChessPiece("PAWN", board[6][i], BLACK));
+            board[1][i].setOccupyingPiece(chessPieceFactory.getChessPiece("PAWN", board[1][i], BLACK));
+            board[6][i].setOccupyingPiece(chessPieceFactory.getChessPiece("PAWN", board[6][i], WHITE));
         }
     }
 

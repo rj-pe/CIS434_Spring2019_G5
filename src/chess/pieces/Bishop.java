@@ -1,21 +1,25 @@
 package chess.pieces;
 
 import boardlogic.*;
+import chess.chessPieceImages.SpriteContainer;
+
 import java.awt.*;
-import java.util.ArrayList;
 
 import static boardlogic.Team.WHITE;
 
 public class Bishop extends BoardPiece {
+    private SpriteContainer sprites;
 
     public Bishop(BoardSpace currentSpace, Team team) {
         super(currentSpace, team);
         type = PieceType.BISHOP;
+        sprites = new SpriteContainer();
+        setImage();
     }
 
     @Override
+    public boolean getPotentialMoves(Board board) {return false;}
 
-    public boolean getPotentialMoves(Board board) {return false;};
     public boolean getPotentialMoves(Board chess, Player player) {
         moves.clear();
 
@@ -63,6 +67,15 @@ public class Bishop extends BoardPiece {
             }
         }
         return !moves.isEmpty();
+    }
+
+    @Override
+    protected void setImage() {
+        if (team == Team.BLACK) {
+            super.image = sprites.getImage(4,0);
+        } else {
+            super.image = sprites.getImage(4,1);
+        }
     }
 
     @Override

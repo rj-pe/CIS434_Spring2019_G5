@@ -1,6 +1,7 @@
 package chess.pieces;
 
 import boardlogic.*;
+import chess.chessPieceImages.SpriteContainer;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -8,11 +9,13 @@ import java.util.ArrayList;
 import static boardlogic.Team.*;
 
 public class Pawn extends BoardPiece {
+    private SpriteContainer sprites;
 
     public Pawn(BoardSpace currentSpace, Team team) {
         super(currentSpace, team);
         type = PieceType.PAWN;
-        //image = PawnImage;
+        sprites = new SpriteContainer();
+        setImage();
     }
 
     //generate potential moves
@@ -80,6 +83,14 @@ public class Pawn extends BoardPiece {
 
     //TODO Promotion to Queen (or Knight or Rook or Bishop)
 
+    @Override
+    protected void setImage() {
+        if (team == Team.BLACK) {
+            super.image = sprites.getImage(5,0);
+        } else {
+            super.image = sprites.getImage(5,1);
+        }
+    }
 
     @Override
     public String toString() {

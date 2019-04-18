@@ -1,14 +1,14 @@
 package boardlogic;
 
-import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import javafx.scene.image.Image;
 
 public abstract class BoardPiece{
     private BoardSpace currentSpace;
     protected PieceType type;
     protected Team team;
-    protected ImageIcon image;
+    protected Image image;
     protected ArrayList<Point> moves;
 
     public BoardPiece(BoardSpace currentSpace, Team team) {
@@ -17,7 +17,7 @@ public abstract class BoardPiece{
         this.moves = new ArrayList<>();
     }
 
-    public void setCurrentSpace(BoardSpace currentSpace) {
+    void setCurrentSpace(BoardSpace currentSpace) {
         this.currentSpace = currentSpace;
     }
 
@@ -37,6 +37,7 @@ public abstract class BoardPiece{
      * @return returns false if no potential moves exist for the selected piece.
      */
     public abstract boolean getPotentialMoves(Board board);
+
     public boolean getPotentialMoves(Board board, Player player){return false;}
 
     /**
@@ -77,10 +78,13 @@ public abstract class BoardPiece{
     *   @return returns true is space is occupied by any piece.
     */
     protected boolean Occupied(BoardSpace space){ 
-        if (space.getOccupyingPiece() != null){ 
-            return true;
-        }
-        else return false;
+        return space.getOccupyingPiece() != null;
+    }
+
+    protected abstract void setImage();
+
+    public Image getImage() {
+        return image;
     }
 
 }

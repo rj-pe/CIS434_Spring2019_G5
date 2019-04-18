@@ -1,6 +1,7 @@
 package chess.pieces;
 
 import boardlogic.*;
+import chess.chessPieceImages.SpriteContainer;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -8,10 +9,13 @@ import java.util.ArrayList;
 import static boardlogic.Team.WHITE;
 
 public class Queen extends BoardPiece {
+    private SpriteContainer sprites;
 
     public Queen(BoardSpace currentSpace, Team team) {
         super(currentSpace, team);
         type = PieceType.QUEEN;
+        sprites = new SpriteContainer();
+        setImage();
     }
 
     /* Queen moves are a combination of Rook and Bishop moves */
@@ -94,6 +98,15 @@ public class Queen extends BoardPiece {
     }
 
     public boolean isValidMove(Point requestedMove) {return true;}
+
+    @Override
+    protected void setImage() {
+        if (team == Team.BLACK) {
+            super.image = sprites.getImage(1,0);
+        } else {
+            super.image = sprites.getImage(1,1);
+        }
+    }
 
     @Override
     public String toString() {

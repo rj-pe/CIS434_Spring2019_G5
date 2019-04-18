@@ -1,6 +1,7 @@
 package chess.pieces;
 
 import boardlogic.*;
+import chess.chessPieceImages.SpriteContainer;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -8,10 +9,13 @@ import java.util.ArrayList;
 import static boardlogic.Team.WHITE;
 
 public class Rook extends BoardPiece {
+    private SpriteContainer sprites;
 
     public Rook(BoardSpace currentSpace, Team team) {
         super(currentSpace, team);
         type = PieceType.ROOK;
+        sprites = new SpriteContainer();
+        setImage();
     }
 
     // TODO write the castling method
@@ -65,6 +69,15 @@ public class Rook extends BoardPiece {
             }
         }
         return !moves.isEmpty();
+    }
+
+    @Override
+    protected void setImage() {
+        if (team == Team.BLACK) {
+            super.image = sprites.getImage(2,0);
+        } else {
+            super.image = sprites.getImage(2,1);
+        }
     }
 
     @Override

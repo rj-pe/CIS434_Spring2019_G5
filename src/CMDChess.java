@@ -1,4 +1,3 @@
-//import chessgui.*;
 import boardlogic.*;
 import chess.Arbiter;
 
