@@ -136,24 +136,24 @@ public class Pawn extends BoardPiece {
             if(y_pos == 1){ //can move upto 2 spaces forward if it's piece's first move
                 if (!Occupied(chess.board[yw][x_pos])) {
                     moves.add(new Point(x_pos, yw));
-                    this.hasMoved = true;
+                    this.hasMoved++;
                 }
             }
             if (y_p < 8 && !Occupied(chess.board[y_p][x_pos])){
                 moves.add(new Point(x_pos, y_p));
-                this.hasMoved = true;
+                this.hasMoved++;
             }
         }
         else {     //for BlP moves only
             if(y_pos == 6) { //can move upto 2 spaces forward if it's piece's first move
                 if (!Occupied(chess.board[yb][x_pos])) {
                     moves.add(new Point(x_pos, yb));
-                    this.hasMoved = true;
+                    this.hasMoved++;
                 }
             }
             if (y_m > 0 && !Occupied(chess.board[y_m][x_pos])){
                 moves.add(new Point(x_pos, y_m));
-                this.hasMoved = true;
+                this.hasMoved++;
             }
         }
 
@@ -166,24 +166,24 @@ public class Pawn extends BoardPiece {
                 if (!checkForEnemy(chess.board[y_m][3])) {//! //first move is 2 spaces up + check L
                     player.capture(chess.board[y_m][3].getOccupyingPiece());
                     moves.add(new Point(x_m, y_p));
-                    this.hasMoved = true;
+                    this.hasMoved++;
                 }
                 if (!checkForEnemy(chess.board[y_p][3])){ //first move is 2 spaces up + check R
                     player.capture(chess.board[y_p][3].getOccupyingPiece());
                     moves.add(new Point(x_p, y_p));
-                    this.hasMoved = true;
+                    this.hasMoved++;
                 }
             }
 
-            else if (y_p < 8 && x_m > 0 && checkForEnemy(chess.board[y_p][x_m]) && !checkForFriend(chess.board[y_p][x_m])){
+            else if (y_p < 8 && x_m > 0 && checkForEnemy(chess.board[y_p][x_m]) && chess.board[y_p][x_m].getOccupyingPiece() != null){
                 player.capture(chess.board[y_p][x_m].getOccupyingPiece());
                 moves.add(new Point(x_m, y_p));
-                this.hasMoved = true;
+                this.hasMoved++;
             }
-            else if (x_p < 8 && y_p < 8 && checkForEnemy(chess.board[y_p][x_p]) && !checkForFriend(chess.board[y_p][x_p])){
+            else if (x_p < 8 && y_p < 8 && checkForEnemy(chess.board[y_p][x_p]) && chess.board[y_p][x_p].getOccupyingPiece() != null){
                 player.capture(chess.board[y_p][x_p].getOccupyingPiece());
                 moves.add(new Point(x_p,y_p));
-                this.hasMoved = true;
+                this.hasMoved++;
             }
         }
         // capture function done by Bl pieces (captures pieces in Q1 and Q2)
@@ -191,18 +191,18 @@ public class Pawn extends BoardPiece {
             //en passant before or after capture
             if (y_pos == 4){    // && !Occupied(chess.board[yb][x_pos])) { //4 or yb
                 //moves.add(new Point(x_pos, yb)); //keep or delete
-                if (!checkForEnemy(chess.board[y_m][4])) {//! //first move is 2 spaces up + check L
-                    if (chess.board[4][x_m].getOccupyingPiece().hasMoved) {
+                if (!checkForEnemy(chess.board[4][x_m])) {//! //first move is 2 spaces up + check L
+                    if (chess.board[4][x_m].getOccupyingPiece().hasMoved == 1) {
                         player.capture(chess.board[y_m][4].getOccupyingPiece());
                         moves.add(new Point(x_p, y_m));
-                        this.hasMoved = true;
+                        this.hasMoved++;
                     }
                 }
                 if (!checkForEnemy(chess.board[y_p][4])){ //first move is 2 spaces up + check R
-                    if (chess.board[4][x_p].getOccupyingPiece().hasMoved) {
+                    if (chess.board[4][x_p].getOccupyingPiece().hasMoved == 1) {
                         player.capture(chess.board[y_p][4].getOccupyingPiece());
                         moves.add(new Point(x_m, y_m));
-                        this.hasMoved = true;
+                        this.hasMoved++;
                     }
                 }
             }
@@ -210,12 +210,12 @@ public class Pawn extends BoardPiece {
             else if (x_p < 8 && y_m < 8 && checkForEnemy(chess.board[y_m][x_p]) && !checkForFriend(chess.board[y_m][x_p])){
                 player.capture(chess.board[y_m][x_p].getOccupyingPiece());
                 moves.add(new Point(x_p, y_m));
-                this.hasMoved = true;
+                this.hasMoved++;
             }
             else if ( x_m > 0 && y_m > 0 && checkForEnemy(chess.board[y_m][x_m]) && !checkForFriend(chess.board[y_m][x_m])){
                 player.capture(chess.board[y_m][x_m].getOccupyingPiece());
                 moves.add(new Point(x_m, y_m));
-                this.hasMoved = true;
+                this.hasMoved++;
             }
         }
 

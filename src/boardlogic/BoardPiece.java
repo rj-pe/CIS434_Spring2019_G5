@@ -10,7 +10,7 @@ public abstract class BoardPiece{
     protected Team team;
     protected ImageIcon image;
     protected ArrayList<Point> moves;
-    public boolean hasMoved; // This integer is used to track the number of moves a piece has made.
+    public int hasMoved = 0; // This integer is used to track the number of moves a piece has made.
 
     public BoardPiece(BoardSpace currentSpace, Team team) {
         this.setCurrentSpace(currentSpace);
