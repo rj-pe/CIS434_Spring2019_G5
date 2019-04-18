@@ -107,6 +107,7 @@ public class Player {
      */
     public void capture(BoardPiece piece){
         graveyard.addPiece(piece);
+        piece.getCurrentSpace().setOccupyingPiece(null);
     }
 
     @Override
