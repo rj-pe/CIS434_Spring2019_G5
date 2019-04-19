@@ -1,4 +1,5 @@
 import chess.Arbiter;
+import com.sun.xml.internal.bind.v2.TODO;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -52,25 +53,41 @@ public class Controller {
 
             convertedCoords = convertJavaFXCoord(currentGridPaneSpace);
 
+            if (currentGridPaneSpace.getChildren().size() != 0){
+                currentGridPaneSpace.getChildren().remove(0);
+            }
+
             if (chessBoard.board[convertedCoords.y][convertedCoords.x].getOccupyingPiece() != null) {
                 currentGridPaneSpace.getChildren().add(new ImageView(chessBoard.board[convertedCoords.y][convertedCoords.x].getOccupyingPiece().getImage()));
-            } else {
-                currentGridPaneSpace.getChildren().removeAll();
             }
         }
         switchPlayers();
     }
-    
+
+    //TODO javadoc explaining selection handling flow
     private void selectionHandler(Pane selectedSpace) {
         Point convertedCoords = convertJavaFXCoord(selectedSpace);
-        ObservableList<Node> children = chessBoardFXNode.getChildren();
-        InnerShadow activePanesEffect = new InnerShadow();
+        BoardPiece currentlySelectedBoardPiece = chessBoard.board[convertedCoords.y][convertedCoords.x].getOccupyingPiece();
 
-        if (currentlySelectedSpace == null) {
-           if (chessBoard.board[convertedCoords.y][convertedCoords.x].getOccupyingPiece().getTeam() == currentPlayer.getTeam()) {
-               currentlySelectedSpace = selectedSpace;
-               selectedSpace.setEffect(activePanesEffect);
-           }
+        if (currentlySelectedSpace == null && currentlySelectedBoardPiece != null) {
+            if (currentlySelectedBoardPiece.getTeam() == currentPlayer.getTeam()) {
+                setCurrentlySelectedSpace(selectedSpace, currentlySelectedBoardPiece);
+            }
+        } else if (currentlySelectedSpace != null && spaceToMoveCurrentlySelectedPiece == null) {
+            if (currentlySelectedBoardPiece != null) {
+                if (currentlySelectedBoardPiece.getTeam() == currentPlayer.getTeam()) {
+                    setCurrentlySelectedSpace(selectedSpace, currentlySelectedBoardPiece);
+                } else if (currentlySelectedBoardPiece.getTeam() == inactivePlayer.getTeam() && selectedSpace.getEffect() != null) {
+                    inactivePlayer.capture(currentlySelectedBoardPiece);
+                    spaceToMoveCurrentlySelectedPiece = selectedSpace;
+                    pieceMovementHandler();
+                }
+            } else if (selectedSpace.getEffect() != null) {
+                spaceToMoveCurrentlySelectedPiece = selectedSpace;
+                pieceMovementHandler();
+            } else {
+                clearCurrentlySelectedSpace();
+            }
         }
     }
 
@@ -155,5 +172,70 @@ public class Controller {
         point = new Point(xCoord, yCoord);
 
         return point;
+    }
+
+    /**
+     * Takes the currently clicked pane object on the gui grid and the BoardPiece object that occupies that space.
+     * The clicked pane object and all potential panes the BoardPiece and move to are then given an InnerShadow effect
+     * to indicate them as active. The global currentlySelectedSpace is then set to equal the passed selectedSpace.
+     * @param selectedSpace Currently clicked pane object.
+     * @param currentlySelectedBoardPiece BoardPiece object occupying the selectedSpace object.
+     */
+    private void setCurrentlySelectedSpace(Pane selectedSpace, BoardPiece currentlySelectedBoardPiece) {
+        clearActiveEffects();
+        ObservableList<Node> children = chessBoardFXNode.getChildren();
+
+        InnerShadow activePanesEffect = new InnerShadow();
+        selectedSpace.setEffect(activePanesEffect);
+
+        // check piece's potential moves and mark them as active
+        currentlySelectedBoardPiece.getPotentialMoves(chessBoard, currentPlayer);
+        for (Point point: currentlySelectedBoardPiece.getMovesList()) {
+            // if point x or y is 0 it must be converted to null
+            Integer xCoord = point.x;
+            Integer yCoord = point.y;
+            if (xCoord == 0) xCoord = null;
+            if (yCoord == 0) yCoord = null;
+
+            // checks converted x and y coordinate against all Panes on the GridPane
+            for (int i = 0; i < children.size() - 1; i++) {
+                Pane currentIteratedPane = (Pane) children.get(i);
+                if (GridPane.getColumnIndex(currentIteratedPane) == xCoord && GridPane.getRowIndex(currentIteratedPane) == yCoord) {
+                    currentIteratedPane.setEffect(activePanesEffect);
+                }
+            }
+        }
+        currentlySelectedSpace = selectedSpace;
+        spaceToMoveCurrentlySelectedPiece = null;
+    }
+
+    private void clearCurrentlySelectedSpace() {
+        currentlySelectedSpace = null;
+        spaceToMoveCurrentlySelectedPiece = null;
+        clearActiveEffects();
+    }
+
+    private void clearActiveEffects() {
+        ObservableList<Node> children = chessBoardFXNode.getChildren();
+
+        for (int i = 0; i < children.size() - 1; i++) {
+            Pane currentIteratedPane = (Pane) children.get(i);
+            currentIteratedPane.setEffect(null);
+        }
+    }
+
+    /**
+     * If currentlySelectedSpace and spaceToMoveCurrentlySelectedPiece are both Pane objects
+     * the pieces are transferred using the board objects transferPiece method. This method also then clears
+     * the currentlySelectedSpace and re-draws the board.
+     */
+    private void pieceMovementHandler() {
+        if (currentlySelectedSpace != null && spaceToMoveCurrentlySelectedPiece != null) {
+            Point convertedCurrentlySelectedSpaceCoords = convertJavaFXCoord(currentlySelectedSpace);
+            Point convertedSpaceToMoveCurrentlySelectedPieceCoords = convertJavaFXCoord(spaceToMoveCurrentlySelectedPiece);
+            chessBoard.board[convertedCurrentlySelectedSpaceCoords.y][convertedCurrentlySelectedSpaceCoords.x].transferPiece(chessBoard.board[convertedSpaceToMoveCurrentlySelectedPieceCoords.y][convertedSpaceToMoveCurrentlySelectedPieceCoords.x]);
+            clearCurrentlySelectedSpace();
+            drawBoard();
+        }
     }
 }
