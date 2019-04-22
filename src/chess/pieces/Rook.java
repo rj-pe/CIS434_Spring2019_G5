@@ -20,8 +20,8 @@ public class Rook extends BoardPiece {
 
     // TODO write the castling method
     
+
     @Override
-    public boolean getPotentialMoves(Board board) {return false;}
     public boolean getPotentialMoves(Board chess, Player player) {
         moves.clear();
         // TODO add checkForEnemy() function to limit the number of spaces that piece can move.
@@ -32,9 +32,6 @@ public class Rook extends BoardPiece {
         // loop through spaces to the left of the piece
         for(int i = x_pos; i >= 0; i--){
             if (!checkForFriend(chess.board[y_pos][i])){
-                if (checkForEnemy(chess.board[y_pos][i])){
-                    player.capture(chess.board[y_pos][i].getOccupyingPiece());
-                }
                 moves.add(new Point(i, y_pos));
             }
         }
@@ -42,9 +39,6 @@ public class Rook extends BoardPiece {
         // loop through spaces to the right of the piece
         for(int i = x_pos; i < 8; i++){
             if (!checkForFriend(chess.board[y_pos][i])){
-                if (checkForEnemy(chess.board[y_pos][i])){
-                    player.capture(chess.board[y_pos][i].getOccupyingPiece());
-                }
                 moves.add(new Point(i, y_pos));
             }
         }
@@ -52,9 +46,6 @@ public class Rook extends BoardPiece {
         // loop through spaces in front of the piece
         for (int i = y_pos; i < 8; i++){
             if (!checkForFriend(chess.board[i][x_pos])){
-                if (checkForEnemy(chess.board[i][x_pos])){
-                    player.capture(chess.board[i][x_pos].getOccupyingPiece());
-                }
                 moves.add(new Point(x_pos, i));
             }
         }
@@ -62,9 +53,6 @@ public class Rook extends BoardPiece {
         // loop through spaces behind piece
         for(int i = y_pos; i >= 0; i-- ){
             if (!checkForFriend(chess.board[i][x_pos])){
-                if (checkForEnemy(chess.board[i][x_pos])){
-                    player.capture(chess.board[i][x_pos].getOccupyingPiece());
-                }
                 moves.add(new Point(x_pos, i));
             }
         }

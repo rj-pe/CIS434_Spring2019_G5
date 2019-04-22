@@ -36,7 +36,7 @@ public abstract class BoardPiece{
      * @param board a board object to check whether potential spaces are occupied.
      * @return returns false if no potential moves exist for the selected piece.
      */
-    public abstract boolean getPotentialMoves(Board board);
+    //public abstract boolean getPotentialMoves(Board board);
 
     public boolean getPotentialMoves(Board board, Player player){return false;}
 
@@ -77,7 +77,7 @@ public abstract class BoardPiece{
     *   @param space a space under consideration for inclusion on the list of potential moves.
     *   @return returns true is space is occupied by any piece.
     */
-    protected boolean Occupied(BoardSpace space){ 
+    public boolean Occupied(BoardSpace space){
         return space.getOccupyingPiece() != null;
     }
 

@@ -18,7 +18,7 @@ import static boardlogic.Team.*;
 public class Arbiter {
     // fields
     // TODO method to keep track of king position maybe by holding pointers to the king objects
-    public Player activePlayer;
+    private Player activePlayer;
     private BoardSpace whiteKingPosition;
     private BoardPiece whiteKing;
     private boolean whiteKingInCheck, whiteKingInCheckMate;
@@ -30,8 +30,9 @@ public class Arbiter {
     /**
      * The default constructor for the arbiter class. An instance of the arbiter class should
      * be constructed after the board has been set up but before any player moves take place.
-     * @param whtKng
-     * @param blkKng
+     * @param whtKng The white king piece.
+     * @param blkKng The black king piece.
+     * @param player The currently active player when the arbiter object is created.
      */
     public Arbiter(BoardPiece whtKng, BoardPiece blkKng, Player player){
         whiteKingPosition = whtKng.getCurrentSpace();
@@ -63,9 +64,12 @@ public class Arbiter {
         }
 
         for (Point move : selectedPiece.getMovesList()) {
-            kingInCheck = enemyKing.getMovesList().contains(move);
+            kingInCheck = enemyKing.getCurrentSpace().getPosition().equals(move) ;
+            if(kingInCheck){
+                return true;
+            }
         }
-        return kingInCheck;
+        return false;
         }
 
     /**

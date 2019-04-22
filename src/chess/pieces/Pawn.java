@@ -11,7 +11,8 @@ import static boardlogic.Team.*;
 public class Pawn extends BoardPiece {
     private SpriteContainer sprites;
 
-    public boolean enPassant = false;   //checks if en passant is possible
+    private boolean enPassant = false;   //checks if en passant is possible
+    private int hasMoved;
 
     public Pawn(BoardSpace currentSpace, Team team) {
         super(currentSpace, team);
@@ -22,7 +23,6 @@ public class Pawn extends BoardPiece {
 
     //generate potential moves
     @Override
-    public boolean getPotentialMoves(Board board) {return false;}
     public boolean getPotentialMoves(Board chess, Player player) {
         moves.clear();
 
@@ -38,9 +38,9 @@ public class Pawn extends BoardPiece {
         /*  no backward moves allowed
          *   loop through spaces in front of the piece
          */
-        if (team == WHITE) {
+        if (team == BLACK) {
             if(y_pos == 1){ //can move upto 2 spaces forward if it's piece's first move
-                if (!Occupied(chess.board[yw][x_pos])) {
+                if ( !Occupied(chess.board[yw][x_pos]) ){
                     moves.add(new Point(x_pos, yw));
                     enPassant = true;
                     this.hasMoved++;
@@ -51,7 +51,7 @@ public class Pawn extends BoardPiece {
                 this.hasMoved++;
             }
         }
-        else {     //for BlP moves only
+        else {     //for WhP moves only
             if(y_pos == 6) { //can move upto 2 spaces forward if it's piece's first move
                 if (!Occupied(chess.board[yb][x_pos])) {
                     moves.add(new Point(x_pos, yb));
@@ -66,11 +66,10 @@ public class Pawn extends BoardPiece {
         }
         /*  moves forward-diagonally to capture pieces  */
         // capture function done by Wh pieces (captures pieces in Q4 and Q3)
-        if(team == WHITE) {
+        if(team == Team.BLACK) {
             if (y_p < 8 && x_m >= 0 && y_pos == 4 && enPassant) {//en passant
                 if (checkForEnemy(chess.board[4][x_m])) { //WhPawn captures BlPawn en passant (Q3)
                     if (chess.board[y_p][x_m].getOccupyingPiece() == null) {//checks if space to move to is empty
-                        player.captureEnPassant(chess.board[4][x_m].getOccupyingPiece());//capture opponent piece on Left side
                         moves.add(new Point(x_m, y_p)); //moves diagonally as if space contained opponent's piece
                         this.hasMoved++;
                     }
@@ -80,7 +79,6 @@ public class Pawn extends BoardPiece {
                 if (x_p < 8 && y_p < 8 && y_pos == 4 && enPassant) {
                     if (checkForEnemy(chess.board[4][x_p])) { //WhPawn captures BlPawn en passant (Q4)
                         if (chess.board[y_p][x_p].getOccupyingPiece() == null) {
-                            player.captureEnPassant(chess.board[4][x_p].getOccupyingPiece());
                             moves.add(new Point(x_p, y_p));
                             this.hasMoved++;
                         }
@@ -89,23 +87,20 @@ public class Pawn extends BoardPiece {
             }
 
             if(x_p < 8 && y_p < 8 && checkForEnemy(chess.board[y_p][x_p])) { //WhP captures in Q4
-                player.capture(chess.board[y_p][x_p].getOccupyingPiece());
                 moves.add(new Point(x_p, y_p));
                 this.hasMoved++;
             }
             if(y_p < 8 && x_m >= 0 && checkForEnemy(chess.board[y_p][x_m])) { // WhP captures in Q3
-                player.capture(chess.board[y_p][x_m].getOccupyingPiece());
                 moves.add(new Point(x_m, y_p));
                 this.hasMoved++;
             }
         }
 
-        // capture function done by Bl pieces (captures pieces in Q2 and Q1)
+        // capture function done by Wh pieces (captures pieces in Q2 and Q1)
         else {
             if (x_m >= 0 && y_m >= 0 && y_pos == 3 && enPassant) {
                 if (checkForEnemy(chess.board[3][x_m])) { //BlPawn captures WhPawn en passant (Q2)
                     if (chess.board[y_m][x_m].getOccupyingPiece() == null) {
-                        player.captureEnPassant(chess.board[3][x_m].getOccupyingPiece());
                         moves.add(new Point(x_m, y_m));
                         this.hasMoved++;
                     }
@@ -115,7 +110,6 @@ public class Pawn extends BoardPiece {
                 if (x_p < 8 && y_m < 8 && y_pos == 3 && enPassant) {
                     if (checkForEnemy(chess.board[3][x_p])) { //BlPawn captures WhPawn en passant (Q1)
                         if (chess.board[y_m][x_p].getOccupyingPiece() == null) {
-                            player.captureEnPassant(chess.board[3][x_p].getOccupyingPiece());
                             moves.add(new Point(x_p, y_m));
                             this.hasMoved++;
                         }
@@ -124,12 +118,10 @@ public class Pawn extends BoardPiece {
             }
 
             if (x_p < 8 && y_m < 8 && checkForEnemy(chess.board[y_m][x_p])) { //Capture in Q2
-                player.capture(chess.board[y_m][x_p].getOccupyingPiece());
                 moves.add(new Point(x_p, y_m));
                 this.hasMoved++;
             }
             if (x_m >= 0 && y_m >= 0 && checkForEnemy(chess.board[y_m][x_m])) {//Capture in Q1
-                player.capture(chess.board[y_m][x_m].getOccupyingPiece());
                 moves.add(new Point(x_m, y_m));
                 this.hasMoved++;
             }

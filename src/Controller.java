@@ -1,5 +1,6 @@
 import chess.Arbiter;
-import com.sun.xml.internal.bind.v2.TODO;
+//import com.sun.xml.internal.bind.v2.TODO;
+
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -20,18 +21,22 @@ import static boardlogic.Team.WHITE;
 
 public class Controller {
     // create board
-    private Board chessBoard = new Board(8, GameType.CHESS);
+    private Board chessBoard;
 
     // create player objects
-    private Player black = new Player(BLACK, chessBoard);
-    private Player white = new Player(WHITE, chessBoard);
+    private Player black;
+    private Player white;
 
     // handles to player objects for use during game-play
-    private Player currentPlayer = black;
-    private Player inactivePlayer = white;
+    private Player currentPlayer;
+    private Player inactivePlayer;
+    private ComputerPlayer computerPlayer;
+
+    // keeps track of whether check mate has occurred
+    private boolean checkMate = false;
 
     // the arbiter object will keep track of whether either king is under attack.
-    private Arbiter arbiter = new Arbiter(chessBoard.board[7][3].getOccupyingPiece(), chessBoard.board[0][3].getOccupyingPiece(), currentPlayer);
+    private Arbiter arbiter;
 
     // store values of last two selected grid panes
     private Pane currentlySelectedSpace, spaceToMoveCurrentlySelectedPiece;
@@ -39,8 +44,58 @@ public class Controller {
     @FXML private GridPane chessBoardFXNode, whiteGraveyardFXNode, blackGraveyardFXNode;
     @FXML private Label playerTurnWhite;
     @FXML private Label playerTurnBlack;
+    @FXML private Label kingInCheck;
+    @FXML private Label kingInCheckMate;
 
-    public void initialize() {
+    /**
+     * Instantiates the game objects necessary for a chess game.
+     * @param mode If mode is one, BLACK is instantiated as a computer player. If mode is zero, both players are human.
+     */
+    private void initialize(int mode) {
+        chessBoard = new Board(8, GameType.CHESS);
+        white = new HumanPlayer(WHITE, chessBoard);
+        if( mode == 0 ){
+            black = new HumanPlayer(BLACK, chessBoard);
+        } else if (mode == 1){
+            black = new ComputerPlayer(BLACK, chessBoard);
+        }
+        currentPlayer = black;
+        inactivePlayer = white;
+        arbiter = new Arbiter(chessBoard.board[7][3].getOccupyingPiece(), chessBoard.board[0][3].getOccupyingPiece(), currentPlayer);
+        drawBoard();
+    }
+
+    /**
+     * Handles the "New Game" menu item.
+     */
+    public void twoPlayerGame(){
+        initialize(0);
+    }
+
+    /**
+     * Handles the "Play Computer" menu item.
+     */
+    public void computerPlayerGame(){
+        initialize(1);
+        computerPlayer = (ComputerPlayer) black;
+    }
+
+    /**
+     * Carries out a ComputerPlayer turn.
+     * The selected piece is picked at random from the teamMembers list.
+     * The selected move is picked at random from the potentialMoves list.
+     */
+    private void computerTurn(){
+        BoardSpace from = computerPlayer.pickPiece();
+        while( from == null){
+            from = computerPlayer.pickPiece();
+        }
+        BoardSpace to = computerPlayer.generateMove(from.getOccupyingPiece());
+        while( to == null ){
+            to = computerPlayer.generateMove(from.getOccupyingPiece());
+        }
+        chessBoard.board[from.getPosition().y][from.getPosition().x].transferPiece(to);
+        check(to.getOccupyingPiece(), to);
         drawBoard();
     }
 
@@ -97,22 +152,35 @@ public class Controller {
         Point convertedCoords = convertJavaFXCoord(selectedSpace);
         BoardPiece currentlySelectedBoardPiece = chessBoard.board[convertedCoords.y][convertedCoords.x].getOccupyingPiece();
 
+        // Piece not yet selected
         if (currentlySelectedSpace == null && currentlySelectedBoardPiece != null) {
+            // Is the selected piece on your team?
             if (currentlySelectedBoardPiece.getTeam() == currentPlayer.getTeam()) {
+                // You have selected a teammate.
                 setCurrentlySelectedSpace(selectedSpace, currentlySelectedBoardPiece);
             }
+        // You have already selected a piece, but haven't decided on where to move it.
         } else if (currentlySelectedSpace != null && spaceToMoveCurrentlySelectedPiece == null) {
+            // You have selected a space where there is already a piece.
             if (currentlySelectedBoardPiece != null) {
+                // The selected space contains a teammate.
                 if (currentlySelectedBoardPiece.getTeam() == currentPlayer.getTeam()) {
+                    // You want to change which piece is selected.
                     setCurrentlySelectedSpace(selectedSpace, currentlySelectedBoardPiece);
+                // The selected space contains an enemy, and is a legal move for your selected piece.
                 } else if (currentlySelectedBoardPiece.getTeam() == inactivePlayer.getTeam() && selectedSpace.getEffect() != null) {
+                    // Capture the enemy and move your piece onto the its space.
                     inactivePlayer.capture(currentlySelectedBoardPiece);
                     spaceToMoveCurrentlySelectedPiece = selectedSpace;
                     pieceMovementHandler();
+
                 }
+            // You have selected empty space and can legally move your selected piece there.
             } else if (selectedSpace.getEffect() != null) {
+                // Move the piece into the new space.
                 spaceToMoveCurrentlySelectedPiece = selectedSpace;
                 pieceMovementHandler();
+            // The selected space is not legal. Please try again.
             } else {
                 clearCurrentlySelectedSpace();
             }
@@ -253,17 +321,66 @@ public class Controller {
     }
 
     /**
+     * Exits the currently running application.
+     */
+    @FXML
+    private void exitGame(){
+        System.exit(0);
+    }
+
+    /**
      * If currentlySelectedSpace and spaceToMoveCurrentlySelectedPiece are both Pane objects
      * the pieces are transferred using the board objects transferPiece method. This method also then clears
      * the currentlySelectedSpace and re-draws the board.
      */
     private void pieceMovementHandler() {
+        BoardPiece piece;
         if (currentlySelectedSpace != null && spaceToMoveCurrentlySelectedPiece != null) {
             Point convertedCurrentlySelectedSpaceCoords = convertJavaFXCoord(currentlySelectedSpace);
             Point convertedSpaceToMoveCurrentlySelectedPieceCoords = convertJavaFXCoord(spaceToMoveCurrentlySelectedPiece);
-            chessBoard.board[convertedCurrentlySelectedSpaceCoords.y][convertedCurrentlySelectedSpaceCoords.x].transferPiece(chessBoard.board[convertedSpaceToMoveCurrentlySelectedPieceCoords.y][convertedSpaceToMoveCurrentlySelectedPieceCoords.x]);
+            BoardSpace moveTo = chessBoard.board[convertedSpaceToMoveCurrentlySelectedPieceCoords.y][convertedSpaceToMoveCurrentlySelectedPieceCoords.x];
+
+            chessBoard.board[convertedCurrentlySelectedSpaceCoords.y][convertedCurrentlySelectedSpaceCoords.x].transferPiece(moveTo);
+            piece = chessBoard.board[convertedSpaceToMoveCurrentlySelectedPieceCoords.y][convertedSpaceToMoveCurrentlySelectedPieceCoords.x].getOccupyingPiece();
+            // Add the potential moves list to the enemy list of threatened spaces.
+            inactivePlayer.addToThreatenedSpaces(piece.getMovesList());
+            // The enemy king must update his list of potential moves based on the move that just occurred.
+            inactivePlayer.getKing().getPotentialMoves(chessBoard, inactivePlayer);
+
+            check(piece, moveTo);
             clearCurrentlySelectedSpace();
             drawBoard();
+        }
+        if(currentPlayer == computerPlayer){
+            computerTurn();
+        }
+        if(checkMate){
+            exitGame();
+        }
+    }
+
+    /**
+     * Checks if the piece's move will put the enemy king in check.
+     * If check has occurred, the method determines if check-mate has occurred.
+     * Displays a label on the GUI if check has occurred.
+     * Displays a label on the GUI if check-mate has occurred.
+     * @param piece The BoardPiece which was moved.
+     * @param moveTo The BoardSpace object to which the piece moved.
+     */
+    private void check(BoardPiece piece, BoardSpace moveTo){
+        if (arbiter.movePutsKingInCheck(piece)){
+            // check has occurred
+            // print alert to console
+            kingInCheck.setVisible(true);
+            // remove space from list of enemy king's potential moves
+            arbiter.removeSpaceFromMoves(moveTo, inactivePlayer);
+            // arbiter object checks if the move puts the enemy king in checkmate
+            if( arbiter.movePutsKingInCheckMate(arbiter.defensiveMovePossible())) {
+                // check mate has occurred
+                // game is over
+                kingInCheckMate.setVisible(true);
+                checkMate = true;
+            }
         }
     }
 }
