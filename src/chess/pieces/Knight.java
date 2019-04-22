@@ -1,6 +1,7 @@
 package chess.pieces;
 
 import boardlogic.*;
+import chess.chessPieceImages.SpriteContainer;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -8,10 +9,13 @@ import java.util.ArrayList;
 import static boardlogic.Team.WHITE;
 
 public class Knight extends BoardPiece {
+    private SpriteContainer sprites;
 
     public Knight(BoardSpace currentSpace, Team team) {
         super(currentSpace, team);
         type = PieceType.KNIGHT;
+        sprites = new SpriteContainer();
+        setImage();
     }
 
     @Override
@@ -85,6 +89,15 @@ public class Knight extends BoardPiece {
             moves.add(new Point(x_t, y_m));
         }
         return !moves.isEmpty();
+    }
+
+    @Override
+    protected void setImage() {
+        if (team == Team.BLACK) {
+            super.image = sprites.getImage(3,0);
+        } else {
+            super.image = sprites.getImage(3,1);
+        }
     }
 
     @Override

@@ -14,7 +14,7 @@ public class BoardSpace {
 
     //Returns 1 on successful transfer else -1
     public int transferPiece(BoardSpace space) {
-        if (space.isActive() && space != this) {
+        if (space != this) {
             space.setOccupyingPiece(this.getOccupyingPiece());
             space.getOccupyingPiece().setCurrentSpace(space);
 
@@ -29,7 +29,7 @@ public class BoardSpace {
         return occupyingPiece;
     }
 
-    public void setOccupyingPiece(BoardPiece occupyingPiece) {
+    void setOccupyingPiece(BoardPiece occupyingPiece) {
         this.occupyingPiece = occupyingPiece;
     }
 

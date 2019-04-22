@@ -1,16 +1,19 @@
 package chess.pieces;
 
 import boardlogic.*;
+import chess.chessPieceImages.SpriteContainer;
 
 import java.awt.*;
-import java.util.ArrayList;
 import static boardlogic.Team.*;
 
 public class King extends BoardPiece {
+    private SpriteContainer sprites;
 
     public King(BoardSpace currentSpace, Team team) {
         super(currentSpace, team);
         type = PieceType.KING;
+        sprites = new SpriteContainer();
+        setImage();
     }
 
     @Override
@@ -81,6 +84,15 @@ public class King extends BoardPiece {
         }
         // return false if piece has no move options
         return !moves.isEmpty();
+    }
+
+    @Override
+    protected void setImage() {
+        if (team == Team.BLACK) {
+            super.image = sprites.getImage(0,0);
+        } else {
+            super.image = sprites.getImage(0,1);
+        }
     }
 
     @Override
