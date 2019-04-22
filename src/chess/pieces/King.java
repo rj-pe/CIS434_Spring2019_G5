@@ -8,6 +8,9 @@ import static boardlogic.Team.*;
 
 public class King extends BoardPiece {
     private SpriteContainer sprites;
+    private boolean hasMoved = false;
+    private boolean kingCastledLeft = false;
+    private boolean kingCastledRight = false;
 
     public King(BoardSpace currentSpace, Team team) {
         super(currentSpace, team);
@@ -54,6 +57,33 @@ public class King extends BoardPiece {
         }
         if ( y_m > 0 && !checkForFriend(chess.board[y_m][x]) && !player.isThreatenedSpace(chess.board[y_m][x])){
             moves.add(new Point(x, y_m));
+        }
+
+        // Castling Logic to determine if King is able to exchange with Rook;
+
+        if (!hasMoved) {
+            for (i = x; i < 7; i++) {
+                if (!checkForFriend(chess.board[y][i] || !player.isThreatenedSpace(chess.board[y][i]))) {
+                    if (chess.board[y][7].getOccupyingPiece().type == pieceType.ROOK) {
+                        if (!chess.board[y][7].getOccupyingPiece().pieceHasMoved()) {
+                            moves.add(new Point(x + 2, y));
+                        }
+                    }
+                }
+            }
+        }
+
+        if (!hasMoved) {
+            for (i = x; i > 0; i--) {
+                if (!checkForFriend(chess.board[y][i] || !player.isThreatenedSpace(chess.board[y][i]))) {
+                    if (chess.board[y][0].getOccupyingPiece().type == pieceType.ROOK) {
+                        if (!chess.board[y][0].getOccupyingPiece().pieceHasMoved()) {
+                            moves.add(new Point(x - 2, y));
+
+                        }
+                    }
+                }
+            }
         }
         // return false if piece has no move options
         return !moves.isEmpty();
