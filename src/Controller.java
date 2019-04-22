@@ -12,6 +12,7 @@ import boardlogic.*;
 import javafx.scene.layout.Pane;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 import static boardlogic.Team.BLACK;
 import static boardlogic.Team.WHITE;
@@ -35,7 +36,7 @@ public class Controller {
     // store values of last two selected grid panes
     private Pane currentlySelectedSpace, spaceToMoveCurrentlySelectedPiece;
 
-    @FXML private GridPane chessBoardFXNode;
+    @FXML private GridPane chessBoardFXNode, whiteGraveyardFXNode, blackGraveyardFXNode;
     @FXML private Label playerTurnWhite;
     @FXML private Label playerTurnBlack;
 
@@ -45,11 +46,11 @@ public class Controller {
 
     private void drawBoard() {
         Point convertedCoords;
-        ObservableList<Node> children = chessBoardFXNode.getChildren();
+        ObservableList<Node> chessBoardFXNodeChildren = chessBoardFXNode.getChildren();
 
-
-        for (int i = 0; i < children.size() - 1; i++) {
-            Pane currentGridPaneSpace = (Pane) children.get(i);
+        // drawing board to GridPane on GUI
+        for (int i = 0; i < chessBoardFXNodeChildren.size() - 1; i++) {
+            Pane currentGridPaneSpace = (Pane) chessBoardFXNodeChildren.get(i);
 
             convertedCoords = convertJavaFXCoord(currentGridPaneSpace);
 
@@ -61,6 +62,33 @@ public class Controller {
                 currentGridPaneSpace.getChildren().add(new ImageView(chessBoard.board[convertedCoords.y][convertedCoords.x].getOccupyingPiece().getImage()));
             }
         }
+
+        ArrayList<BoardPiece> whiteGraveyardList = white.graveyard.getGraveyard();
+        ObservableList<Node> whiteGraveyardFXNodeChildren = whiteGraveyardFXNode.getChildren();
+        // drawing white player's graveyard
+        for (int i = 0; i < whiteGraveyardList.size(); i++) {
+            Pane currentGraveyardGridPaneSpace = (Pane) whiteGraveyardFXNodeChildren.get(i);
+
+            if (currentGraveyardGridPaneSpace.getChildren().size() != 0) {
+                currentGraveyardGridPaneSpace.getChildren().remove(0);
+            }
+
+            currentGraveyardGridPaneSpace.getChildren().add(new ImageView(whiteGraveyardList.get(i).getImage()));
+        }
+
+        ArrayList<BoardPiece> blackGraveyardList = black.graveyard.getGraveyard();
+        ObservableList<Node> blackGraveyardFXNodeChildren = blackGraveyardFXNode.getChildren();
+        // drawing white player's graveyard
+        for (int i = 0; i < blackGraveyardList.size(); i++) {
+            Pane currentGraveyardGridPaneSpace = (Pane) blackGraveyardFXNodeChildren.get(i);
+
+            if (currentGraveyardGridPaneSpace.getChildren().size() != 0) {
+                currentGraveyardGridPaneSpace.getChildren().remove(0);
+            }
+
+            currentGraveyardGridPaneSpace.getChildren().add(new ImageView(blackGraveyardList.get(i).getImage()));
+        }
+
         switchPlayers();
     }
 
