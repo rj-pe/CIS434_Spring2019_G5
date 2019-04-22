@@ -10,6 +10,7 @@ import static boardlogic.Team.WHITE;
 
 public class Rook extends BoardPiece {
     private SpriteContainer sprites;
+    private boolean hasMoved = false;
 
     public Rook(BoardSpace currentSpace, Team team) {
         super(currentSpace, team);
@@ -33,6 +34,7 @@ public class Rook extends BoardPiece {
         for(int i = x_pos; i >= 0; i--){
             if (!checkForFriend(chess.board[y_pos][i])){
                 moves.add(new Point(i, y_pos));
+                hasMoved = true;
             }
         }
 
@@ -40,6 +42,7 @@ public class Rook extends BoardPiece {
         for(int i = x_pos; i < 8; i++){
             if (!checkForFriend(chess.board[y_pos][i])){
                 moves.add(new Point(i, y_pos));
+                hasMoved = true;
             }
         }
 
@@ -47,6 +50,7 @@ public class Rook extends BoardPiece {
         for (int i = y_pos; i < 8; i++){
             if (!checkForFriend(chess.board[i][x_pos])){
                 moves.add(new Point(x_pos, i));
+                hasMoved = true;
             }
         }
 
@@ -54,9 +58,22 @@ public class Rook extends BoardPiece {
         for(int i = y_pos; i >= 0; i-- ){
             if (!checkForFriend(chess.board[i][x_pos])){
                 moves.add(new Point(x_pos, i));
+                hasMoved = true;
             }
         }
         return !moves.isEmpty();
+    }
+    public boolean pieceHasMoved(){
+        return hasMoved;
+    }
+
+    public void castleRook(){
+        if (x_pos == 7){
+            this.setCurrentSpace(chess.board[y][5])
+        }
+        if (x_pos == 0) {
+            this.setCurrentSpace(chess.board[y][3])
+        }
     }
 
     @Override
