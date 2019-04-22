@@ -5,25 +5,25 @@ import java.util.ArrayList;
 public class Graveyard {
     //storage for Pieces
     protected Team team;
-    protected ArrayList<BoardPiece> captured;
+    private ArrayList<BoardPiece> captured;
 
     // Constructor
 
     /**
      * Creates a graveyard object to store the graveyard data in the captured array.
      *
-     * @param t
+     * @param t The team to which the graveyard belongs.
      */
-    public Graveyard(Team t) {
+    Graveyard(Team t) {
         this.team = t;
         this.captured = new ArrayList<>();
     }
 
     /**
      * Adds a piece to the captured array.
-     * @param piece
+     * @param piece The piece to be captured.
      */
-    public void addPiece(BoardPiece piece){
+    void addPiece(BoardPiece piece){
         captured.add(piece);
     }
 

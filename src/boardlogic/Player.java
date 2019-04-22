@@ -10,22 +10,22 @@ import java.util.Set;
 import static boardlogic.PieceType.KING;
 
 
-public class Player {
+public abstract class Player {
     // fields
     /**
      * Each player keeps track of which spaces are accessible by the enemy.
      */
-    private Set<Point> threatenedSpaces;
+    Set<Point> threatenedSpaces;
     /**
      * Each player is assigned to a team, either WHITE or BLACK.
      * The player commands any board piece which is part of her team.
      */
-    private Team team;
+    Team team;
     /**
      * A list of the board pieces which are part of the player's team.
      * Each piece is assigned to a team when created by the board class.
      */
-    private ArrayList<BoardPiece> teamMembers;
+    ArrayList<BoardPiece> teamMembers;
     public Graveyard graveyard;
 
     // constructor
@@ -42,6 +42,8 @@ public class Player {
         buildTeamList(board);
         this.graveyard = new Graveyard(team);
     }
+    // default constructor
+    public Player(){}
 
     // methods
 
@@ -52,7 +54,7 @@ public class Player {
      * any matches are added to the ArrayList teamMembers.
      * @param board An object which holds an two dimensional array of spaces.
      */
-    private void buildTeamList(Board board){
+    void buildTeamList(Board board){
         // Loop through each space on the board &
         // search for pieces on my team.
         for (BoardSpace[] boardRow : board.board){
@@ -91,6 +93,10 @@ public class Player {
         return threatenedSpaces.contains(candidate.getPosition());
     }
 
+    /**
+     * Goes through the teamMembers list and finds the king piece.
+     * @return The player's king.
+     */
     public BoardPiece getKing(){
         BoardPiece king = null;
         for (BoardPiece piece : this.teamMembers) {
@@ -103,14 +109,18 @@ public class Player {
 
     /**
      * Adds a piece to the player's graveyard.
-     * @param piece
+     * Removes the piece from the active teamMembers list.
+     * @param piece The piece to be added to the graveyard.
      */
     public void capture(BoardPiece piece){
         graveyard.addPiece(piece);
+        this.teamMembers.remove(piece);
     }
 
     @Override
     public String toString(){
         return team.toString();
     }
+    abstract public BoardSpace pickPiece();
+    abstract public BoardSpace generateMove(BoardPiece piece);
 }

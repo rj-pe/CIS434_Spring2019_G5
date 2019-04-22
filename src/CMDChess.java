@@ -1,3 +1,4 @@
+/*
 import boardlogic.*;
 import chess.Arbiter;
 
@@ -68,11 +69,13 @@ public class CMDChess {
                 x1 = Character.getNumericValue(pieceToMove.charAt(0));
                 if (chess.board[y1][x1].getOccupyingPiece() != null) {
                     if (chess.board[y1][x1].getOccupyingPiece().getTeam() == currentPlayer.getTeam()){
-                        /*
+                        */
+/*
                           Active player owns the selected piece, calculate its potential moves.
                           Each piece class will override the calculatePotentialMoves() method with its movement pattern.
                           If no moves are possible, user must select a different piece.
-                        */
+                        *//*
+
                         BoardPiece selectedPiece = chess.board[y1][x1].getOccupyingPiece();
                         boolean movesAvailable = false;
 
@@ -100,10 +103,12 @@ public class CMDChess {
 
             Point destination = promptUserForMove();
 
-            /*
+            */
+/*
              Check the chosen space against the list of potential moves calculated by calculatePotentialMoves() method.
              If the move is not valid prompt user to choose another space.
-             */
+             *//*
+
              while( ! chess.board[y1][x1].getOccupyingPiece().isValidMove( destination ) ) {
                  // requested move is invalid, choose another space to move to.
                  System.out.print("you can't move there!\n");
@@ -146,10 +151,12 @@ public class CMDChess {
         }
     }
 
-    /**
+    */
+/**
      * Asks the user for a destination for the selected piece.
      * @return Point object representing the x and y coordinates of the destination board space.
-     */
+     *//*
+
     private static Point promptUserForMove(){
         Scanner reader = new Scanner(System.in);
         System.out.print("Select Space to Move to (column, row): ");
@@ -159,13 +166,15 @@ public class CMDChess {
         return new Point(x, y);
     }
 
-    /**
+    */
+/**
      * Change which player is inactive.
      * @param from The player who is currently inactive.
      * @param white White player object.
      * @param black Black player object.
      * @return The new inactive player.
-     */
+     *//*
+
 
     private static Player changeInactivePlayer(Player from, Player white, Player black){
         if (from.getTeam() == WHITE){
@@ -174,14 +183,16 @@ public class CMDChess {
         return white;
     }
 
-    /**
+    */
+/**
      * Changes which player is active.
      * @param from The player who is currently active
      * @param white White player object.
      * @param black Black player object.
      * @param arbiter The arbiter object also keeps track of the active player.
      * @return The new active player.
-     */
+     *//*
+
     private static Player changeActivePlayer(Player from, Player white, Player black, Arbiter arbiter) {
         if (from.getTeam() == WHITE) {
             arbiter.setActivePlayer(black);
@@ -191,3 +202,4 @@ public class CMDChess {
         return white;
     }
 }
+*/

@@ -17,9 +17,8 @@ public class Bishop extends BoardPiece {
         setImage();
     }
 
-    @Override
-    public boolean getPotentialMoves(Board board) {return false;}
 
+    @Override
     public boolean getPotentialMoves(Board chess, Player player) {
         moves.clear();
 
@@ -30,9 +29,6 @@ public class Bishop extends BoardPiece {
         for(int i = x_pos, j = y_pos; i >= 0 && j >=0; i--, j--){
 
             if (!checkForFriend(chess.board[j][i])){
-                if (checkForEnemy(chess.board[j][i])){
-                    player.capture(chess.board[j][i].getOccupyingPiece());
-                }
                 moves.add(new Point(i, j));
             }
         }
@@ -40,9 +36,6 @@ public class Bishop extends BoardPiece {
         for(int i = x_pos, j = y_pos; i < 8 && j >=0; i++, j--){
 
             if (!checkForFriend(chess.board[j][i])){
-                if (checkForEnemy(chess.board[j][i])){
-                    player.capture(chess.board[j][i].getOccupyingPiece());
-                }
                 moves.add(new Point(i, j));
             }
         }
@@ -50,9 +43,6 @@ public class Bishop extends BoardPiece {
         for(int i = x_pos, j = y_pos; i >= 0 && j < 8; i--, j++){
 
             if (!checkForFriend(chess.board[j][i])){
-                if (checkForEnemy(chess.board[j][i])){
-                    player.capture(chess.board[j][i].getOccupyingPiece());
-                }
                 moves.add(new Point(i, j));
             }
         }
@@ -60,9 +50,6 @@ public class Bishop extends BoardPiece {
         for(int i = x_pos, j = y_pos; i < 8 && j < 8; i++, j++){
 
             if (!checkForFriend(chess.board[j][i])){
-                if (checkForEnemy(chess.board[j][i])){
-                    player.capture(chess.board[j][i].getOccupyingPiece());
-                }
                 moves.add(new Point(i, j));
             }
         }

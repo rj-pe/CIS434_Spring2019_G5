@@ -16,11 +16,8 @@ public class King extends BoardPiece {
         setImage();
     }
 
-    @Override
-    public boolean getPotentialMoves(Board board) {
-        return false;
-    }
 
+    @Override
     public boolean getPotentialMoves(Board chess, Player player) {
         // clean up anything previously stored in the potential moves ArrayList
         moves.clear();
@@ -35,51 +32,27 @@ public class King extends BoardPiece {
         // if friendly piece does not occupy space and if space exists and if space is not threatened by an enemy
         // then store space as a Point object in the moves ArrayList.
         if (x_p < 8 && !checkForFriend(chess.board[y][x_p]) && !player.isThreatenedSpace(chess.board[y][x_p]) ){
-            if (checkForEnemy(chess.board[y][x_p])){
-                player.capture(chess.board[y][x_p].getOccupyingPiece());
-            }
             moves.add(new Point(x_p, y));
         }
         if (y_p < 8 && !checkForFriend(chess.board[y_p][x]) && !player.isThreatenedSpace(chess.board[y_p][x])){
-            if (checkForEnemy(chess.board[y_p][x])){
-                player.capture(chess.board[y_p][x].getOccupyingPiece());
-            }
             moves.add(new Point(x, y_p));
         }
         if (x_p < 8 && y_p < 8 && !checkForFriend(chess.board[y_p][x_p]) && !player.isThreatenedSpace(chess.board[y_p][x_p])){
-            if (checkForEnemy(chess.board[y_p][x_p])){
-                player.capture(chess.board[y_p][x_p].getOccupyingPiece());
-            }
             moves.add(new Point(x_p,y_p));
         }
         if (x_p < 8 && y_m > 0 && !checkForFriend(chess.board[y_m][x_p]) && !player.isThreatenedSpace(chess.board[y_m][x_p])){
-            if (checkForEnemy(chess.board[y_m][x_p])){
-                player.capture(chess.board[y_m][x_p].getOccupyingPiece());
-            }
             moves.add(new Point(x_p, y_m));
         }
         if (y_p < 8 && x_m > 0 && !checkForFriend(chess.board[y_p][x_m]) && !player.isThreatenedSpace(chess.board[y_p][x_m])){
-            if (checkForEnemy(chess.board[y_p][x_m])){
-                player.capture(chess.board[y_p][x_m].getOccupyingPiece());
-            }
             moves.add(new Point(x_m, y_p));
         }
         if ( x_m > 0 && y_m > 0 && !checkForFriend(chess.board[y_m][x_m]) && !player.isThreatenedSpace(chess.board[y_m][x_m])){
-            if (checkForEnemy(chess.board[y_m][x_m])){
-                player.capture(chess.board[y_m][x_m].getOccupyingPiece());
-            }
             moves.add(new Point(x_m, y_m));
         }
         if ( x_m > 0 && !checkForFriend(chess.board[y][x_m]) && !player.isThreatenedSpace(chess.board[y][x_m])){
-            if (checkForEnemy(chess.board[y][x_m])){
-                player.capture(chess.board[y][x_m].getOccupyingPiece());
-            }
             moves.add(new Point(x_m, y));
         }
         if ( y_m > 0 && !checkForFriend(chess.board[y_m][x]) && !player.isThreatenedSpace(chess.board[y_m][x])){
-            if (checkForEnemy(chess.board[y_m][x])){
-                player.capture(chess.board[y_m][x].getOccupyingPiece());
-            }
             moves.add(new Point(x, y_m));
         }
         // return false if piece has no move options
