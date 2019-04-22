@@ -109,12 +109,22 @@ public abstract class Player {
 
     /**
      * Adds a piece to the player's graveyard.
-     * Removes the piece from the active teamMembers list.
-     * @param piece The piece to be added to the graveyard.
+     * @param piece
      */
     public void capture(BoardPiece piece){
         graveyard.addPiece(piece);
-        this.teamMembers.remove(piece);
+        //piece.getCurrentSpace().setOccupyingPiece(null);
+    }
+
+    /**
+     * Adds a piece to the player's graveyard.
+     * Is used for special moves En Passant and can be used for Castling
+     * The captured piece is removed from the board
+     * @param piece
+     */
+    public void captureEnPassant(BoardPiece piece){
+        graveyard.addPiece(piece);
+        piece.getCurrentSpace().setOccupyingPiece(null);
     }
 
     @Override
