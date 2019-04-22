@@ -113,7 +113,8 @@ public abstract class Player {
      */
     public void capture(BoardPiece piece){
         graveyard.addPiece(piece);
-        //piece.getCurrentSpace().setOccupyingPiece(null);
+        this.teamMembers.remove(piece);
+
     }
 
     /**
@@ -125,6 +126,7 @@ public abstract class Player {
     public void captureEnPassant(BoardPiece piece){
         graveyard.addPiece(piece);
         piece.getCurrentSpace().setOccupyingPiece(null);
+        this.teamMembers.remove(piece);
     }
 
     @Override
