@@ -67,13 +67,11 @@ public class Rook extends BoardPiece {
         return hasMoved;
     }
 
-    public void castleRook(){
-        if (x_pos == 7){
-            this.setCurrentSpace(chess.board[y][5])
-        }
-        if (x_pos == 0) {
-            this.setCurrentSpace(chess.board[y][3])
-        }
+    public void castledRookRight(){
+        this.setCurrentSpace(chess.board[y][5])
+    }
+    public void castledRookLeft(){
+        this.setCurrentSpace(chess.board[y][3])
     }
 
     @Override
