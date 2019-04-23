@@ -67,10 +67,10 @@ public class Rook extends BoardPiece {
         hasMoved = true;
     }
 
-    public void castledRookRight(){
+    public void castleRookRight(){
         currentSpace.transferPiece(chess.board[y][5]);
     }
-    public void castledRookLeft(){
+    public void castleRookLeft(){
         currentSpace.transferPiece(chess.board[y][3]);
     }
 
