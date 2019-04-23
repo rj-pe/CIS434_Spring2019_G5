@@ -4,15 +4,22 @@ import boardlogic.*;
 import chess.chessPieceImages.SpriteContainer;
 
 import java.awt.*;
+import java.util.ArrayList;
+
 import static boardlogic.Team.*;
 
 public class King extends BoardPiece {
     private SpriteContainer sprites;
+    /**
+     * A list of the piece's that hold the king in check
+     */
+    ArrayList<BoardPiece> enemyThreats;
 
     public King(BoardSpace currentSpace, Team team) {
         super(currentSpace, team);
         type = PieceType.KING;
         sprites = new SpriteContainer();
+        this.enemyThreats = new ArrayList<>();
         setImage();
     }
 
@@ -66,6 +73,21 @@ public class King extends BoardPiece {
         } else {
             super.image = sprites.getImage(0,1);
         }
+    }
+    /**
+     * Accessor for the enemyThreats list
+     * @return The list of the enemyThreats.
+     */
+    public ArrayList<BoardPiece> getThreats(){
+        return enemyThreats;
+    }
+
+    /**
+     * Adds the given piece to the enemyThreats list
+     * @param piece The piece to be added to the list.
+     */
+    public void addToThreats(BoardPiece piece){
+        this.enemyThreats.add(piece);
     }
 
     @Override

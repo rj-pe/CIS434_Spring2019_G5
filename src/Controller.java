@@ -1,6 +1,7 @@
 import chess.Arbiter;
 //import com.sun.xml.internal.bind.v2.TODO;
 
+import chess.pieces.King;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -34,6 +35,7 @@ public class Controller {
 
     // keeps track of whether check mate has occurred
     private boolean checkMate = false;
+    private boolean check = false;
 
     // the arbiter object will keep track of whether either king is under attack.
     private Arbiter arbiter;
@@ -61,7 +63,7 @@ public class Controller {
         }
         currentPlayer = black;
         inactivePlayer = white;
-        arbiter = new Arbiter(chessBoard.board[7][3].getOccupyingPiece(), chessBoard.board[0][3].getOccupyingPiece(), currentPlayer);
+        arbiter = new Arbiter(chessBoard.board[7][3].getOccupyingPiece(), chessBoard.board[0][3].getOccupyingPiece(), currentPlayer, chessBoard);
         drawBoard();
     }
 
@@ -143,7 +145,8 @@ public class Controller {
 
             currentGraveyardGridPaneSpace.getChildren().add(new ImageView(blackGraveyardList.get(i).getImage()));
         }
-
+        kingInCheck.setVisible(check);
+        kingInCheckMate.setVisible(checkMate);
         switchPlayers();
     }
 
@@ -371,16 +374,20 @@ public class Controller {
         if (arbiter.movePutsKingInCheck(piece)){
             // check has occurred
             // print alert to console
-            kingInCheck.setVisible(true);
+            check = true;
             // remove space from list of enemy king's potential moves
             arbiter.removeSpaceFromMoves(moveTo, inactivePlayer);
             // arbiter object checks if the move puts the enemy king in checkmate
-            if( arbiter.movePutsKingInCheckMate(arbiter.defensiveMovePossible())) {
+
+            if( arbiter.movePutsKingInCheckMate(arbiter.defensiveMovePossible((King) inactivePlayer.getKing(), inactivePlayer))) {
                 // check mate has occurred
                 // game is over
-                kingInCheckMate.setVisible(true);
                 checkMate = true;
             }
+        }
+        else {
+            check = false;
+            checkMate = false;
         }
     }
 }
