@@ -81,6 +81,21 @@ public abstract class BoardPiece{
         return space.getOccupyingPiece() != null;
     }
 
+    /**
+     * Adds the given space to the piece's list of potential moves if space is empty or occupied by an enemy.
+     * Method is used to enforce an upper bound on the piece's open lane. If the lane is blocked by any piece,
+     * this method will inform the caller.
+     * @param space The space under consideration.
+     * @return Returns true if the space under consideration is occupied by any piece.
+     */
+    protected boolean addSpace(BoardSpace space){
+        boolean friend = checkForFriend(space);
+        if (!friend){
+            moves.add(new Point(space.getPosition().x, space.getPosition().y));
+        }
+        return ( friend || checkForEnemy(space) );
+    }
+
     protected abstract void setImage();
 
     public Image getImage() {
