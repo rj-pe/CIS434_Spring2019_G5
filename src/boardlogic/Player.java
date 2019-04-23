@@ -76,6 +76,14 @@ public abstract class Player {
     }
 
     /**
+     * Accessor method which provides access to list of teammates.
+     * @return List of activeBoardPiece's on the player's team.
+     */
+    public ArrayList<BoardPiece> getTeamMembers(){
+        return teamMembers;
+    }
+
+    /**
      * Adds the provided BoardSpace objects to a list spaces at which the player is threatened.
      * threatenedSpaces is a set and will not contain duplicates.
      * @param threatenedSpaces The space to add to the list.

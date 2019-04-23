@@ -4,6 +4,7 @@ import boardlogic.Board;
 import boardlogic.BoardPiece;
 import boardlogic.BoardSpace;
 import boardlogic.Player;
+import chess.pieces.King;
 
 import java.awt.*;
 
@@ -20,11 +21,12 @@ public class Arbiter {
     // TODO method to keep track of king position maybe by holding pointers to the king objects
     private Player activePlayer;
     private BoardSpace whiteKingPosition;
-    private BoardPiece whiteKing;
+    private King whiteKing;
     private boolean whiteKingInCheck, whiteKingInCheckMate;
     private BoardSpace blackKingPosition;
-    private BoardPiece blackKing;
+    private King blackKing;
     private boolean blackKingInCheck, blackKingInCheckMate;
+    private Board board;
 
     // constructor
     /**
@@ -34,16 +36,17 @@ public class Arbiter {
      * @param blkKng The black king piece.
      * @param player The currently active player when the arbiter object is created.
      */
-    public Arbiter(BoardPiece whtKng, BoardPiece blkKng, Player player){
+    public Arbiter(BoardPiece whtKng, BoardPiece blkKng, Player player, Board board){
         whiteKingPosition = whtKng.getCurrentSpace();
-        whiteKing = whtKng;
+        whiteKing = (King) whtKng;
         whiteKingInCheck = false;
         whiteKingInCheckMate = false;
         blackKingPosition = blkKng.getCurrentSpace();
-        blackKing = blkKng;
+        blackKing = (King) blkKng;
         blackKingInCheck = false;
         blackKingInCheckMate = false;
         activePlayer = player;
+        this.board = board;
     }
 
     // methods
@@ -55,17 +58,19 @@ public class Arbiter {
      * @return True if the move puts the enemy king in check, false if not.
      */
     public boolean movePutsKingInCheck(BoardPiece selectedPiece){
-        BoardPiece enemyKing;
-        boolean kingInCheck = false;
+        King enemyKing;
+        boolean kingInCheck;
         if(activePlayer.getTeam() == BLACK){
             enemyKing = whiteKing;
         } else{
             enemyKing = blackKing;
         }
+        selectedPiece.getPotentialMoves(board, activePlayer);
 
         for (Point move : selectedPiece.getMovesList()) {
             kingInCheck = enemyKing.getCurrentSpace().getPosition().equals(move) ;
             if(kingInCheck){
+                enemyKing.addToThreats(selectedPiece);
                 return true;
             }
         }
@@ -99,7 +104,17 @@ public class Arbiter {
      * <ul/>
      * @return True if some defensive move is possible, false if no options were found.
      */
-    public boolean defensiveMovePossible(){
+    public boolean defensiveMovePossible(King king, Player player){
+        // capturing an enemy that holds the king in check
+        for(BoardPiece threat: king.getThreats() ){
+            BoardSpace target = threat.getCurrentSpace();
+            for(BoardPiece teammate: player.getTeamMembers()){
+                teammate.getPotentialMoves(board, player);
+                if(teammate.getMovesList().contains(target.getPosition())){
+                    return true;
+                }
+            }
+        }
 
         return true;
     }
