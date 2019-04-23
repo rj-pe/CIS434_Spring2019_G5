@@ -29,6 +29,8 @@ public abstract class BoardPiece{
         return team;
     }
 
+    public PieceType getType() {return type;}
+
     public ArrayList<Point> getMovesList(){return moves; }
 
     /**

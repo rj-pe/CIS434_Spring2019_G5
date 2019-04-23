@@ -34,7 +34,6 @@ public class Rook extends BoardPiece {
         for(int i = x_pos; i >= 0; i--){
             if (!checkForFriend(chess.board[y_pos][i])){
                 moves.add(new Point(i, y_pos));
-                hasMoved = true;
             }
         }
 
@@ -42,7 +41,6 @@ public class Rook extends BoardPiece {
         for(int i = x_pos; i < 8; i++){
             if (!checkForFriend(chess.board[y_pos][i])){
                 moves.add(new Point(i, y_pos));
-                hasMoved = true;
             }
         }
 
@@ -50,7 +48,6 @@ public class Rook extends BoardPiece {
         for (int i = y_pos; i < 8; i++){
             if (!checkForFriend(chess.board[i][x_pos])){
                 moves.add(new Point(x_pos, i));
-                hasMoved = true;
             }
         }
 
@@ -58,13 +55,16 @@ public class Rook extends BoardPiece {
         for(int i = y_pos; i >= 0; i-- ){
             if (!checkForFriend(chess.board[i][x_pos])){
                 moves.add(new Point(x_pos, i));
-                hasMoved = true;
             }
         }
         return !moves.isEmpty();
     }
-    public boolean pieceHasMoved(){
+    public boolean getHasMoved(){
         return hasMoved;
+    }
+
+    public void setHasMoved(){
+        hasMoved = true;
     }
 
     public void castledRookRight(){

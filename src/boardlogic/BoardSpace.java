@@ -16,6 +16,8 @@ public class BoardSpace {
     public int transferPiece(BoardSpace space) {
         if (space != this) {
             space.setOccupyingPiece(this.getOccupyingPiece());
+            if (this.getOccupyingPiece().getType() = pieceTypeROOK || this.getOccupyingPiece().getType() = pieceTypeKING)
+                this.getOccupyingPiece().setHasMoved();
             space.getOccupyingPiece().setCurrentSpace(space);
 
             this.setOccupyingPieceAsNull();

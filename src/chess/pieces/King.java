@@ -66,7 +66,7 @@ public class King extends BoardPiece {
                 if (!checkForFriend(chess.board[y][i] || !player.isThreatenedSpace(chess.board[y][i]))) {
                     if (chess.board[y][7].getOccupyingPiece().type == pieceType.ROOK) {
                         if (!chess.board[y][7].getOccupyingPiece().pieceHasMoved()) {
-                            moves.add(new Point(x + 2, y));
+                            moves.add(new Point(6, y));
                         }
                     }
                 }
@@ -76,10 +76,9 @@ public class King extends BoardPiece {
         if (!hasMoved) {
             for (i = x; i > 0; i--) {
                 if (!checkForFriend(chess.board[y][i] || !player.isThreatenedSpace(chess.board[y][i]))) {
-                    if (chess.board[y][0].getOccupyingPiece().type == pieceType.ROOK) {
+                    if (chess.board[y][0].getOccupyingPiece().getType() == pieceType.ROOK) {
                         if (!chess.board[y][0].getOccupyingPiece().pieceHasMoved()) {
-                            moves.add(new Point(x - 2, y));
-
+                            move.add(new Point(3, y));
                         }
                     }
                 }
@@ -87,6 +86,10 @@ public class King extends BoardPiece {
         }
         // return false if piece has no move options
         return !moves.isEmpty();
+    }
+
+    public void setHasMoved(){
+        hasMoved = true;
     }
 
     @Override
