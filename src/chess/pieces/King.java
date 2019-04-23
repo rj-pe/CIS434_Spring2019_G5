@@ -62,10 +62,10 @@ public class King extends BoardPiece {
         // Castling Logic to determine if King is able to exchange with Rook;
 
         if (!hasMoved) {
-            for (i = x; i < 7; i++) {
-                if (!checkForFriend(chess.board[y][i] || !player.isThreatenedSpace(chess.board[y][i]))) {
-                    if (chess.board[y][7].getOccupyingPiece().type == pieceType.ROOK) {
-                        if (!chess.board[y][7].getOccupyingPiece().pieceHasMoved()) {
+            for (int i = x; i < 7; i++) {
+                if (!checkForFriend(chess.board[y][i]) || !player.isThreatenedSpace(chess.board[y][i])) {
+                    if (chess.board[y][7].getOccupyingPiece().getType()==PieceType.ROOK) {
+                        if (!chess.board[y][7].getOccupyingPiece().getHasMoved()) {
                             moves.add(new Point(6, y));
                         }
                     }
@@ -74,11 +74,11 @@ public class King extends BoardPiece {
         }
 
         if (!hasMoved) {
-            for (i = x; i > 0; i--) {
-                if (!checkForFriend(chess.board[y][i] || !player.isThreatenedSpace(chess.board[y][i]))) {
-                    if (chess.board[y][0].getOccupyingPiece().getType() == pieceType.ROOK) {
-                        if (!chess.board[y][0].getOccupyingPiece().pieceHasMoved()) {
-                            move.add(new Point(3, y));
+            for (int i = x; i > 0; i--) {
+                if (!checkForFriend(chess.board[y][i]) || !player.isThreatenedSpace(chess.board[y][i])) {
+                    if (chess.board[y][0].getOccupyingPiece().getType() == PieceType.ROOK) {
+                        if (!chess.board[y][0].getOccupyingPiece().getHasMoved()) {
+                            moves.add(new Point(3, y));
                         }
                     }
                 }

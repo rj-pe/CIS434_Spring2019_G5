@@ -94,7 +94,7 @@ public class Controller {
         while( to == null ){
             to = computerPlayer.generateMove(from.getOccupyingPiece());
         }
-        chessBoard.board[from.getPosition().y][from.getPosition().x].transferPiece(to);
+        chessBoard.board[from.getPosition().y][from.getPosition().x].transferPiece(to, chessBoard);
         check(to.getOccupyingPiece(), to);
         drawBoard();
     }
@@ -340,7 +340,7 @@ public class Controller {
             Point convertedSpaceToMoveCurrentlySelectedPieceCoords = convertJavaFXCoord(spaceToMoveCurrentlySelectedPiece);
             BoardSpace moveTo = chessBoard.board[convertedSpaceToMoveCurrentlySelectedPieceCoords.y][convertedSpaceToMoveCurrentlySelectedPieceCoords.x];
 
-            chessBoard.board[convertedCurrentlySelectedSpaceCoords.y][convertedCurrentlySelectedSpaceCoords.x].transferPiece(moveTo);
+            chessBoard.board[convertedCurrentlySelectedSpaceCoords.y][convertedCurrentlySelectedSpaceCoords.x].transferPiece(moveTo, chessBoard);
             piece = chessBoard.board[convertedSpaceToMoveCurrentlySelectedPieceCoords.y][convertedSpaceToMoveCurrentlySelectedPieceCoords.x].getOccupyingPiece();
             // Add the potential moves list to the enemy list of threatened spaces.
             inactivePlayer.addToThreatenedSpaces(piece.getMovesList());

@@ -20,7 +20,6 @@ public class Rook extends BoardPiece {
     }
 
     // TODO write the castling method
-    
 
     @Override
     public boolean getPotentialMoves(Board chess, Player player) {
@@ -58,20 +57,6 @@ public class Rook extends BoardPiece {
             }
         }
         return !moves.isEmpty();
-    }
-    public boolean getHasMoved(){
-        return hasMoved;
-    }
-
-    public void setHasMoved(){
-        hasMoved = true;
-    }
-
-    public void castleRookRight(){
-        currentSpace.transferPiece(chess.board[y][5]);
-    }
-    public void castleRookLeft(){
-        currentSpace.transferPiece(chess.board[y][3]);
     }
 
     @Override

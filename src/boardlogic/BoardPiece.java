@@ -10,6 +10,7 @@ public abstract class BoardPiece{
     protected Team team;
     protected Image image;
     protected ArrayList<Point> moves;
+    protected boolean hasMoved = false;
 
     public BoardPiece(BoardSpace currentSpace, Team team) {
         this.setCurrentSpace(currentSpace);
@@ -54,6 +55,10 @@ public abstract class BoardPiece{
     public BoardSpace getCurrentSpace() {
         return currentSpace;
     }
+
+    public boolean getHasMoved(){return hasMoved;}
+
+    public void setHasMoved(){hasMoved = true;}
 
     /**
      * Checks whether the given space is occupied by a piece on the same team.
