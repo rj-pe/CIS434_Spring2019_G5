@@ -127,6 +127,5 @@ public abstract class BoardPiece{
         return valuation;
     }
 
-    public PieceType getType(){return type;}
 
 }
