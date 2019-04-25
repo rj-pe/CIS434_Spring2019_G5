@@ -10,6 +10,9 @@ public abstract class BoardPiece{
     protected Team team;
     protected Image image;
     protected ArrayList<Point> moves;
+    public boolean hasMoved = false;
+    public boolean castlingKingL = false;
+    public boolean castlingKingR = false;
 
     public BoardPiece(BoardSpace currentSpace, Team team) {
         this.setCurrentSpace(currentSpace);
@@ -94,6 +97,18 @@ public abstract class BoardPiece{
             moves.add(new Point(space.getPosition().x, space.getPosition().y));
         }
         return ( friend || checkForEnemy(space) );
+    }
+
+    public boolean getHasMoved(){
+        return hasMoved;
+    }
+
+    public void setHasMoved(){
+        hasMoved = true;
+    }
+
+    public PieceType getType(){
+        return type;
     }
 
     protected abstract void setImage();
