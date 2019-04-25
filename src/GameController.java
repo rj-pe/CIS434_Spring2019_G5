@@ -68,7 +68,7 @@ public class GameController {
         }
         currentPlayer = black;
         inactivePlayer = white;
-        arbiter = new Arbiter(chessBoard.board[7][3].getOccupyingPiece(), chessBoard.board[0][3].getOccupyingPiece(), currentPlayer, chessBoard);
+        arbiter = new Arbiter(chessBoard.board[7][4].getOccupyingPiece(), chessBoard.board[0][4].getOccupyingPiece(), currentPlayer, chessBoard);
         drawBoard();
     }
 
@@ -123,7 +123,7 @@ public class GameController {
         while( to == null ){
             to = computerPlayer.generateMove(from.getOccupyingPiece());
         }
-        chessBoard.board[from.getPosition().y][from.getPosition().x].transferPiece(to);
+        chessBoard.board[from.getPosition().y][from.getPosition().x].transferPiece(to, chessBoard);
         check(to.getOccupyingPiece(), to);
         drawBoard();
     }
@@ -213,6 +213,7 @@ public class GameController {
             // You have selected empty space and can legally move your selected piece there.
             } else if (selectedSpace.getEffect() != null) {
                 // Move the piece into the new space.
+
                 spaceToMoveCurrentlySelectedPiece = selectedSpace;
                 pieceMovementHandler();
             // The selected space is not legal. Please try again.
@@ -375,7 +376,7 @@ public class GameController {
             Point convertedSpaceToMoveCurrentlySelectedPieceCoords = convertJavaFXCoord(spaceToMoveCurrentlySelectedPiece);
             BoardSpace moveTo = chessBoard.board[convertedSpaceToMoveCurrentlySelectedPieceCoords.y][convertedSpaceToMoveCurrentlySelectedPieceCoords.x];
 
-            chessBoard.board[convertedCurrentlySelectedSpaceCoords.y][convertedCurrentlySelectedSpaceCoords.x].transferPiece(moveTo);
+            chessBoard.board[convertedCurrentlySelectedSpaceCoords.y][convertedCurrentlySelectedSpaceCoords.x].transferPiece(moveTo, chessBoard);
             piece = chessBoard.board[convertedSpaceToMoveCurrentlySelectedPieceCoords.y][convertedSpaceToMoveCurrentlySelectedPieceCoords.x].getOccupyingPiece();
             // Add the potential moves list to the enemy list of threatened spaces.
             inactivePlayer.addToThreatenedSpaces(piece.getMovesList());

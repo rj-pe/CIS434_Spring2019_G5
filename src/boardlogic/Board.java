@@ -7,7 +7,7 @@ import static boardlogic.Team.*;
 public class Board {
     public BoardSpace[][] board;
     private ChessPieceFactory chessPieceFactory = new ChessPieceFactory();
-    private static final String[] CHESS_STARTING_ROW = {"ROOK", "KNIGHT", "BISHOP", "KING", "QUEEN", "BISHOP", "KNIGHT", "ROOK"};
+    private static final String[] CHESS_STARTING_ROW = {"ROOK", "KNIGHT", "BISHOP", "QUEEN", "KING", "BISHOP", "KNIGHT", "ROOK"};
 
     public Board(int size, GameType game) {
         board = new BoardSpace[size][size];

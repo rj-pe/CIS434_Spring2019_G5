@@ -62,6 +62,35 @@ public class King extends BoardPiece {
         if ( y_m > 0 && !checkForFriend(chess.board[y_m][x]) && !player.isThreatenedSpace(chess.board[y_m][x])){
             moves.add(new Point(x, y_m));
         }
+        // Castling Logic to determine if King is able to exchange with Rook;
+
+        if (!hasMoved) {
+            for (int i = x; i < 7; i++) {
+                if (!checkForFriend(chess.board[y][i]) || !player.isThreatenedSpace(chess.board[y][i])) {
+                    if (chess.board[y][7].getOccupyingPiece() != null){
+                        if (chess.board[y][7].getOccupyingPiece().getType()== PieceType.ROOK){
+                            if (!chess.board[y][7].getOccupyingPiece().getHasMoved()) {
+                                moves.add(new Point(6, y));
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        if (!hasMoved) {
+            for (int i = x; i > 0; i--) {
+                if (!checkForFriend(chess.board[y][i]) || !player.isThreatenedSpace(chess.board[y][i])) {
+                    if (chess.board[y][0].getOccupyingPiece() != null){
+                        if (chess.board[y][0].getOccupyingPiece().getType() == PieceType.ROOK){
+                            if (!chess.board[y][0].getOccupyingPiece().getHasMoved()) {
+                                moves.add(new Point(3, y));
+                            }
+                        }
+                    }
+                }
+            }
+        }
         // return false if piece has no move options
         return !moves.isEmpty();
     }
