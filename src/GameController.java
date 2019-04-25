@@ -123,7 +123,7 @@ public class GameController {
         while( to == null ){
             to = computerPlayer.generateMove(from.getOccupyingPiece());
         }
-        chessBoard.board[from.getPosition().y][from.getPosition().x].transferPiece(to, chessBoard);
+        chessBoard.board[from.getPosition().y][from.getPosition().x].transferPiece(to);
         check(to.getOccupyingPiece(), to);
         drawBoard();
     }
@@ -375,9 +375,19 @@ public class GameController {
             Point convertedCurrentlySelectedSpaceCoords = convertJavaFXCoord(currentlySelectedSpace);
             Point convertedSpaceToMoveCurrentlySelectedPieceCoords = convertJavaFXCoord(spaceToMoveCurrentlySelectedPiece);
             BoardSpace moveTo = chessBoard.board[convertedSpaceToMoveCurrentlySelectedPieceCoords.y][convertedSpaceToMoveCurrentlySelectedPieceCoords.x];
+            piece = chessBoard.board[convertedCurrentlySelectedSpaceCoords.y][convertedCurrentlySelectedSpaceCoords.x].getOccupyingPiece();
+            if (!piece.getHasMoved()) {
+                if (piece.getType() == PieceType.KING){
+                    if (convertedSpaceToMoveCurrentlySelectedPieceCoords.x - convertedCurrentlySelectedSpaceCoords.x > 1){
+                        chessBoard.board[convertedCurrentlySelectedSpaceCoords.y][7].transferPiece(chessBoard.board[convertedCurrentlySelectedSpaceCoords.y][5]);
+                    }
+                    if (convertedSpaceToMoveCurrentlySelectedPieceCoords.x - convertedCurrentlySelectedSpaceCoords.x < -1){
+                        chessBoard.board[convertedCurrentlySelectedSpaceCoords.y][0].transferPiece(chessBoard.board[convertedCurrentlySelectedSpaceCoords.y][3]);
+                    }
+                }
+            }
+            chessBoard.board[convertedCurrentlySelectedSpaceCoords.y][convertedCurrentlySelectedSpaceCoords.x].transferPiece(moveTo);
 
-            chessBoard.board[convertedCurrentlySelectedSpaceCoords.y][convertedCurrentlySelectedSpaceCoords.x].transferPiece(moveTo, chessBoard);
-            piece = chessBoard.board[convertedSpaceToMoveCurrentlySelectedPieceCoords.y][convertedSpaceToMoveCurrentlySelectedPieceCoords.x].getOccupyingPiece();
             // Add the potential moves list to the enemy list of threatened spaces.
             inactivePlayer.addToThreatenedSpaces(piece.getMovesList());
             // The enemy king must update his list of potential moves based on the move that just occurred.

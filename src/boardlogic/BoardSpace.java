@@ -17,16 +17,8 @@ public class BoardSpace {
     }
 
     //Returns 1 on successful transfer else -1
-    public int transferPiece(BoardSpace space, Board chess) {
+    public int transferPiece(BoardSpace space) {
         if (space != this) {
-            if (this.getOccupyingPiece().getHasMoved() == false) {
-                if (this.getOccupyingPiece().getType() == PieceType.KING && space.equals(chess.board[2][rows])) {
-                    chess.board[0][rows].transferPiece(chess.board[3][rows], chess);
-                }
-                if (this.getOccupyingPiece().getType() == PieceType.KING && space.equals(chess.board[5][rows])) {
-                    chess.board[7][rows].transferPiece(chess.board[5][rows], chess);
-                }
-            }
             if (this.getOccupyingPiece().getType() == PieceType.ROOK || this.getOccupyingPiece().getType() == PieceType.KING)
                 this.getOccupyingPiece().setHasMoved();
 

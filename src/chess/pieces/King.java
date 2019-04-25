@@ -71,6 +71,7 @@ public class King extends BoardPiece {
                         if (chess.board[y][7].getOccupyingPiece().getType()== PieceType.ROOK){
                             if (!chess.board[y][7].getOccupyingPiece().getHasMoved()) {
                                 moves.add(new Point(6, y));
+
                             }
                         }
                     }
@@ -84,7 +85,8 @@ public class King extends BoardPiece {
                     if (chess.board[y][0].getOccupyingPiece() != null){
                         if (chess.board[y][0].getOccupyingPiece().getType() == PieceType.ROOK){
                             if (!chess.board[y][0].getOccupyingPiece().getHasMoved()) {
-                                moves.add(new Point(3, y));
+                                moves.add(new Point(2, y));
+
                             }
                         }
                     }

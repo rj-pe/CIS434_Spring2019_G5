@@ -11,7 +11,8 @@ public abstract class BoardPiece{
     protected Image image;
     protected ArrayList<Point> moves;
     public boolean hasMoved = false;
-    public boolean castlingKing = false;
+    public boolean castlingKingL = false;
+    public boolean castlingKingR = false;
 
     public BoardPiece(BoardSpace currentSpace, Team team) {
         this.setCurrentSpace(currentSpace);
