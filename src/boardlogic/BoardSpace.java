@@ -1,8 +1,9 @@
 package boardlogic;
 
 import java.awt.*;
+import java.io.Serializable;
 
-public class BoardSpace {
+public class BoardSpace implements Serializable {
     private BoardPiece occupyingPiece;
     private Point position; //X/Y position referring to ROW/COL on GUI
     private boolean active = false; //Will reflect in GUI if BoardSpace is currently selected/valid move of occupyingPiece
@@ -19,7 +20,6 @@ public class BoardSpace {
             space.getOccupyingPiece().setCurrentSpace(space);
 
             this.setOccupyingPieceAsNull();
-
             return 1;
         }
         return -1;

@@ -19,6 +19,7 @@ public class Pawn extends BoardPiece {
         type = PieceType.PAWN;
         sprites = new SpriteContainer();
         setImage();
+        valuation = 1;
     }
 
     //generate potential moves
@@ -117,7 +118,7 @@ public class Pawn extends BoardPiece {
                 }
             }
 
-            if (x_p < 8 && y_m < 8 && checkForEnemy(chess.board[y_m][x_p])) { //Capture in Q2
+            if (x_p >= 0 && x_p < 8 && y_m >= 0 && y_m < 8 && checkForEnemy(chess.board[y_m][x_p])) { //Capture in Q2
                 moves.add(new Point(x_p, y_m));
                 this.hasMoved++;
             }

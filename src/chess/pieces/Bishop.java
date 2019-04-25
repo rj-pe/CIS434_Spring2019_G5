@@ -15,6 +15,7 @@ public class Bishop extends BoardPiece {
         type = PieceType.BISHOP;
         sprites = new SpriteContainer();
         setImage();
+        valuation = 3;
     }
 
 

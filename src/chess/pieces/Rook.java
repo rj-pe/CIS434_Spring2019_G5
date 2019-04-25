@@ -6,9 +6,11 @@ import chess.chessPieceImages.SpriteContainer;
 import java.awt.*;
 import java.util.ArrayList;
 
+import java.io.Serializable;
+
 import static boardlogic.Team.WHITE;
 
-public class Rook extends BoardPiece {
+public class Rook extends BoardPiece implements Serializable {
     private SpriteContainer sprites;
 
     public Rook(BoardSpace currentSpace, Team team) {
@@ -16,6 +18,7 @@ public class Rook extends BoardPiece {
         type = PieceType.ROOK;
         sprites = new SpriteContainer();
         setImage();
+        valuation = 5;
     }
 
     // TODO write the castling method

@@ -1,9 +1,11 @@
 import chess.Arbiter;
-//import com.sun.xml.internal.bind.v2.TODO;
-
 import chess.pieces.King;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.effect.InnerShadow;
 import javafx.scene.image.ImageView;
@@ -12,15 +14,17 @@ import javafx.scene.layout.GridPane;
 import javafx.collections.ObservableList;
 import boardlogic.*;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
 import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import static boardlogic.Team.BLACK;
 import static boardlogic.Team.WHITE;
 
 
-public class Controller {
+public class GameController {
     // create board
     private Board chessBoard;
 
@@ -32,6 +36,7 @@ public class Controller {
     private Player currentPlayer;
     private Player inactivePlayer;
     private ComputerPlayer computerPlayer;
+    private Engine engine;
 
     // keeps track of whether check mate has occurred
     private boolean checkMate = false;
@@ -48,12 +53,13 @@ public class Controller {
     @FXML private Label playerTurnBlack;
     @FXML private Label kingInCheck;
     @FXML private Label kingInCheckMate;
+    @FXML private Pane whiteWin, blackWin;
 
     /**
      * Instantiates the game objects necessary for a chess game.
      * @param mode If mode is one, BLACK is instantiated as a computer player. If mode is zero, both players are human.
      */
-    private void initialize(int mode) {
+    private void setupGame(int mode) {
         chessBoard = new Board(8, GameType.CHESS);
         white = new HumanPlayer(WHITE, chessBoard);
         if( mode == 0 ){
@@ -64,30 +70,55 @@ public class Controller {
         currentPlayer = black;
         inactivePlayer = white;
         arbiter = new Arbiter(chessBoard.board[7][3].getOccupyingPiece(), chessBoard.board[0][3].getOccupyingPiece(), currentPlayer, chessBoard);
+        if(mode == 1){
+            engine = new Engine(chessBoard, white, black, arbiter);
+        }
         drawBoard();
     }
 
     /**
-     * Handles the "New Game" menu item.
+     * Initializes game for two players
      */
     public void twoPlayerGame(){
-        initialize(0);
+        setupGame(0);
     }
 
     /**
-     * Handles the "Play Computer" menu item.
+     * Initializes game with the computer acting as the black player
      */
     public void computerPlayerGame(){
-        initialize(1);
+        setupGame(1);
         computerPlayer = (ComputerPlayer) black;
     }
 
     /**
-     * Carries out a ComputerPlayer turn.
+     * Handles the "New Game" menu item
+     */
+    @FXML
+    private void newGame() {
+        whiteWin.setVisible(false);
+        blackWin.setVisible(false);
+        chessBoardFXNode.setDisable(false);
+
+        // GUI clean-up
+        clearGraveyardGUI();
+        check = false;
+        checkMate = false;
+        kingInCheckMate.setVisible(checkMate);
+
+        if (black instanceof ComputerPlayer) {
+            computerPlayerGame();
+        } else {
+            twoPlayerGame();
+        }
+    }
+
+    /**
+     * Carries out a random ComputerPlayer turn.
      * The selected piece is picked at random from the teamMembers list.
      * The selected move is picked at random from the potentialMoves list.
      */
-    private void computerTurn(){
+    private void computerTurnRandom(){
         BoardSpace from = computerPlayer.pickPiece();
         while( from == null){
             from = computerPlayer.pickPiece();
@@ -98,6 +129,23 @@ public class Controller {
         }
         chessBoard.board[from.getPosition().y][from.getPosition().x].transferPiece(to);
         check(to.getOccupyingPiece(), to);
+        drawBoard();
+    }
+
+    /**
+     *
+     */
+    private void computerTurn(){
+        Move idealMove = engine.pickMove();
+        BoardSpace from = idealMove.getStart();
+        BoardSpace to = idealMove.getDestination();
+        from.transferPiece(to);
+        // Add the potential moves list to the enemy list of threatened spaces.
+        inactivePlayer.addToThreatenedSpaces(to.getOccupyingPiece().getMovesList());
+        // The enemy king must update his list of potential moves based on the move that just occurred.
+        inactivePlayer.getKing().getPotentialMoves(chessBoard, inactivePlayer);
+        check(to.getOccupyingPiece(), to);
+
         drawBoard();
     }
 
@@ -135,7 +183,7 @@ public class Controller {
 
         ArrayList<BoardPiece> blackGraveyardList = black.graveyard.getGraveyard();
         ObservableList<Node> blackGraveyardFXNodeChildren = blackGraveyardFXNode.getChildren();
-        // drawing white player's graveyard
+        // drawing black player's graveyard
         for (int i = 0; i < blackGraveyardList.size(); i++) {
             Pane currentGraveyardGridPaneSpace = (Pane) blackGraveyardFXNodeChildren.get(i);
 
@@ -146,11 +194,16 @@ public class Controller {
             currentGraveyardGridPaneSpace.getChildren().add(new ImageView(blackGraveyardList.get(i).getImage()));
         }
         kingInCheck.setVisible(check);
-        kingInCheckMate.setVisible(checkMate);
-        switchPlayers();
+        if (checkMate) {
+            playerTurnWhite.setVisible(false);
+            playerTurnBlack.setVisible(false);
+            kingInCheck.setVisible(false);
+            kingInCheckMate.setVisible(checkMate);
+        } else {
+            switchPlayers();
+        }
     }
 
-    //TODO javadoc explaining selection handling flow
     private void selectionHandler(Pane selectedSpace) {
         Point convertedCoords = convertJavaFXCoord(selectedSpace);
         BoardPiece currentlySelectedBoardPiece = chessBoard.board[convertedCoords.y][convertedCoords.x].getOccupyingPiece();
@@ -358,7 +411,12 @@ public class Controller {
             computerTurn();
         }
         if(checkMate){
-            exitGame();
+            chessBoardFXNode.setDisable(true);
+            if (currentPlayer == black) {
+                blackWin.setVisible(true);
+            } else {
+                whiteWin.setVisible(true);
+            }
         }
     }
 
@@ -388,6 +446,41 @@ public class Controller {
         else {
             check = false;
             checkMate = false;
+        }
+    }
+
+    @FXML
+    private void returnToMainMenu() {
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("fxml/mainmenu.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Stage window = (Stage) (chessBoardFXNode.getScene().getWindow());
+        window.setScene(new Scene(root, 600, 600));
+        window.show();
+    }
+
+    private void clearGraveyardGUI() {
+        ObservableList<Node> whiteGraveyardFXNodeChildren = whiteGraveyardFXNode.getChildren();
+        // drawing white player's graveyard
+        for (int i = 0; i < whiteGraveyardFXNodeChildren.size(); i++) {
+            Pane currentGraveyardGridPaneSpace = (Pane) whiteGraveyardFXNodeChildren.get(i);
+
+            if (currentGraveyardGridPaneSpace.getChildren().size() != 0) {
+                currentGraveyardGridPaneSpace.getChildren().remove(0);
+            }
+        }
+
+        ObservableList<Node> blackGraveyardFXNodeChildren = blackGraveyardFXNode.getChildren();
+        // drawing black player's graveyard
+        for (int i = 0; i < blackGraveyardFXNodeChildren.size(); i++) {
+            Pane currentGraveyardGridPaneSpace = (Pane) blackGraveyardFXNodeChildren.get(i);
+
+            if (currentGraveyardGridPaneSpace.getChildren().size() != 0) {
+                currentGraveyardGridPaneSpace.getChildren().remove(0);
+            }
         }
     }
 }

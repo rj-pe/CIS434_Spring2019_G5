@@ -16,6 +16,7 @@ public class Knight extends BoardPiece {
         type = PieceType.KNIGHT;
         sprites = new SpriteContainer();
         setImage();
+        valuation = 3;
     }
 
 
