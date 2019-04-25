@@ -27,6 +27,7 @@ public abstract class Player {
      */
     ArrayList<BoardPiece> teamMembers;
     public Graveyard graveyard;
+    int material;
 
     // constructor
     /**
@@ -41,6 +42,7 @@ public abstract class Player {
         this.threatenedSpaces = new HashSet<>();
         buildTeamList(board);
         this.graveyard = new Graveyard(team);
+        this.material = 6+3*2+3*2+5*2+9;
     }
     // default constructor
     public Player(){}
@@ -106,10 +108,10 @@ public abstract class Player {
      * @return The player's king.
      */
     public BoardPiece getKing(){
-        BoardPiece king = null;
+        King king = null;
         for (BoardPiece piece : this.teamMembers) {
             if( piece.type == KING){
-                king = piece;
+                king = (King) piece;
             }
         }
         return king;
@@ -122,7 +124,7 @@ public abstract class Player {
     public void capture(BoardPiece piece){
         graveyard.addPiece(piece);
         this.teamMembers.remove(piece);
-
+        this.adjustMaterial(piece.getValuation());
     }
 
     /**
@@ -135,6 +137,12 @@ public abstract class Player {
         graveyard.addPiece(piece);
         piece.getCurrentSpace().setOccupyingPiece(null);
         this.teamMembers.remove(piece);
+    }
+    private void adjustMaterial(int value){
+        material -= value;
+    }
+    public int getMaterial(){
+        return material;
     }
 
     @Override

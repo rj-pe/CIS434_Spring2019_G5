@@ -115,8 +115,7 @@ public class Arbiter {
                 }
             }
         }
-
-        return true;
+        return false;
     }
 
     public void setActivePlayer(Player player){
