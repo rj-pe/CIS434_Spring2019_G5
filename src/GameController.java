@@ -415,10 +415,8 @@ public class GameController {
             // Calculates the potential moves for each piece on the board and adds the potential moves list to the enemy
             inactivePlayer.clearThreatenedSpaces();
             for (BoardPiece x: currentPlayer.getTeamMembers()) {
-                if (x.getType() != PieceType.KING) {
                     x.getPotentialMoves(chessBoard, currentPlayer);
                     inactivePlayer.addToThreatenedSpaces(x.getMovesList());
-                }
             }
             currentPlayer.clearThreatenedSpaces();
             for (BoardPiece x: inactivePlayer.getTeamMembers()) {
