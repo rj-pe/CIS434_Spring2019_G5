@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" style="-fx-background-image: url(https://static-cdn.jtvnw.net/ttv-boxart/Chess.jpg);" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainMenuController">
+    <children>
+        <Button id="twoPlayerGame" layoutX="240.0" layoutY="405.0" mnemonicParsing="false" onMouseClicked="#startNewGame" stylesheets="@../css/stylesheet.css" text="2 Player Game" />
+        <Button id="computerGame" layoutX="227.0" layoutY="467.0" mnemonicParsing="false" onMouseClicked="#startNewGame" stylesheets="@../css/stylesheet.css" text="Play the Computer" />
+    </children>
+</AnchorPane>

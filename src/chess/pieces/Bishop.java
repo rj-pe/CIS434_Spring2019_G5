@@ -1,9 +1,7 @@
 package chess.pieces;
 
 import boardlogic.*;
-import chess.chessPieceImages.SpriteContainer;
-
-import java.awt.*;
+import resources.chessPieceImages.SpriteContainer;
 
 import static boardlogic.Team.WHITE;
 

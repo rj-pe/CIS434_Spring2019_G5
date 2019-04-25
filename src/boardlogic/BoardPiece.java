@@ -11,6 +11,10 @@ public abstract class BoardPiece{
     protected Image image;
     protected ArrayList<Point> moves;
     protected int valuation;
+    public boolean hasMoved = false;
+    public boolean castlingKingL = false;
+    public boolean castlingKingR = false;
+
 
     public BoardPiece(BoardSpace currentSpace, Team team) {
         this.setCurrentSpace(currentSpace);
@@ -97,6 +101,18 @@ public abstract class BoardPiece{
         return ( friend || checkForEnemy(space) );
     }
 
+    public boolean getHasMoved(){
+        return hasMoved;
+    }
+
+    public void setHasMoved(){
+        hasMoved = true;
+    }
+
+    public PieceType getType(){
+        return type;
+    }
+
     protected abstract void setImage();
 
     public Image getImage() {
@@ -111,6 +127,5 @@ public abstract class BoardPiece{
         return valuation;
     }
 
-    public PieceType getType(){return type;}
 
 }

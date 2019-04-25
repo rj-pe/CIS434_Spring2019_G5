@@ -1,4 +1,4 @@
-package chess.chessPieceImages;
+package resources.chessPieceImages;
 
 import javafx.embed.swing.SwingFXUtils;
 

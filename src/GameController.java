@@ -69,7 +69,8 @@ public class GameController {
         }
         currentPlayer = black;
         inactivePlayer = white;
-        arbiter = new Arbiter(chessBoard.board[7][3].getOccupyingPiece(), chessBoard.board[0][3].getOccupyingPiece(), currentPlayer, chessBoard);
+
+        arbiter = new Arbiter(chessBoard.board[7][4].getOccupyingPiece(), chessBoard.board[0][4].getOccupyingPiece(), currentPlayer, chessBoard);
         if(mode == 1){
             engine = new Engine(chessBoard, white, black, arbiter);
         }
@@ -224,16 +225,19 @@ public class GameController {
                     // You want to change which piece is selected.
                     setCurrentlySelectedSpace(selectedSpace, currentlySelectedBoardPiece);
                 // The selected space contains an enemy, and is a legal move for your selected piece.
-                } else if (currentlySelectedBoardPiece.getTeam() == inactivePlayer.getTeam() && selectedSpace.getEffect() != null) {
+                } else if (currentlySelectedBoardPiece.getTeam() == inactivePlayer.getTeam()) {
                     // Capture the enemy and move your piece onto the its space.
-                    inactivePlayer.capture(currentlySelectedBoardPiece);
-                    spaceToMoveCurrentlySelectedPiece = selectedSpace;
-                    pieceMovementHandler();
-
+                    if (selectedSpace.getEffect() != null) {
+                        inactivePlayer.capture(currentlySelectedBoardPiece);
+                        inactivePlayer.buildTeamList(chessBoard);
+                        spaceToMoveCurrentlySelectedPiece = selectedSpace;
+                        pieceMovementHandler();
+                    } else clearActiveEffects();
                 }
             // You have selected empty space and can legally move your selected piece there.
             } else if (selectedSpace.getEffect() != null) {
                 // Move the piece into the new space.
+
                 spaceToMoveCurrentlySelectedPiece = selectedSpace;
                 pieceMovementHandler();
             // The selected space is not legal. Please try again.
@@ -395,11 +399,32 @@ public class GameController {
             Point convertedCurrentlySelectedSpaceCoords = convertJavaFXCoord(currentlySelectedSpace);
             Point convertedSpaceToMoveCurrentlySelectedPieceCoords = convertJavaFXCoord(spaceToMoveCurrentlySelectedPiece);
             BoardSpace moveTo = chessBoard.board[convertedSpaceToMoveCurrentlySelectedPieceCoords.y][convertedSpaceToMoveCurrentlySelectedPieceCoords.x];
-
+            piece = chessBoard.board[convertedCurrentlySelectedSpaceCoords.y][convertedCurrentlySelectedSpaceCoords.x].getOccupyingPiece();
+            if (!piece.getHasMoved()) {
+                if (piece.getType() == PieceType.KING){
+                    if (convertedSpaceToMoveCurrentlySelectedPieceCoords.x - convertedCurrentlySelectedSpaceCoords.x > 1){
+                        chessBoard.board[convertedCurrentlySelectedSpaceCoords.y][7].transferPiece(chessBoard.board[convertedCurrentlySelectedSpaceCoords.y][5]);
+                    }
+                    if (convertedSpaceToMoveCurrentlySelectedPieceCoords.x - convertedCurrentlySelectedSpaceCoords.x < -1){
+                        chessBoard.board[convertedCurrentlySelectedSpaceCoords.y][0].transferPiece(chessBoard.board[convertedCurrentlySelectedSpaceCoords.y][3]);
+                    }
+                }
+            }
             chessBoard.board[convertedCurrentlySelectedSpaceCoords.y][convertedCurrentlySelectedSpaceCoords.x].transferPiece(moveTo);
-            piece = chessBoard.board[convertedSpaceToMoveCurrentlySelectedPieceCoords.y][convertedSpaceToMoveCurrentlySelectedPieceCoords.x].getOccupyingPiece();
-            // Add the potential moves list to the enemy list of threatened spaces.
-            inactivePlayer.addToThreatenedSpaces(piece.getMovesList());
+
+            // Calculates the potential moves for each piece on the board and adds the potential moves list to the enemy
+            inactivePlayer.clearThreatenedSpaces();
+            for (BoardPiece x: currentPlayer.getTeamMembers()) {
+                    x.getPotentialMoves(chessBoard, currentPlayer);
+                    inactivePlayer.addToThreatenedSpaces(x.getMovesList());
+            }
+            currentPlayer.clearThreatenedSpaces();
+            for (BoardPiece x: inactivePlayer.getTeamMembers()) {
+                if (x.getType() != PieceType.KING) {
+                    x.getPotentialMoves(chessBoard, inactivePlayer);
+                    currentPlayer.addToThreatenedSpaces(x.getMovesList());
+                }
+            }
             // The enemy king must update his list of potential moves based on the move that just occurred.
             inactivePlayer.getKing().getPotentialMoves(chessBoard, inactivePlayer);
 
@@ -453,7 +478,7 @@ public class GameController {
     private void returnToMainMenu() {
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getResource("fxml/mainmenu.fxml"));
+            root = FXMLLoader.load(getClass().getResource("resources/fxml/mainmenu.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }

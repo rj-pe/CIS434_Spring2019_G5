@@ -1,10 +1,9 @@
 package chess.pieces;
 
 import boardlogic.*;
-import chess.chessPieceImages.SpriteContainer;
+import resources.chessPieceImages.SpriteContainer;
 
-import java.awt.*;
-import java.util.ArrayList;
+import java.io.Serializable;
 
 import java.io.Serializable;
 
