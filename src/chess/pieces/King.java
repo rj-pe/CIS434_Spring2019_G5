@@ -23,6 +23,7 @@ public class King extends BoardPiece {
         sprites = new SpriteContainer();
         this.enemyThreats = new ArrayList<>();
         setImage();
+        valuation = 1000000;
     }
 
 
@@ -130,6 +131,113 @@ public class King extends BoardPiece {
      */
     public void addToThreats(BoardPiece piece){
         this.enemyThreats.add(piece);
+    }
+
+    /**
+     * Checks the safety of the king.
+     * @param chess The board object.
+     * @return Returns a negative integer representing the number of open lanes the king is exposed on.
+     */
+    public int kingSafety(Board chess, Move move){
+        int safety = 0;
+        int x_pos = this.getCurrentSpace().getPosition().x;
+        int y_pos = this.getCurrentSpace().getPosition().y;
+        BoardSpace space;
+
+        // added ROOK moves
+        // loop through spaces to the left of the piece
+        // break out of the loop if the lane is blocked by any piece.
+        for(int i = x_pos-1; i >= 0; i--){
+            space = chess.board[y_pos][i];
+            if(checkForFriend(space)){
+                break;
+            }
+            else if (i == 0 || checkForEnemy(space)){
+                safety--;
+            }
+        }
+
+        // loop through spaces to the right of the piece
+        // break out of the loop if the lane is blocked by any piece.
+        for(int i = x_pos+1; i < 8; i++){
+            space = chess.board[y_pos][i];
+            if(checkForFriend(space)){
+                break;
+            }
+            else if (i == 7 || checkForEnemy(space)){
+                safety--;
+            }
+        }
+
+        // loop through spaces in front of the piece
+        // break out of the loop if the lane is blocked by any piece.
+        for (int i = y_pos+1; i < 8; i++){
+            space = chess.board[i][x_pos];
+            if(checkForFriend(space)){
+                break;
+            }
+            else if (i == 7 || checkForEnemy(space)){
+                safety--;
+            }
+        }
+
+        // loop through spaces behind piece
+        // break out of the loop if the lane is blocked by any piece.
+        for(int i = y_pos-1; i >= 0; i-- ){
+            space = chess.board[i][x_pos];
+            if(checkForFriend(space)){
+                break;
+            }
+            else if (i == 0 || checkForEnemy(space)){
+                safety--;
+            }
+        }
+        // added BISHOP moves
+        // For moves in Quadrant 3.
+        // Break out of the loop if the lane is blocked by any piece.
+        for(int i = x_pos-1, j = y_pos-1; i >= 0 && j >=0; i--, j--){
+            space = chess.board[j][i];
+            if(checkForFriend(space)){
+                break;
+            }
+            else if (i == 0 || j == 0 || checkForEnemy(space)){
+                safety--;
+            }
+        }
+        // For moves in Quadrant 2.
+        // Break out of the loop if the lane is blocked by any piece.
+        for(int i = x_pos+1, j = y_pos-1; i < 8 && j >=0; i++, j--){
+            space = chess.board[j][i];
+            if(checkForFriend(space)){
+                break;
+            }
+            else if (i == 7 || j == 0 || checkForEnemy(space)){
+                safety--;
+            }
+        }
+        // For Moves in Quadrant 4.
+        // Break out of the loop if the lane is blocked by any piece.
+        for(int i = x_pos-1, j = y_pos+1; i >= 0 && j < 8; i--, j++){
+            space  = chess.board[j][i];
+            if(checkForFriend(space)){
+                break;
+            }
+            else if (i == 0 || j == 7 || checkForEnemy(space)){
+                safety--;
+            }
+        }
+        // For moves in Quadrant 1.
+        // Break out of the loop if the lane is blocked by any piece.
+        for(int i = x_pos+1, j = y_pos+1; i < 8 && j < 8; i++, j++){
+            space = chess.board[j][i];
+            if(checkForFriend(space)){
+                break;
+            }
+            else if (i == 7 || j == 7 || checkForEnemy(space)){
+                safety--;
+            }
+        }
+        return safety;
     }
 
     @Override

@@ -15,6 +15,7 @@ public class Queen extends BoardPiece {
         type = PieceType.QUEEN;
         sprites = new SpriteContainer();
         setImage();
+        valuation = 9;
     }
 
     /* Queen moves are a combination of Rook and Bishop moves */

@@ -10,9 +10,11 @@ public abstract class BoardPiece{
     protected Team team;
     protected Image image;
     protected ArrayList<Point> moves;
+    protected int valuation;
     public boolean hasMoved = false;
     public boolean castlingKingL = false;
     public boolean castlingKingR = false;
+
 
     public BoardPiece(BoardSpace currentSpace, Team team) {
         this.setCurrentSpace(currentSpace);
@@ -41,7 +43,7 @@ public abstract class BoardPiece{
      */
     //public abstract boolean getPotentialMoves(Board board);
 
-    public boolean getPotentialMoves(Board board, Player player){return false;}
+    public abstract boolean getPotentialMoves(Board board, Player player);
 
     /**
      * Checks whether a potential move is valid by cross-referencing with the moves ArrayList.
@@ -116,5 +118,15 @@ public abstract class BoardPiece{
     public Image getImage() {
         return image;
     }
+
+    /**
+     * Accessor method for the value of the piece.
+     * @return The point value of the piece.
+     */
+    public int getValuation(){
+        return valuation;
+    }
+
+    public PieceType getType(){return type;}
 
 }

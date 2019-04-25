@@ -36,6 +36,7 @@ public class GameController {
     private Player currentPlayer;
     private Player inactivePlayer;
     private ComputerPlayer computerPlayer;
+    private Engine engine;
 
     // keeps track of whether check mate has occurred
     private boolean checkMate = false;
@@ -68,7 +69,11 @@ public class GameController {
         }
         currentPlayer = black;
         inactivePlayer = white;
-        arbiter = new Arbiter(chessBoard.board[7][4].getOccupyingPiece(), chessBoard.board[0][4].getOccupyingPiece(), currentPlayer, chessBoard);
+
+        arbiter = new Arbiter(chessBoard.board[7][3].getOccupyingPiece(), chessBoard.board[0][3].getOccupyingPiece(), currentPlayer, chessBoard);
+        if(mode == 1){
+            engine = new Engine(chessBoard, white, black, arbiter);
+        }
         drawBoard();
     }
 
@@ -110,11 +115,11 @@ public class GameController {
     }
 
     /**
-     * Carries out a ComputerPlayer turn.
+     * Carries out a random ComputerPlayer turn.
      * The selected piece is picked at random from the teamMembers list.
      * The selected move is picked at random from the potentialMoves list.
      */
-    private void computerTurn(){
+    private void computerTurnRandom(){
         BoardSpace from = computerPlayer.pickPiece();
         while( from == null){
             from = computerPlayer.pickPiece();
@@ -125,6 +130,23 @@ public class GameController {
         }
         chessBoard.board[from.getPosition().y][from.getPosition().x].transferPiece(to);
         check(to.getOccupyingPiece(), to);
+        drawBoard();
+    }
+
+    /**
+     *
+     */
+    private void computerTurn(){
+        Move idealMove = engine.pickMove();
+        BoardSpace from = idealMove.getStart();
+        BoardSpace to = idealMove.getDestination();
+        from.transferPiece(to);
+        // Add the potential moves list to the enemy list of threatened spaces.
+        inactivePlayer.addToThreatenedSpaces(to.getOccupyingPiece().getMovesList());
+        // The enemy king must update his list of potential moves based on the move that just occurred.
+        inactivePlayer.getKing().getPotentialMoves(chessBoard, inactivePlayer);
+        check(to.getOccupyingPiece(), to);
+
         drawBoard();
     }
 
@@ -402,7 +424,7 @@ public class GameController {
         }
         if(checkMate){
             chessBoardFXNode.setDisable(true);
-            if (currentPlayer == white) {
+            if (currentPlayer == black) {
                 blackWin.setVisible(true);
             } else {
                 whiteWin.setVisible(true);
