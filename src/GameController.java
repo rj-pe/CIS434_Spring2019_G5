@@ -69,6 +69,7 @@ public class GameController {
         }
         currentPlayer = black;
         inactivePlayer = white;
+
         arbiter = new Arbiter(chessBoard.board[7][3].getOccupyingPiece(), chessBoard.board[0][3].getOccupyingPiece(), currentPlayer, chessBoard);
         if(mode == 1){
             engine = new Engine(chessBoard, white, black, arbiter);
@@ -234,6 +235,7 @@ public class GameController {
             // You have selected empty space and can legally move your selected piece there.
             } else if (selectedSpace.getEffect() != null) {
                 // Move the piece into the new space.
+
                 spaceToMoveCurrentlySelectedPiece = selectedSpace;
                 pieceMovementHandler();
             // The selected space is not legal. Please try again.
@@ -395,9 +397,19 @@ public class GameController {
             Point convertedCurrentlySelectedSpaceCoords = convertJavaFXCoord(currentlySelectedSpace);
             Point convertedSpaceToMoveCurrentlySelectedPieceCoords = convertJavaFXCoord(spaceToMoveCurrentlySelectedPiece);
             BoardSpace moveTo = chessBoard.board[convertedSpaceToMoveCurrentlySelectedPieceCoords.y][convertedSpaceToMoveCurrentlySelectedPieceCoords.x];
-
+            piece = chessBoard.board[convertedCurrentlySelectedSpaceCoords.y][convertedCurrentlySelectedSpaceCoords.x].getOccupyingPiece();
+            if (!piece.getHasMoved()) {
+                if (piece.getType() == PieceType.KING){
+                    if (convertedSpaceToMoveCurrentlySelectedPieceCoords.x - convertedCurrentlySelectedSpaceCoords.x > 1){
+                        chessBoard.board[convertedCurrentlySelectedSpaceCoords.y][7].transferPiece(chessBoard.board[convertedCurrentlySelectedSpaceCoords.y][5]);
+                    }
+                    if (convertedSpaceToMoveCurrentlySelectedPieceCoords.x - convertedCurrentlySelectedSpaceCoords.x < -1){
+                        chessBoard.board[convertedCurrentlySelectedSpaceCoords.y][0].transferPiece(chessBoard.board[convertedCurrentlySelectedSpaceCoords.y][3]);
+                    }
+                }
+            }
             chessBoard.board[convertedCurrentlySelectedSpaceCoords.y][convertedCurrentlySelectedSpaceCoords.x].transferPiece(moveTo);
-            piece = chessBoard.board[convertedSpaceToMoveCurrentlySelectedPieceCoords.y][convertedSpaceToMoveCurrentlySelectedPieceCoords.x].getOccupyingPiece();
+
             // Add the potential moves list to the enemy list of threatened spaces.
             inactivePlayer.addToThreatenedSpaces(piece.getMovesList());
             // The enemy king must update his list of potential moves based on the move that just occurred.

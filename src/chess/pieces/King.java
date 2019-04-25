@@ -10,6 +10,8 @@ import static boardlogic.Team.*;
 
 public class King extends BoardPiece {
     private SpriteContainer sprites;
+    private boolean canCastleR = false;
+    private boolean canCastleL = false;
     /**
      * A list of the piece's that hold the king in check
      */
@@ -62,6 +64,46 @@ public class King extends BoardPiece {
         }
         if ( y_m > 0 && !checkForFriend(chess.board[y_m][x]) && !player.isThreatenedSpace(chess.board[y_m][x])){
             moves.add(new Point(x, y_m));
+        }
+        // Castling Logic to determine if King is able to exchange with Rook;
+
+        if (!hasMoved) {
+                if (!checkForFriend(chess.board[y][x+1]) && !player.isThreatenedSpace(chess.board[y][x+1])) {
+                    if (!checkForFriend(chess.board[y][x+2]) && !player.isThreatenedSpace(chess.board[y][x+2])) {
+                        canCastleR = true;
+                }
+            }
+            if (canCastleR){
+                if (chess.board[y][7].getOccupyingPiece() != null){
+                    if (chess.board[y][7].getOccupyingPiece().getType()== PieceType.ROOK){
+                        if (!chess.board[y][7].getOccupyingPiece().getHasMoved()) {
+                            moves.add(new Point(6, y));
+                        }
+                    }
+                }
+            }
+        }
+
+        if (!hasMoved) {
+            if (!checkForFriend(chess.board[y][x-1]) && !player.isThreatenedSpace(chess.board[y][x-1])) {
+                if (!checkForFriend(chess.board[y][x-2]) && !player.isThreatenedSpace(chess.board[y][x-2])) {
+                    if (!checkForFriend(chess.board[y][x-3]) && !player.isThreatenedSpace(chess.board[y][x-3])) {
+                            canCastleL = true;
+                    }
+                }
+            }
+
+            if (canCastleL){
+                if (chess.board[y][0].getOccupyingPiece() != null){
+                    if (chess.board[y][0].getOccupyingPiece().getType() == PieceType.ROOK){
+                        if (!chess.board[y][0].getOccupyingPiece().getHasMoved()) {
+                            moves.add(new Point(2, y));
+
+                        }
+                    }
+
+                }
+            }
         }
         // return false if piece has no move options
         return !moves.isEmpty();
