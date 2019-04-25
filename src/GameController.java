@@ -70,7 +70,7 @@ public class GameController {
         currentPlayer = black;
         inactivePlayer = white;
 
-        arbiter = new Arbiter(chessBoard.board[7][3].getOccupyingPiece(), chessBoard.board[0][3].getOccupyingPiece(), currentPlayer, chessBoard);
+        arbiter = new Arbiter(chessBoard.board[7][4].getOccupyingPiece(), chessBoard.board[0][4].getOccupyingPiece(), currentPlayer, chessBoard);
         if(mode == 1){
             engine = new Engine(chessBoard, white, black, arbiter);
         }
