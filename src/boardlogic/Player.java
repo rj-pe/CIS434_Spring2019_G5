@@ -54,7 +54,7 @@ public abstract class Player {
      * any matches are added to the ArrayList teamMembers.
      * @param board An object which holds an two dimensional array of spaces.
      */
-    void buildTeamList(Board board){
+    public void buildTeamList(Board board){
         // Loop through each space on the board &
         // search for pieces on my team.
         for (BoardSpace[] boardRow : board.board){
@@ -90,6 +90,10 @@ public abstract class Player {
      */
     public void addToThreatenedSpaces(ArrayList<Point> threatenedSpaces){
         this.threatenedSpaces.addAll(threatenedSpaces);
+    }
+
+    public void clearThreatenedSpaces() {
+        this.threatenedSpaces = new HashSet<>();
     }
 
     /**
