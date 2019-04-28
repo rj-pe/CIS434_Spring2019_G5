@@ -7,16 +7,30 @@ import java.awt.*;
 import java.util.ArrayList;
 
 import static boardlogic.Team.*;
-
+/**
+ * A class that describes the king.
+ * @see BoardPiece
+ */
 public class King extends BoardPiece {
     private SpriteContainer sprites;
+    /**
+     * Keeps track of whether this king can castle on the right.
+     */
     private boolean canCastleR = false;
+    /**
+     * Keeps track of whether this king can castle on the left.
+     */
     private boolean canCastleL = false;
     /**
      * A list of the piece's that hold the king in check
      */
     ArrayList<BoardPiece> enemyThreats;
 
+    /**
+     * Constructor which sets the piece type, image, enemy threats, and valuation fields for this king.
+     * @param currentSpace The space on which this king starts the game.
+     * @param team The team to which this king is assigned.
+     */
     public King(BoardSpace currentSpace, Team team) {
         super(currentSpace, team);
         type = PieceType.KING;
@@ -26,7 +40,12 @@ public class King extends BoardPiece {
         valuation = 1000000;
     }
 
-
+    /**
+     * The king can move one space in any direction.
+     * @param chess The Board object which holds the active pieces and their relative positions.
+     * @param player The player which owns this piece.
+     * @return True if this king has any available moves, false if this king cannot move.
+     */
     @Override
     public boolean getPotentialMoves(Board chess, Player player) {
         // clean up anything previously stored in the potential moves ArrayList
@@ -108,7 +127,9 @@ public class King extends BoardPiece {
         // return false if piece has no move options
         return !moves.isEmpty();
     }
-
+    /**
+     * Setter method for this king's image.
+     */
     @Override
     protected void setImage() {
         if (team == Team.BLACK) {
@@ -136,6 +157,7 @@ public class King extends BoardPiece {
     /**
      * Checks the safety of the king.
      * @param chess The board object.
+     * @param move The move under consideration.
      * @return Returns a negative integer representing the number of open lanes the king is exposed on.
      */
     public int kingSafety(Board chess, Move move){
@@ -239,7 +261,10 @@ public class King extends BoardPiece {
         }
         return safety;
     }
-
+    /**
+     * Provides a string which identifies this king object as a king.
+     * @return A string that identifies that this king is a white or a black king.
+     */
     @Override
     public String toString() {
         return (team == WHITE) ? "WhK" : "BlK";

@@ -9,7 +9,9 @@ import java.util.Set;
 
 import static boardlogic.PieceType.KING;
 
-
+/**
+ * The player class keeps track of all pieces on a single chess side.
+ */
 public abstract class Player {
     // fields
     /**
@@ -26,7 +28,13 @@ public abstract class Player {
      * Each piece is assigned to a team when created by the board class.
      */
     ArrayList<BoardPiece> teamMembers;
+    /**
+     * An object that stores the player's captured pieces.
+     */
     public Graveyard graveyard;
+    /**
+     * An integer value that represents the total value of the player's active pieces.
+     */
     int material;
 
     // constructor
@@ -123,7 +131,7 @@ public abstract class Player {
 
     /**
      * Adds a piece to the player's graveyard.
-     * @param piece
+     * @param piece The piece which will be added to this player's graveyard.
      */
     public void capture(BoardPiece piece){
         graveyard.addPiece(piece);
@@ -135,16 +143,26 @@ public abstract class Player {
      * Adds a piece to the player's graveyard.
      * Is used for special moves En Passant and can be used for Castling
      * The captured piece is removed from the board
-     * @param piece
+     * @param piece The piece which will be added to this player's graveyard.
      */
     public void captureEnPassant(BoardPiece piece){
         graveyard.addPiece(piece);
         piece.getCurrentSpace().setOccupyingPiece(null);
         this.teamMembers.remove(piece);
     }
+
+    /**
+     * Adjusts the material value that the player possesses.
+     * @param value An integer value that should be subtracted from the current material value.
+     */
     private void adjustMaterial(int value){
         material -= value;
     }
+
+    /**
+     * Accessor method for the player's material field.
+     * @return An integer value that represents the combined value of the player's pieces.
+     */
     public int getMaterial(){
         return material;
     }

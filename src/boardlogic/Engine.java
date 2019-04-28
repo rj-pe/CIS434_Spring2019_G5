@@ -7,15 +7,30 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
 
-/*
- https://web.archive.org/web/20041103012847/http://myweb.cableone.net/christienolan/coach/evaluating.htm
+/**
+ * A chess engine which determines an optimal move based for a given board configuration.
  */
 public class Engine {
     // fields
+    /**
+     * The board object which holds the active pieces and their relative positions.
+     */
     private Board board;
+    /**
+     * The computer player object.
+     */
     private Player computer;
+    /**
+     * The human player, the computer's opponent.
+     */
     private Player enemy;
+    /**
+     * The arbiter object which oversees the game play and determines check and checkmate.
+     */
     private Arbiter arbiter;
+    /**
+     * A boolean which tracks whether an opponent sits on a space under consideration.
+     */
     private boolean opponentOccupant = false;
 
 
@@ -26,6 +41,8 @@ public class Engine {
      * if the move causes check or checkmate, the exposure of the piece.
      * @param board The board object.
      * @param enemy The opponent's player object.
+     * @param arbiter The arbiter object which oversees the game play.
+     * @param computer The computer player.
      */
     public Engine(Board board, Player enemy, Player computer, Arbiter arbiter){
         this.board = board;
@@ -86,6 +103,13 @@ public class Engine {
         }
         return 100*net;
     }
+
+    /**
+     * Determines whether the move under consideration which place the king in danger.
+     * Calculates whether the move will result in an open lane where the king will be left vulnerable.
+     * @param move The move object under consideration.
+     * @return A numerical value representing the king's safety.
+     */
     private int kingSafety(Move move){
         int kingSafety = 0;
         King king = (King) computer.getKing();

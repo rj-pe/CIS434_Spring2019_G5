@@ -4,36 +4,89 @@ import java.awt.*;
 import java.util.ArrayList;
 import javafx.scene.image.Image;
 
+/**
+ * A super class that provides core functionality for chess pieces.
+ * All pieces share the methods and fields defined in this class.
+ * Provides fields that hold information about position, team, and available moves.
+ */
 public abstract class BoardPiece{
+    /**
+     * The BoardSpace object upon which this is situated.
+     */
     private BoardSpace currentSpace;
+    /**
+     * The type of piece that this represents. Can be one of the following: King, Queen, Rook, Bishop, Knight, or Pawn.
+     */
     protected PieceType type;
+    /**
+     * The team that this piece is on. Can be either WHITE or BLACK team.
+     */
     protected Team team;
+    /**
+     * The image that this piece will use to display itself.
+     */
     protected Image image;
+    /**
+     * A list of available moves that this piece can legally carry out.
+     */
     protected ArrayList<Point> moves;
+    /**
+     * The value of this piece. Value is assigned according to the following scheme:
+     * <ul>
+     *     <li>Pawn -- 1 pt.</li>
+     *     <li>Knight -- 3 pts.</li>
+     *     <li>Bishop -- 3 pts.</li>
+     *     <li>Rook -- 5 pts</li>
+     *     <li>Queen -- 9 pts.</li>
+     * </ul>
+     */
     protected int valuation;
+    /**
+     * A boolean which is set to true when this piece moves off of its original position.
+     */
     public boolean hasMoved = false;
     public boolean castlingKingL = false;
     public boolean castlingKingR = false;
 
-
+    /**
+     * Constructor for the BoardPiece object, sets this piece's starting position.
+     * @param currentSpace The space which this piece should be placed on to start the game.
+     * @param team The team to which this piece is assigned.
+     */
     public BoardPiece(BoardSpace currentSpace, Team team) {
         this.setCurrentSpace(currentSpace);
         this.team = team;
         this.moves = new ArrayList<>();
     }
 
+    /**
+     * Setter for this pieces current space field. Allows programmatic access to the pieces board position.
+     * @param currentSpace
+     */
     void setCurrentSpace(BoardSpace currentSpace) {
         this.currentSpace = currentSpace;
     }
 
+    /**
+     * Setter method for this pieces team. Team can be either WHITE or BLACK.
+     * @param team The team to which this piece will be assigned.
+     */
     public void setTeam(Team team) {
         this.team = team;
     }
 
+    /**
+     * Accessor method for this pieces team field.
+     * @return The team to which this piece belongs.
+     */
     public Team getTeam() {
         return team;
     }
 
+    /**
+     * Accessor method for this pieces list of available moves, returns null if list is empty.
+     * @return Returns an ArrayList of Points that represent this piece's currently available moves.
+     */
     public ArrayList<Point> getMovesList(){return moves; }
 
     /**
@@ -43,6 +96,13 @@ public abstract class BoardPiece{
      */
     //public abstract boolean getPotentialMoves(Board board);
 
+    /**
+     * Calculates the potential moves that are available to this piece based on chess' rules of piece movement.
+     * Each piece type has a unique movement pattern and will override this method to implement thier pattern.
+     * @param board The board object that holds information about the boardpieces and spaces they occupy.
+     * @param player The player which owns this piece.
+     * @return Returns true if any potential moves are available, false if none are available.
+     */
     public abstract boolean getPotentialMoves(Board board, Player player);
 
     /**
@@ -54,6 +114,10 @@ public abstract class BoardPiece{
         return this.moves.contains(requestedMove);
     }
 
+    /**
+     * Accessor method for this piece's current position on the board.
+     * @return The BoardSpace object upon which this piece is currently on.
+     */
     public BoardSpace getCurrentSpace() {
         return currentSpace;
     }
@@ -101,20 +165,40 @@ public abstract class BoardPiece{
         return ( friend || checkForEnemy(space) );
     }
 
+    /**
+     * Accessor method for the hasMoved boolean.
+     * @return True if hasMoved is set, false if this piece has yet to move.
+     */
     public boolean getHasMoved(){
         return hasMoved;
     }
 
+    /**
+     * Setter for this piece's hasMoved boolean.
+     */
     public void setHasMoved(){
         hasMoved = true;
     }
 
+    /**
+     * Accessor method for this piece's PieceType.
+     * @return This piece's PieceType
+     * @see PieceType
+     */
     public PieceType getType(){
         return type;
     }
 
+    /**
+     * Abstract method for setting this piece's image.
+     * Overridden in each piece class that inherits from this super class.
+     */
     protected abstract void setImage();
 
+    /**
+     * Accessor method for this piece's image.
+     * @return The image that represents this piece.
+     */
     public Image getImage() {
         return image;
     }

@@ -6,10 +6,17 @@ import resources.chessPieceImages.SpriteContainer;
 import java.awt.*;
 
 import static boardlogic.Team.WHITE;
-
+/**
+ * A class that describes the queen.
+ * @see BoardPiece
+ */
 public class Queen extends BoardPiece {
     private SpriteContainer sprites;
-
+    /**
+     * Constructor which sets the piecetype, image, and valuation fields for the queen.
+     * @param currentSpace The space on which this queen starts the game.
+     * @param team The team to which this queen is assigned.
+     */
     public Queen(BoardSpace currentSpace, Team team) {
         super(currentSpace, team);
         type = PieceType.QUEEN;
@@ -19,7 +26,13 @@ public class Queen extends BoardPiece {
     }
 
     /* Queen moves are a combination of Rook and Bishop moves */
-
+    /**
+     * The queen can move diagonally for as many unoccupied spaces as the player wishes, or
+     * in a straight line trajectory for as many unoccupied spaces as the player wishes.
+     * @param chess The Board object which holds the active pieces and their relative positions.
+     * @param player The player which owns this piece.
+     * @return True if this queen has any available moves, false if this queen cannot move.
+     */
     @Override
     public boolean getPotentialMoves(Board chess, Player player) {
         moves.clear();
@@ -107,7 +120,9 @@ public class Queen extends BoardPiece {
     }
 
     public boolean isValidMove(Point requestedMove) {return true;}
-
+    /**
+     * Setter method for this queen's image.
+     */
     @Override
     protected void setImage() {
         if (team == Team.BLACK) {
@@ -116,7 +131,10 @@ public class Queen extends BoardPiece {
             super.image = sprites.getImage(1,1);
         }
     }
-
+    /**
+     * Provides a string which identifies this queen object as a queen.
+     * @return A string that identifies that this queen is a white or a black queen.
+     */
     @Override
     public String toString() {
         return (team == WHITE) ? "WhQ" : "BlQ";

@@ -19,13 +19,37 @@ import static boardlogic.Team.*;
 public class Arbiter {
     // fields
     // TODO method to keep track of king position maybe by holding pointers to the king objects
+    /**
+     * The player which is currently allowed to move one of his pieces.
+     */
     private Player activePlayer;
+    /**
+     * The position of the white king
+     */
     private BoardSpace whiteKingPosition;
+    /**
+     * The white team's king.
+     */
     private King whiteKing;
+    /**
+     * Booleans which track whether the white king is in check or checkmate.
+     */
     private boolean whiteKingInCheck, whiteKingInCheckMate;
+    /**
+     * The position of the black king.
+     */
     private BoardSpace blackKingPosition;
+    /**
+     * The black team's king.
+     */
     private King blackKing;
+    /**
+     * Booleans which track whether the black king is in check or checkmate.
+     */
     private boolean blackKingInCheck, blackKingInCheckMate;
+    /**
+     * The board which holds the active pieces and their relative positions.
+     */
     private Board board;
 
     // constructor
@@ -35,6 +59,7 @@ public class Arbiter {
      * @param whtKng The white king piece.
      * @param blkKng The black king piece.
      * @param player The currently active player when the arbiter object is created.
+     * @param board The board object which holds the active pieces and their relative positions.
      */
     public Arbiter(BoardPiece whtKng, BoardPiece blkKng, Player player, Board board){
         whiteKingPosition = whtKng.getCurrentSpace();
@@ -101,7 +126,9 @@ public class Arbiter {
      * <ul>
      *     <li>Capturing an enemy that holds the king in check.</li>
      *     <li>Blocking an open threatened lane to give the king space to move.</li>
-     * <ul/>
+     * </ul>
+     * @param king The king which this method checks.
+     * @param player The player which owns the king which this method checks.
      * @return True if some defensive move is possible, false if no options were found.
      */
     public boolean defensiveMovePossible(King king, Player player){
@@ -118,6 +145,10 @@ public class Arbiter {
         return false;
     }
 
+    /**
+     * A setter method for which player is currently actively making a move.
+     * @param player the player which is currently allowed to move.
+     */
     public void setActivePlayer(Player player){
         activePlayer = player;
     }

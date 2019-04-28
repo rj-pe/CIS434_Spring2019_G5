@@ -23,29 +23,64 @@ import java.util.ArrayList;
 import static boardlogic.Team.BLACK;
 import static boardlogic.Team.WHITE;
 
-
+/**
+ * The controller which captures user events on the graphical interface and determines what action the game will
+ * take to react to the user input.
+ */
 public class GameController {
     // create board
+    /**
+     * The board object which holds the active pieces and their relative positions.
+     */
     private Board chessBoard;
 
     // create player objects
+    /**
+     * The player which controls the black pieces.
+     */
     private Player black;
+    /**
+     * The player which controls the white pieces.
+     */
     private Player white;
 
     // handles to player objects for use during game-play
+    /**
+     * The player who is legally entitled to move one of his pieces.
+     */
     private Player currentPlayer;
+    /**
+     * The player who is not currently allowed to move his pieces.
+     */
     private Player inactivePlayer;
+    /**
+     * The player which is controlled by the applications computer play logic.
+     */
     private ComputerPlayer computerPlayer;
+    /**
+     * The chess engine which computes an optimal move for the computer player.
+     */
     private Engine engine;
 
     // keeps track of whether check mate has occurred
+    /**
+     * A boolean which keeps track of whether check mate has occurred.
+     */
     private boolean checkMate = false;
+    /**
+     * A boolean which keeps track whether check has occurred.
+     */
     private boolean check = false;
 
-    // the arbiter object will keep track of whether either king is under attack.
+    /**
+     * The arbiter object will keep track of whether either king is under attack.
+     */
+
     private Arbiter arbiter;
 
-    // store values of last two selected grid panes
+    /**
+     *  Store values of last two selected grid panes
+     */
     private Pane currentlySelectedSpace, spaceToMoveCurrentlySelectedPiece;
 
     @FXML private GridPane chessBoardFXNode, whiteGraveyardFXNode, blackGraveyardFXNode;
@@ -134,7 +169,7 @@ public class GameController {
     }
 
     /**
-     *
+     * Handles a ComputerPlayer turn, by calling to the chess engine to determine the optimal move.
      */
     private void computerTurn(){
         Move idealMove = engine.pickMove();
@@ -150,6 +185,9 @@ public class GameController {
         drawBoard();
     }
 
+    /**
+     * Draws each of the elements necessary to graphically represent the chess game.
+     */
     private void drawBoard() {
         Point convertedCoords;
         ObservableList<Node> chessBoardFXNodeChildren = chessBoardFXNode.getChildren();
@@ -205,6 +243,15 @@ public class GameController {
         }
     }
 
+    /**
+     * Handles the game's response to a user's board selection.
+     * If the space is empty, the user must select another space.
+     * If the space contains a piece which he owns the user must select a valid space to move to.
+     * If the space contains an enemy piece, the user must make another selection.
+     * If the user selects a space to move to that is valid the piece is moved to that space.
+     * If the user selects a space to move to that is invalid, the user must select a different space to move to.
+     * @param selectedSpace The space which the user has selected.
+     */
     private void selectionHandler(Pane selectedSpace) {
         Point convertedCoords = convertJavaFXCoord(selectedSpace);
         BoardPiece currentlySelectedBoardPiece = chessBoard.board[convertedCoords.y][convertedCoords.x].getOccupyingPiece();
@@ -247,6 +294,9 @@ public class GameController {
         }
     }
 
+    /**
+     * Switches which player's turn it is.
+     */
     private void switchPlayers() {
         currentPlayer = changeActivePlayer(currentPlayer, white, black, arbiter);
         inactivePlayer = changeInactivePlayer(inactivePlayer, white, black);
@@ -365,12 +415,18 @@ public class GameController {
         spaceToMoveCurrentlySelectedPiece = null;
     }
 
+    /**
+     * Clears the currently selected space and any visual effects applied to that space.
+     */
     private void clearCurrentlySelectedSpace() {
         currentlySelectedSpace = null;
         spaceToMoveCurrentlySelectedPiece = null;
         clearActiveEffects();
     }
 
+    /**
+     * Clears any active effects applied to the board.
+     */
     private void clearActiveEffects() {
         ObservableList<Node> children = chessBoardFXNode.getChildren();
 
@@ -474,6 +530,9 @@ public class GameController {
         }
     }
 
+    /**
+     * Handles a user request to return to the main game menu.
+     */
     @FXML
     private void returnToMainMenu() {
         Parent root = null;
@@ -487,6 +546,9 @@ public class GameController {
         window.show();
     }
 
+    /**
+     * Removes any piece's from the graveyard.
+     */
     private void clearGraveyardGUI() {
         ObservableList<Node> whiteGraveyardFXNodeChildren = whiteGraveyardFXNode.getChildren();
         // drawing white player's graveyard

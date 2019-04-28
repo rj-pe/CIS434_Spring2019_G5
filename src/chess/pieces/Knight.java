@@ -6,10 +6,17 @@ import resources.chessPieceImages.SpriteContainer;
 import java.awt.*;
 
 import static boardlogic.Team.WHITE;
-
+/**
+ * A class that describes the knight.
+ * @see BoardPiece
+ */
 public class Knight extends BoardPiece {
     private SpriteContainer sprites;
-
+    /**
+     * Constructor which sets the piecetype, image, and valuation fields for the knight.
+     * @param currentSpace The space on which this knight starts the game.
+     * @param team The team to which this knight is assigned.
+     */
     public Knight(BoardSpace currentSpace, Team team) {
         super(currentSpace, team);
         type = PieceType.KNIGHT;
@@ -18,7 +25,12 @@ public class Knight extends BoardPiece {
         valuation = 3;
     }
 
-
+    /**
+     * The knight can move two spaces in one direction followed by one space in an orthogonal direction.
+     * @param chess The Board object which holds the active pieces and their relative positions.
+     * @param player The player which owns this piece.
+     * @return True if this knight has any available moves, false if this knight cannot move.
+     */
     @Override
     public boolean getPotentialMoves(Board chess, Player player) {
 
@@ -66,7 +78,9 @@ public class Knight extends BoardPiece {
         }
         return !moves.isEmpty();
     }
-
+    /**
+     * Setter method for this knight's image.
+     */
     @Override
     protected void setImage() {
         if (team == Team.BLACK) {
@@ -75,7 +89,10 @@ public class Knight extends BoardPiece {
             super.image = sprites.getImage(3,1);
         }
     }
-
+    /**
+     * Provides a string which identifies this knight object as a knight.
+     * @return A string that identifies that this knight is a white or a black knight.
+     */
     @Override
     public String toString() {
         return (team == WHITE) ? "WhKn" : "BlKn";

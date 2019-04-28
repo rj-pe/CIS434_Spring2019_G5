@@ -5,8 +5,19 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Random;
 
+/**
+ * This class describes the fields and methods necessary for implementing a computer based player.
+ * This class is used when the user requests to play the computer.
+ * @see Player
+ */
 public class ComputerPlayer extends Player {
+    /**
+     * An instance of a Random object used to calculate a random move.
+     */
     private Random random;
+    /**
+     * The board object which holds the pieces and their relative positions.
+     */
     private Board board;
 
     /**
