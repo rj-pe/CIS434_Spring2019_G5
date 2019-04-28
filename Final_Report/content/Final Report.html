@@ -5,7 +5,7 @@
     <title>Final Report</title>
 </head>
 <body>
-
+<h2><center><u>Final Report</u></h2>
 <h3>Process of creating Chess Game </h3>
   <p></p>
 
@@ -13,16 +13,60 @@
   <p></p>
 
 <h3>Difficulties encountered </h3>
-  <p></p>
+<p>As the team is developing the game in the agile method, we are organizing our development efforts around
+    incremental delivery. Each increment is described by a GitHub
+    <a href="https://github.com/rj-pe/CIS434_Spring2019_G5/projects/1">Issue </a>.
+    This section details the outstanding issues which we are planning to address in future development increments:
+</p>
+<ul>
+    <li><i>Collision detection</i> -- makes sure that pieces can’t move over others.</li>
+
+    <li><i>Castling</i> -- This is a special move that can be performed once in a game by each player.</li>
+
+    <li><i>Capturing</i> -- This increment will allow pieces to capture other pieces.</li>
+
+    <li><i>Check and Check-mate</i> -– This increment will develop the logic for attacking the King.</li>
+
+    <li><i>Documentation</i> -- Go back and complete JavaDoc for existing classes and include documentation
+        for any future code additions. </li>
+
+    <li><i>GUI Implementation</i> -- Adapt command line solution to a graphical one.</li>
+</ul>
 
 <h3>Solutions implemented </h3>
-  <p></p>
+<ul>
+    <li><i>Collision detection</i> -- Added a method to check for enemies / friendly pieces. When one of these is
+        encountered, the player is notified. </li>
+
+    <li><i>Castling</i> -- Castling is a special King movement which consists of the king moving two spaces towards
+        the rook and the rook moves to the position over which the king moved. This functionality... </li>
+
+    <li><i>Capturing</i> -- If a piece captures another piece, the game should removes the captured piece and places
+        it in the graveyard.</li>
+
+    <li><i>Check and Check-mate</i> -- The game class keeps track of enemy threats in a list and when the king is
+        attacked. And, if deemed appropriate, it puts the king into check and/or checkmate.</li>
+
+    <li><i>Documentation</i> -- JavaDoc was used to add missing descriptions in all classes.</li>
+
+    <li><i>GUI Implementation</i> -- A graphical representation was adapted using JavaFX and SceneBuilder rather
+        than displaying the game on the command line.</li>
+</ul>
   
 <h3>Team members activities </h3>
   <p></p>
   
 <h3>Improvements if given more time </h3>
-    <p></p>
+    <ul>
+        <li>Fix Pawn special moves: en passant and promotion.</li>
+        <li>Chess Engine​.</li>
+        <li>Scoring of potential moves.​</li>
+        <li>Evaluation of position.​</li>
+        <li>Material Evolution.​</li>
+        <li>King's Safety.</li>
+        <li>Development.</li>
+        <li>Improve computer play.</li>​
+    </ul>
 
 <hr>
 <a href="../index.html">HOME</a>|
