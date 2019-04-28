@@ -9,7 +9,14 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * Handles events that occur on the main menu.
+ */
 public class MainMenuController {
+    /**
+     * Creates a new chess game.
+     * @param event The user's request for a new game. Can be either a request for a two player game or a computer game.
+     */
     @FXML
     private void startNewGame(MouseEvent event) {
         try {

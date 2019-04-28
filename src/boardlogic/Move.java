@@ -65,6 +65,11 @@ public class Move {
     public BoardSpace getStartingPosition(){
         return this.startingPoint;
     }
+
+    /**
+     * Accessor method for the starting position of this move.
+     * @return This move's starting position.
+     */
     public BoardSpace getStart(){
         return this.start;
     }

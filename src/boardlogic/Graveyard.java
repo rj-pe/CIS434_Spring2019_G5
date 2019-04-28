@@ -2,9 +2,18 @@ package boardlogic;
 
 import java.util.ArrayList;
 
+/**
+ * Keeps track of a player's captured pieces.
+ */
 public class Graveyard {
     //storage for Pieces
+    /**
+     * The team to which this graveyard belongs.
+     */
     protected Team team;
+    /**
+     * A list of a player's captured pieces.
+     */
     private ArrayList<BoardPiece> captured;
 
     // Constructor

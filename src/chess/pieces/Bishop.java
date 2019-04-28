@@ -5,9 +5,18 @@ import resources.chessPieceImages.SpriteContainer;
 
 import static boardlogic.Team.WHITE;
 
+/**
+ * A class that describes the bishop.
+ * @see BoardPiece
+ */
 public class Bishop extends BoardPiece {
     private SpriteContainer sprites;
 
+    /**
+     * Constructor which sets the piecetype, image, and valuation fields for the bishop.
+     * @param currentSpace The space on which this bishop starts the game.
+     * @param team The team to which this bishop is assigned.
+     */
     public Bishop(BoardSpace currentSpace, Team team) {
         super(currentSpace, team);
         type = PieceType.BISHOP;
@@ -16,7 +25,12 @@ public class Bishop extends BoardPiece {
         valuation = 3;
     }
 
-
+    /**
+     * The bishop can move diagonally for as many unoccupied spaces as the player wishes.
+     * @param chess The Board object which holds the active pieces and their relative positions.
+     * @param player The player which owns this piece.
+     * @return True if this bishop has any available moves, false if this bishop cannot move.
+     */
     @Override
     public boolean getPotentialMoves(Board chess, Player player) {
         moves.clear();
@@ -64,6 +78,9 @@ public class Bishop extends BoardPiece {
         return !moves.isEmpty();
     }
 
+    /**
+     * Setter method for this bishop's image.
+     */
     @Override
     protected void setImage() {
         if (team == Team.BLACK) {
@@ -73,6 +90,10 @@ public class Bishop extends BoardPiece {
         }
     }
 
+    /**
+     * Provides a string which identifies this bishop object as a bishop.
+     * @return A string that identifies that this bishop is a white or a black bishop.
+     */
     @Override
     public String toString() {
         return (team == WHITE) ? "WhB" : "BlB";

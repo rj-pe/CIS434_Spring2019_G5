@@ -6,13 +6,25 @@ import resources.chessPieceImages.SpriteContainer;
 import java.awt.*;
 
 import static boardlogic.Team.*;
-
+/**
+ * A class that describes the pawn.
+ * @see BoardPiece
+ */
 public class Pawn extends BoardPiece {
     private SpriteContainer sprites;
-
+    /**
+     * A boolean that tracks whether en passant is possible.
+     */
     private boolean enPassant = false;   //checks if en passant is possible
+    /**
+     * A boolean which tracks whether this pawn has moved from its starting position.
+     */
     private int hasMoved;
-
+    /**
+     * Constructor which sets the piecetype, image, and valuation fields for the pawn.
+     * @param currentSpace The space on which this pawn starts the game.
+     * @param team The team to which this pawn is assigned.
+     */
     public Pawn(BoardSpace currentSpace, Team team) {
         super(currentSpace, team);
         type = PieceType.PAWN;
@@ -22,6 +34,13 @@ public class Pawn extends BoardPiece {
     }
 
     //generate potential moves
+    /**
+     * The pawn can move one space in the forward direction except on its first turn when it may move two or one
+     * spaces forward.
+     * @param chess The Board object which holds the active pieces and their relative positions.
+     * @param player The player which owns this piece.
+     * @return True if this pawn has any available moves, false if this pawn cannot move.
+     */
     @Override
     public boolean getPotentialMoves(Board chess, Player player) {
         moves.clear();
@@ -133,6 +152,9 @@ public class Pawn extends BoardPiece {
 
     //TODO Promotion to Queen (or Knight or Rook or Bishop)
 
+    /**
+     * Setter method for this pawn's image.
+     */
     @Override
     protected void setImage() {
         if (team == Team.BLACK) {
@@ -141,7 +163,10 @@ public class Pawn extends BoardPiece {
             super.image = sprites.getImage(5,1);
         }
     }
-
+    /**
+     * Provides a string which identifies this pawn object as a pawn.
+     * @return A string that identifies that this pawn is a white or a black pawn.
+     */
     @Override
     public String toString() {
         return (team == WHITE) ? "WhP" : "BlP";
