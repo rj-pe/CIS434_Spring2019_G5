@@ -10,7 +10,17 @@
   <p></p>
 
 <h3>Software features</h3>
-  <p></p>
+    <p>Graveyard: The Graveyard stores the captured pieces of the enemy player and displays them. It is created as its own class, 
+      which is created by the player class in order to keep them separate. The Graveyard keeps the captured pieces within the captured 
+      ArrayList of the boardPiece class. It contains a method called addPiece which adds the piece to the ArrayList, and a method 
+      called getGraveyard to return the captured ArrayList.</p>
+    
+  <p>Capturing: When a piece owned by the player moves to an appropriate enemy piece within range, the player captures that piece. The
+    capturing process is part of the Player class.</p>
+    
+  <p>Castling: Castling is a special rule in Chess that permits the King and the Rook to switch positions. It is limited by 
+      the following circumstances: neither the King nor Rook have moved, there are no pieces in the spaces between them, and the King is 
+      not threatened in any of the spaces it must move through. </p>
 
 <h3>Difficulties encountered </h3>
 <p>As the team is developing the game in the agile method, we are organizing our development efforts around
@@ -39,10 +49,20 @@
         encountered, the player is notified. </li>
 
     <li><i>Castling</i> -- Castling is a special King movement which consists of the king moving two spaces towards
-        the rook and the rook moves to the position over which the king moved. This functionality... </li>
+        the rook and the rook moves to the position over which the king moved. In order to accomplish this, boardPiece contains the 
+        boolean hasMoved which is set to true when a piece is processed through the transferPiece method. In the King class, this 
+        boolean is checked to be false. If it is false, then it will look through the spaces between and check to see that they are 
+        unoccupied, and not threatened. If it passes 0through this check, then it sets a boolean canCastleL or canCastleR to true. 
+        These booleans indicate the direction of the rook piece. The King class then checks to see if the Rook's space is occupied, if 
+        it is occupied by a Rook, and if it has moved. If all of these are valid, it sets the the space where the King transitions to as
+        a possible move. Moving the rook is handled by the GameController class. During the process of movement, the pieceMovementHandler
+        method checks to see if the piece is the king. If it is, it checks to see the number of spaces it moved by calculting the
+        distance between the starting space and the selected space. If it is more than one or less than negative one, it moves the Rook
+        appropriately.</p> </li>
 
     <li><i>Capturing</i> -- If a piece captures another piece, the game should removes the captured piece and places
-        it in the graveyard.</li>
+        it in the graveyard. It uses the addPiece method of the Graveyard class to add the captured piece, then removes the piece from
+        the board. The method is called in the selectionHandler when the players selects a space containing an enemy piece.</li>
 
     <li><i>Check and Check-mate</i> -- The game class keeps track of enemy threats in a list and when the king is
         attacked. And, if deemed appropriate, it puts the king into check and/or checkmate.</li>
@@ -54,7 +74,13 @@
 </ul>
   
 <h3>Team members activities </h3>
-  <p></p>
+  <p>Alexander Rose: To enhance communication, Alex created a Microsoft Teams group for the team. This was utilized in the early 
+     stages of the project for team communication and document sharing. Alex worked on the movement logic for the Bishop and Knight 
+     pieces. Following that, Alex created the Graveyard class and determined the need for the Player class with R.J., which R.J. 
+     subsequently developed. Within the created Player class, Alex included a graveyard and created the capturing method. Additionally,
+      Alex designed and created the castling logic to work in unison with the User Interface upgrades that were implemented. Alex created 
+      the initial PowerPoint for the presentation, and helped with the development of the introductory slides. This was then shared with 
+     the team using Sharepoint so that the other Team Members could add their own slides.</p>
   
 <h3>Improvements if given more time </h3>
     <ul>
