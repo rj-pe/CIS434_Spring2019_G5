@@ -7,7 +7,21 @@
 <body>
 <h2><u>Final Report</u></h2>
 <h3>Process of creating Chess Game </h3>
-  <p></p>
+  <p>Github was used for code storage, versioning, and testing for compatibility throughout the whole development
+      process of the game. The Chess game was incrementally developed from an initial prototype. The prototype contained
+      classes for each piece, the board logic, and the command line which was initially used to test the software. That
+      prototype was the starting point that allowed the pieces to move freely across an 8x8 board. From there, we added
+      GitHub issues to divide tasks among the members. After much research, we were able to calculate potential moves
+      each piece can make, detect enemy pieces, and restrict it based on chess rules. After the successful implementation
+      of movement and capturing, a second prototype- the GUI implementation was introduced. Since we used Java to code,
+      we did not need to make major changes to run it in JavaFX. However, we discovered that Java1.8 was the only compatible
+      version that runs JavaFX while later versions were throwing errors and not able to run successfully. After solving
+      that, JavaFX libraries were added in each class as well as the game controller and main menu controller. A graveyard
+      was added to show players how many and which pieces were captured. Special moves- check, checkmate, and castling,
+      were added and tested. Additionally, bugs were being fixed along the development process when members discovered
+      them during testing. The game was developed from the board's point of view; the board is given instructions then
+      controls and moves the pieces around from its point of view.
+  </p>
 
 <h3>Software features</h3>
   <p>
@@ -133,16 +147,19 @@
      subsequently developed. Within the created Player class, Alex included a graveyard and created the capturing method. Additionally,
       Alex designed and created the castling logic to work in unison with the User Interface upgrades that were implemented. Alex created 
       the initial PowerPoint for the presentation, and helped with the development of the introductory slides. This was then shared with 
-     the team using Sharepoint so that the other Team Members could add their own slides. Additionally, Alex included the Instructions
-     in the User Manual.</p>
+     the team using Sharepoint so that the other Team Members could add their own slides.</p>
   <p>
       R.J. Pereira: Contributed to game development (~2k lines): Arbiter object, Chess Engine object, King and Rook piece
       movement, Player parent class and children, Move object. Helped in testing the functionality of each delivered increment.<br>
       Contributed to software documentation (~1k lines): Ensuring that the entire codebase was documented in full, and
       writing portions of the final report, presentation, progress report and project proposal.
   </p>
+  <p>
+      Alice Uwase: Contributed in the implementation of the movement and capture of the Queen and Pawn pieces. Created and
+      worked on proposal report, progress report, final powerpoint presentation, and final report on GitHub.
+  </p>
 
-<h3>Improvements if given more time </h3>
+    <h3>Improvements if given more time </h3>
     <ul>
         <li>Fix Pawn special moves: en passant and promotion.</li>
         <li>Improve the chess engine's scoring of potential moves.</li>
@@ -157,7 +174,6 @@
 
 <hr>
 <a href="../index.html">HOME</a>|
-<a href="../user_manual/index.html">USER MANUAL</a>|
 <a href="contributions.html">CONTRIBUTIONS</a> |
 <a href="umldiagram.html">DIAGRAMS</a> |
 <a href="documentation/overview-tree.html">DOCS</a>
