@@ -5,22 +5,71 @@
     <title>Final Report</title>
 </head>
 <body>
-<h2><center><u>Final Report</u></h2>
+<h2><u>Final Report</u></h2>
 <h3>Process of creating Chess Game </h3>
   <p></p>
 
 <h3>Software features</h3>
-    <p>Graveyard: The Graveyard stores the captured pieces of the enemy player and displays them. It is created as its own class, 
+  <p>
+      <em>Object Oriented Architecture</em>: The software is built using the principles of object oriented design.
+      The most important components in the game system are described and implemented as classes. Each class contains
+      fields which represent data and information which are important for the object to retain and develop. Each class
+      contains methods which allow access and modification to it's fields as well as special methods which enable objects
+      to perform detailed computations and build lists. Some of the classes are broken up using the inheritance abstraction.
+      For example inheritance is used in the BoardPiece class. All board pieces can share several integral properties,
+      but each piece must also adhere to specific rules. The common functionality that is shared by all pieces is implemented
+      in the BoardPiece super class, while the specific functionality unique to each piece type is implemented in a child
+      class.
+  </p>
+  <p><em>Graveyard</em>: The Graveyard stores the captured pieces of the enemy player and displays them. It is created as its own class,
       which is created by the player class in order to keep them separate. The Graveyard keeps the captured pieces within the captured 
       ArrayList of the boardPiece class. It contains a method called addPiece which adds the piece to the ArrayList, and a method 
-      called getGraveyard to return the captured ArrayList.</p>
+      called getGraveyard to return the captured ArrayList.
+  </p>
     
-  <p>Capturing: When a piece owned by the player moves to an appropriate enemy piece within range, the player captures that piece. The
-    capturing process is part of the Player class.</p>
+  <p><em>Capturing</em>: When a piece owned by the player moves to an appropriate enemy piece within range, the player captures that piece. The
+    capturing process is part of the Player class.
+  </p>
     
-  <p>Castling: Castling is a special rule in Chess that permits the King and the Rook to switch positions. It is limited by 
+  <p><em>Castling</em>: Castling is a special rule in Chess that permits the King and the Rook to switch positions. It is limited by
       the following circumstances: neither the King nor Rook have moved, there are no pieces in the spaces between them, and the King is 
-      not threatened in any of the spaces it must move through. </p>
+      not threatened in any of the spaces it must move through.
+  </p>
+
+  <p>
+      <em>Chess Engine</em>: When the software user requests to play against the computer, the chess engine allows the game to
+      play with a baseline level of strategy. The chess engine helps the computer player to determine an optimal chess move
+      given a set of constraints. The chess engine considers every move available to every piece on the computer player's
+      team and assigns each move a score based on basic chess decision making theory. The factors that contribute to the
+      engine's move scoring system are: net material consequence, determination of net change in the computer king's
+      safety, any change in the mobility of the moved piece, and whether the move puts either king in check or checkmate.
+  </p>
+  <p>
+      Net material consequence is calculated by adding the valuations of each piece on both teams. Pieces on the computer's
+      team contribute positively to the move's valuation score, pieces on the opponents team contribute negatively to the
+      move's valuation score. Any net change in the computer king's safety is measured by analyzing whether the move opens
+      any lanes that are directly adjacent to the king. Change in the mobility of the moved piece is measured by comparing
+      the size of the piece's list of available moves before and after the move takes place.
+  </p>
+  <p>
+      <em>Chess Arbiter</em>: The chess arbiter's role is to monitor the status of the game. The arbiter tracks the impact
+      of each move taken by either player on both the white and black kings. The arbiter is responsible for determining
+      when a move puts either king in check. This is accomplished by looking through all of the opposing player's
+      available moves and determining if any of those moves put the king in check. In order to determine whether a king
+      is in checkmate, the arbiter must first determine that the king is in check. After check has been established, the
+      arbiter must determine whether the king's teammates can aid in any way. Defensive moves include moving to a position
+      that blocks a lane which threatens the king or capturing an opponent which holds the king in check. If no defensive
+      moves are possible and the king cannot move from his current position, checkmate is declared and the game ends.
+  </p>
+  <p>
+      <em>Documentation</em>: The source code is fully documented using javadoc technology. Each class, field, constructor,
+       and method is accompanied by a javadoc description. The javadoc descriptions include a brief overview of the
+      functionality provided, how the functionality is provided, any parameters required, any return value provided, and
+      link to any classes or objects that are important for understanding the description. The javadoc source is compiled
+      and presented as a collection of <a href="documentation/overview-tree.html">web pages</a>.
+
+  </p>
+
 
 <h3>Difficulties encountered </h3>
 <p>As the team is developing the game in the agile method, we are organizing our development efforts around
@@ -46,7 +95,11 @@
 <h3>Solutions implemented </h3>
 <ul>
     <li><i>Collision detection</i> -- Added a method to check for enemies / friendly pieces. When one of these is
-        encountered, the player is notified. </li>
+        encountered, the player is notified. Collision detection is particularly important when a piece is determining
+        it's potential moves. If a collision with a teammate is detected the piece must limit it's potential moves
+        accordingly. If a collision with an enemy is detected, the piece can take but must also limit it's potential
+        moves.
+    </li>
 
     <li><i>Castling</i> -- Castling is a special King movement which consists of the king moving two spaces towards
         the rook and the rook moves to the position over which the king moved. In order to accomplish this, boardPiece contains the 
@@ -56,15 +109,15 @@
         These booleans indicate the direction of the rook piece. The King class then checks to see if the Rook's space is occupied, if 
         it is occupied by a Rook, and if it has moved. If all of these are valid, it sets the the space where the King transitions to as
         a possible move. Moving the rook is handled by the GameController class. During the process of movement, the pieceMovementHandler
-        method checks to see if the piece is the king. If it is, it checks to see the number of spaces it moved by calculting the
+        method checks to see if the piece is the king. If it is, it checks to see the number of spaces it moved by calculating the
         distance between the starting space and the selected space. If it is more than one or less than negative one, it moves the Rook
-        appropriately.</p> </li>
+        appropriately.</li>
 
     <li><i>Capturing</i> -- If a piece captures another piece, the game should removes the captured piece and places
         it in the graveyard. It uses the addPiece method of the Graveyard class to add the captured piece, then removes the piece from
         the board. The method is called in the selectionHandler when the players selects a space containing an enemy piece.</li>
 
-    <li><i>Check and Check-mate</i> -- The game class keeps track of enemy threats in a list and when the king is
+    <li><i>Check and Check-mate</i> -- The arbiter class keeps track of enemy threats in a list and when the king is
         attacked. And, if deemed appropriate, it puts the king into check and/or checkmate.</li>
 
     <li><i>Documentation</i> -- JavaDoc was used to add missing descriptions in all classes.</li>
@@ -81,17 +134,24 @@
       Alex designed and created the castling logic to work in unison with the User Interface upgrades that were implemented. Alex created 
       the initial PowerPoint for the presentation, and helped with the development of the introductory slides. This was then shared with 
      the team using Sharepoint so that the other Team Members could add their own slides.</p>
-  
+  <p>
+      R.J. Pereira: Contributed to game development (~2k lines): Arbiter object, Chess Engine object, King and Rook piece
+      movement, Player parent class and children, Move object. Helped in testing the functionality of each delivered increment.<br>
+      Contributed to software documentation (~1k lines): Ensuring that the entire codebase was documented in full, and
+      writing portions of the final report, presentation, progress report and project proposal.
+  </p>
+
 <h3>Improvements if given more time </h3>
     <ul>
         <li>Fix Pawn special moves: en passant and promotion.</li>
-        <li>Chess Engine​.</li>
-        <li>Scoring of potential moves.​</li>
-        <li>Evaluation of position.​</li>
-        <li>Material Evolution.​</li>
-        <li>King's Safety.</li>
-        <li>Development.</li>
-        <li>Improve computer play.</li>​
+        <li>Improve the chess engine's scoring of potential moves.</li>
+        <ul>
+          <li>Evaluate whether a move under consideration improves the formation of the computer's pawns.​</li>
+          <li>Recursive evaluation of possible counter-moves taken by the opponent.</li>
+          <li>Optimize the relative weight of each score to make the engine's move more aggressive.</li>
+          <li>Add logic for move optimization based on the stage of game play. For example end game decision making
+              should be distinct from opening move game play.</li>
+        </ul>
     </ul>
 
 <hr>
